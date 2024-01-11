@@ -17,14 +17,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Check Vars
-        run: |
-          echo ${{ secrets.SBANONKEY }}
-          echo ${{ secrets.SBURL }}
-          echo ${{ vars.DOMAIN }}
-          echo ${{ vars }}
-          echo ${{ env.DOMAIN }}
-          echo ${{ env }}
       - name: Install dependencies
         run: yarn
       - name: Run unit tests
@@ -55,6 +47,7 @@ jobs:
   e2e-tests:
     needs: [unit-tests, deploy]
     runs-on: ubuntu-latest
+    environment: staging
     env:
       DOMAIN: ${{ vars.DOMAIN }}
     steps:
