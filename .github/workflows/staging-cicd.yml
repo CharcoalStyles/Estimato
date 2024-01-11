@@ -1,4 +1,4 @@
-name: CI/CD
+name: Staging CI/CD
 
 permissions: 
   id-token: write # This is required for requesting the JWT
