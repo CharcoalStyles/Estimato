@@ -23,6 +23,8 @@ jobs:
           echo ${{ secrets.SBURL }}
           echo ${{ vars.DOMAIN }}
           echo ${{ vars }}
+          echo ${{ env.DOMAIN }}
+          echo ${{ env }}
       - name: Install dependencies
         run: yarn
       - name: Run unit tests
