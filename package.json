@@ -9,8 +9,6 @@
     "lint": "next lint",
     "test:unit": "jest --testPathPattern=./__tests__/unit",
     "test:e2e": "playwright test",
-    "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build",
     "supabase:schema": "supabase gen types typescript --project-id 'mresfrkgrqwvitqsccsu' --schema public > src/util/schema.ts"
   },
   "dependencies": {
@@ -24,17 +22,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
-    "@storybook/addon-essentials": "^7.6.1",
-    "@storybook/addon-interactions": "^7.6.1",
-    "@storybook/addon-links": "^7.6.1",
-    "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/addon-styling-webpack": "^0.0.6",
-    "@storybook/blocks": "^7.6.1",
-    "@storybook/nextjs": "^7.6.1",
-    "@storybook/react": "^7.6.1",
-    "@storybook/test": "^7.6.1",
-    "@types/jest": "^29.5.10",
+    "@playwright/test": "^1.40.1","@types/jest": "^29.5.10",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -49,7 +37,6 @@
     "postcss": "^8.4.31",
     "postcss-loader": "^7.3.4",
     "sst": "^2.36.7",
-    "storybook": "^7.6.1",
     "style-loader": "^3.3.4",
     "supabase": "^1.115.4",
     "tailwindcss": "^3.3.0",
