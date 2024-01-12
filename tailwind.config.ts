@@ -7,13 +7,6 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    colors: {
-      'text': 'var(--text)',
-      'background': 'var(--background)',
-      'primary': 'var(--primary)',
-      'secondary': 'var(--secondary)',
-      'accent': 'var(--accent)',
-     },
      fontSize: {
       sm: '0.750rem',
       base: '1rem',
@@ -32,6 +25,13 @@ const config: Config = {
       bold: '700',
     },
     extend: {
+      colors: {
+        'text': 'var(--text)',
+        'background': 'var(--background)',
+        'primary': 'var(--primary)',
+        'secondary': 'var(--secondary)',
+        'accent': 'var(--accent)',
+       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

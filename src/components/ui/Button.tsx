@@ -3,43 +3,50 @@ import React, { ReactNode } from 'react';
 type ButtonProps = {
   onClick?: () => void;
   size?: 'small' | 'medium' | 'large';
-  variant?: 'primary' | 'secondary' | 'success' | 'danger';
+  variant?: 'basic' | 'primary' | 'secondary' | 'accent' | 'success' | 'danger';
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
   iconOnly?: boolean;
   label?: string;
+  fullWidth?: boolean;
 };
 
 export const Button = ({
   onClick,
   size = 'medium',
-  variant = 'primary',
+  variant = 'basic',
   icon,
   iconPosition = 'left',
   iconOnly = false,
   label,
+  fullWidth = false,
 }:ButtonProps) => {
   const getSizeClasses = () => {
     switch (size) {
       case 'small':
         return 'px-2 py-1 text-sm';
+      case 'medium':
+        return 'px-3 py-2 text-base';
       case 'large':
         return 'px-4 py-2 text-lg';
-      default:
-        return 'px-3 py-2 text-base';
     }
   };
 
   const getStatusClasses = () => {
+    console.log(variant);
     switch (variant) {
+      case 'basic':
+        return 'border-gray-400 text-text hover:bg-gray-200 hover:text-black';
+      case 'primary':
+        return `border-primary text-text hover:bg-primary hover:text-black`;
       case 'secondary':
-        return 'bg-gray-300 text-gray-800';
+        return `border-secondary text-text hover:bg-secondary hover:text-black`;
+      case 'accent':
+        return `border-accent text-text hover:bg-accent hover:text-black`;
       case 'success':
-        return 'bg-green-500 text-white';
+        return 'bg-green-600 text-text border-green-500 hover:bg-green-500 hover:text-text';
       case 'danger':
-        return 'bg-red-500 text-white';
-      default:
-        return 'bg-blue-500 text-white';
+        return 'bg-red-600 text-text border-red-500 hover:bg-red-500 hover:text-text';
     }
   };
 
@@ -53,7 +60,7 @@ export const Button = ({
 
   return (
     <button
-      className={`inline-flex items-center justify-center rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${variant}-500 ${getSizeClasses()} ${getStatusClasses()}`}
+    className={`inline-flex items-center border ${getSizeClasses()} ${getStatusClasses()} justify-center rounded-md ${fullWidth ? 'w-full' : ''}`}
       onClick={onClick}
     >
       {icon && iconPosition === 'left' && <span className={getIconClasses()}>{icon}</span>}
