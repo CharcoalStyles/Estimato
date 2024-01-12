@@ -4,7 +4,8 @@
 
 :root {
   --text: #140a0b;
-  --background: #fcf8f8;
+  --background-upper: #fcf8f8;
+  --background-lower: #f9e0ff;
   --primary: #920202;
   --secondary: #95c1cb;
   --accent: #604790;
@@ -13,7 +14,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #f5ebec;
-    --background: #070303;
+    --background-upper: #070303;
+    --background-lower: #070037;
     --primary: #fd6d6d;
     --secondary: #34606a;
     --accent: #896fb8;
@@ -25,7 +27,7 @@ body {
   background: linear-gradient(
       to bottom,
       transparent,
-      var(--accent)
+      var(--background-lower)
     )
-    var(--background);
+  var(--background-upper);
 }
