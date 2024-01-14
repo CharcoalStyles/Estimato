@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import {Text} from './Text';
 
 type ButtonProps = {
   onClick?: () => void;
@@ -21,14 +22,24 @@ export const Button = ({
   label,
   fullWidth = false,
 }:ButtonProps) => {
-  const getSizeClasses = () => {
+  const getButtonSizeClasses = () => {
     switch (size) {
       case 'small':
-        return 'px-2 py-1 text-sm';
+        return 'px-2 py-1';
       case 'medium':
-        return 'px-3 py-2 text-base';
+        return 'px-3 py-2';
       case 'large':
-        return 'px-4 py-2 text-lg';
+        return 'px-4 py-2';
+    }
+  };
+  const getTextSizeClasses = () => {
+    switch (size) {
+      case 'small':
+        return 'sm';
+      case 'medium':
+        return 'md';
+      case 'large':
+        return 'xl';
     }
   };
 
@@ -60,12 +71,14 @@ export const Button = ({
 
   return (
     <button
-    className={`inline-flex items-center border ${getSizeClasses()} ${getStatusClasses()} justify-center rounded-md ${fullWidth ? 'w-full' : ''}`}
+    className={`inline-flex items-center border ${getButtonSizeClasses()} ${getStatusClasses()} justify-center rounded-md ${fullWidth ? 'w-full' : ''}`}
       onClick={onClick}
     >
       {icon && iconPosition === 'left' && <span className={getIconClasses()}>{icon}</span>}
-      {!iconOnly && label}
+        {!iconOnly && <Text fontType='body' fontSize={getTextSizeClasses()}>{label}</Text>}
       {icon && iconPosition === 'right' && <span className={getIconClasses()}>{icon}</span>}
     </button>
   );
 };
+
+ 

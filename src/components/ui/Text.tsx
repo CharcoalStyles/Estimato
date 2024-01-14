@@ -4,10 +4,11 @@ type TextProps = {
   tag?: 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   fontSize?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
   fontType?: 'heading' | 'body';
+  variant?: 'primary' | 'secondary' | 'accent' | 'success' | 'danger';
 };
 
-export const Text = ({ tag = 'p', fontSize = 'md', fontType = 'body', children }:PropsWithChildren<TextProps>) => {
-  const className = `text-${fontSize} ${fontType === 'heading' ? 'font-heading' : 'font-body'}`;
+export const Text = ({ tag = 'p', fontSize = 'md', fontType = 'body', variant, children }:PropsWithChildren<TextProps>) => {
+  const className = `text-${fontSize} ${fontType === 'heading' ? 'font-heading' : 'font-body'} ${variant ? `text-${variant}` : 'text-text'}`;
 
   switch (tag) {
     case 'h1':
@@ -23,6 +24,6 @@ export const Text = ({ tag = 'p', fontSize = 'md', fontType = 'body', children }
     case 'h6':
       return <h6 className={className}>{children}</h6>;
     default:
-      return <p className={"font-normal"}>{children}</p>;
+      return <p className={className}>{children}</p>;
   }
 };

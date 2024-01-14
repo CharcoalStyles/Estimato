@@ -1,5 +1,6 @@
 import DbTest from '@/components/DbTest'
 import { Button } from '@/components/ui/Button'
+import { Text } from '@/components/ui/Text'
 import Image from 'next/image'
 
 export default function Home() {
@@ -110,7 +111,8 @@ export default function Home() {
           </div>
         </a>
 
-        <Button label='Test' variant='secondary' size='large' />
+        <Button label='Test' variant='secondary' size='medium' />
+        <Text fontSize='3xl' fontType='heading' variant='accent'>Text</Text>
       </div>
     </main>
   )
