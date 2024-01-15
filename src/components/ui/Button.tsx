@@ -40,7 +40,7 @@ export const Button = ({
       case 'small':
         return 'sm';
       case 'medium':
-        return 'md';
+        return 'base';
       case 'large':
         return 'xl';
     }
