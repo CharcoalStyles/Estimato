@@ -50,28 +50,28 @@ export const Button = ({
   const getTextSizeClasses = () => {
     switch (size) {
       case "small":
-        return "sm";
+        return "text-sm";
       case "medium":
-        return "base";
+        return "text-base";
       case "large":
-        return "xl";
+        return "text-xl";
     }
   };
 
   const getStatusClasses = () => {
     switch (variant) {
       case "basic":
-        return "border-gray-400 text-text hover:bg-gray-700";
+        return "border-gray-400 text-text hover:bg-gray-400 hover:text-black";
       case "primary":
-        return `border-primary text-text hover:bg-primary`;
+        return `border-primary text-text hover:bg-primary  hover:text-black`;
       case "secondary":
-        return `border-secondary text-text hover:bg-secondary`;
+        return `border-secondary text-text hover:bg-secondary  hover:text-black`;
       case "accent":
-        return `border-accent text-text hover:bg-accent`;
+        return `border-accent text-text hover:bg-accent  hover:text-black`;
       case "success":
-        return "bg-green-600 text-text border-green-500 hover:bg-green-500 hover:text-text";
+        return "bg-green-600 text-text border-green-500 hover:bg-green-400 hover:text-black";
       case "danger":
-        return "bg-red-600 text-text border-red-500 hover:bg-red-500 hover:text-text";
+        return "bg-red-600 text-text border-red-500 hover:bg-red-400 hover:text-black";
     }
   };
 
@@ -90,6 +90,7 @@ export const Button = ({
         getStatusClasses(),
         getButtonSizeClasses(),
         fullWidth ? "w-full" : "",
+        getTextSizeClasses(),
         className,
       ])}
       onClick={onClick}>
@@ -97,9 +98,10 @@ export const Button = ({
         <span className={getIconClasses()}>{icon}</span>
       )}
       {!iconOnly && (
-        <Text fontType="body" fontSize={getTextSizeClasses()}>
-          {label}
-        </Text>
+        <p>{label}</p>
+        // <Text fontType="body" fontSize={getTextSizeClasses()}>
+        //   {label}
+        // </Text>
       )}
       {icon && iconPosition === "right" && (
         <span className={getIconClasses()}>{icon}</span>
