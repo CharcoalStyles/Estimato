@@ -3,5 +3,8 @@
     "adlam",
     "Estomato",
     "supabase"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ]
 }

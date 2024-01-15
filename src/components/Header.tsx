@@ -14,7 +14,13 @@ export const Header = () => {
         </a>
 
         <div className="flex w-1/2 justify-end content-center">
-          <Button variant="primary" label="Login" size="large" />
+          <Button
+            variant="primary"
+            label="Login"
+            size="large"
+            className="mr-4"
+          />
+          <Button variant="secondary" label="Sign up" size="large" />
         </div>
       </div>
     </div>

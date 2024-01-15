@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, useMemo } from "react";
+import { clsx } from "clsx";
 
 type TextProps = {
   tag?: "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -16,6 +17,7 @@ export const sizes: Array<TextProps["fontSize"]> = [
   "4xl",
   "5xl",
 ];
+
 export const variants: Array<TextProps["variant"]> = [
   undefined,
   "primary",
@@ -24,6 +26,7 @@ export const variants: Array<TextProps["variant"]> = [
   "success",
   "danger",
 ];
+
 export const fontTypes: Array<TextProps["fontType"]> = ["heading", "body"];
 
 export const Text = ({
@@ -34,25 +37,55 @@ export const Text = ({
   children,
 }: PropsWithChildren<TextProps>) => {
   const className = useMemo(() => {
-    let v = "text";
-
-    switch (variant) {
-      case "primary":
-      case "secondary":
-      case "accent":
-        v = variant;
-        break;
-      case "success":
-        v = "green-500";
-        break;
-      case "danger":
-        v = "red-500";
-        break;
+    const colour = () => {
+      switch (variant) {
+        case "primary":
+          return "text-primary";
+        case "secondary":
+          return "text-secondary";
+        case "accent":
+          return "text-accent";
+        case "success":
+          return "text-green-500";
+        case "danger":
+          return "text-red-500";
+        default:
+          return "text-text";
+      }
+    };
+    const size = () => {
+      switch(fontSize){
+        case "sm":
+          return "text-sm"
+        case "base":
+          return "text-base"
+        case "xl":
+          return "text-xl"
+        case "2xl":
+          return "text-2xl"
+        case "3xl":
+          return "text-3xl"
+        case "4xl":
+          return "text-4xl"
+        case "5xl":
+          return "text-5xl"
+        default:
+          return "text-base"
+      }
     }
 
-    return `text-${fontSize} ${
-      fontType === "heading" ? "font-heading" : "font-body"
-    } ${variant ? `text-${v}` : "text-text"}`;
+    return clsx([
+      colour(),
+      size(),
+      {
+        "font-heading": fontType === "heading",
+        "font-body": fontType === "body",
+      },
+    ]);
+
+    // return `text-${fontSize} ${
+    //   fontType === "heading" ? "font-heading" : "font-body"
+    // } ${variant ? `text-${v}` : "text-text"}`;
   }, [fontSize, fontType, variant]);
 
   switch (tag) {
