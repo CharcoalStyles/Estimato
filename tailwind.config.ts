@@ -18,7 +18,7 @@ const config: Config = {
     },
     fontFamily: {
       heading: [`var(--font-adlam)`],
-      body: [`var(--font-)`],
+      body: [`var(--font-jost)`],
     },
     fontWeight: {
       normal: '400',

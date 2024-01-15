@@ -1,6 +1,15 @@
 import React from "react";
-import { Button, sizes as bSizes, variants as bVariants } from "../components/ui/Button";
-import { Text, fontTypes, sizes as tSizes, variants as tVariants } from "../components/ui/Text";
+import {
+  Button,
+  sizes as bSizes,
+  variants as bVariants,
+} from "../components/ui/Button";
+import {
+  Text,
+  fontTypes,
+  sizes as tSizes,
+  variants as tVariants,
+} from "../components/ui/Text";
 
 const UITestPage: React.FC = () => {
   return (
@@ -13,6 +22,7 @@ const UITestPage: React.FC = () => {
           {bSizes.map((size) => (
             <div className="flex mx-1">
               <Button
+              key={`${variant} ${size}`}
                 label={`${variant} ${size}`}
                 variant={variant}
                 size={size}
@@ -30,10 +40,12 @@ const UITestPage: React.FC = () => {
               {fontTypes.map((fontType) => (
                 <div className="flex mx-1">
                   <Text
+                  key={`${variant} ${size} ${fontType}`}
                     variant={variant}
                     fontSize={size}
-                    fontType={fontType}
-                  >{`${variant} ${size} ${fontType}`}</Text>
+                    fontType={fontType}>{`${
+                    variant ? variant : "default"
+                  } ${size} ${fontType}`}</Text>
                 </div>
               ))}
             </div>

@@ -86,7 +86,7 @@ export const Button = ({
   return (
     <button
       className={clsx([
-        "inline-flex items-center border h-min justify-center rounded-md",
+        "inline-flex items-center border h-min justify-center rounded-md font-body",
         getStatusClasses(),
         getButtonSizeClasses(),
         fullWidth ? "w-full" : "",

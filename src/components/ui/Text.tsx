@@ -83,9 +83,6 @@ export const Text = ({
       },
     ]);
 
-    // return `text-${fontSize} ${
-    //   fontType === "heading" ? "font-heading" : "font-body"
-    // } ${variant ? `text-${v}` : "text-text"}`;
   }, [fontSize, fontType, variant]);
 
   switch (tag) {
