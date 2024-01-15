@@ -21,7 +21,7 @@ const jost = Jost({
  
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return  <main className={`${adlam.variable} ${jost.variable}`}><SessionContextProvider supabaseClient={supabase}>TEST<Component {...pageProps}/></SessionContextProvider></main>;
+  return  <main className={`${adlam.variable} ${jost.variable}`}><SessionContextProvider supabaseClient={supabase}><Component {...pageProps}/></SessionContextProvider></main>;
 }
 
 export default MyApp;
