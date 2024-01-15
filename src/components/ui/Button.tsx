@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import {Text} from './Text';
 
-type ButtonProps = {
+export type ButtonProps = {
   onClick?: () => void;
   size?: 'small' | 'medium' | 'large';
   variant?: 'basic' | 'primary' | 'secondary' | 'accent' | 'success' | 'danger';
@@ -11,6 +11,9 @@ type ButtonProps = {
   label?: string;
   fullWidth?: boolean;
 };
+
+export const sizes:Array<ButtonProps['size']> = ['small', 'medium', 'large'];
+export const variants:Array<ButtonProps['variant']> = ['basic', 'primary', 'secondary', 'accent', 'success', 'danger'];
 
 export const Button = ({
   onClick,
@@ -71,7 +74,7 @@ export const Button = ({
 
   return (
     <button
-    className={`inline-flex items-center border ${getButtonSizeClasses()} ${getStatusClasses()} justify-center rounded-md ${fullWidth ? 'w-full' : ''}`}
+    className={`inline-flex items-center border h-min ${getButtonSizeClasses()} ${getStatusClasses()} justify-center rounded-md ${fullWidth ? 'w-full' : ''}`}
       onClick={onClick}
     >
       {icon && iconPosition === 'left' && <span className={getIconClasses()}>{icon}</span>}
