@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa, ViewType } from "@supabase/auth-ui-shared";
-import { useUser } from "@/hooks/userHook";
+import { useUser } from "@supabase/auth-helpers-react";
 import { supabase } from "@/util/supabase";
 
 type SbAuthProps = {
@@ -11,7 +11,7 @@ type SbAuthProps = {
 };
 
 export default function SbAuth({ open, view, onClose }: SbAuthProps) {
-  const [user, setUser] = useUser();
+  const user = useUser();
   const [authView, setAuthView] = useState<ViewType>(view);
   const [authOpen, setAuthOpen] = useState<boolean>(open);
 
@@ -24,18 +24,9 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
   }, [open]);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log("session", session);
-      setUser(session ? session.user : null);
+    supabase.auth.getSession().then(() => {
+      setAuthOpen(false);
     });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session ? session.user : null);
-    });
-
-    return () => subscription.unsubscribe();
   }, []);
 
   if (!user) {

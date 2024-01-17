@@ -14,6 +14,8 @@ export type ButtonProps = Pick<
   iconOnly?: boolean;
   label?: string;
   fullWidth?: boolean;
+  isActive?: boolean;
+  noBorder?: boolean;
 };
 
 export const sizes: Array<ButtonProps["size"]> = ["small", "medium", "large"];
@@ -36,6 +38,8 @@ export const Button = ({
   label,
   fullWidth = false,
   className,
+  isActive = false,
+  noBorder = false,
 }: ButtonProps) => {
   const getButtonSizeClasses = () => {
     switch (size) {
@@ -59,20 +63,60 @@ export const Button = ({
   };
 
   const getStatusClasses = () => {
+    let bgColour = "bg-transparent";
+    let bgHoverColour = "";
+    let bgActiveColour = "";
+    let bgActiveHoverColour = "";
+    let borderColour = "";
+
     switch (variant) {
       case "basic":
-        return "border-gray-400 text-text hover:bg-gray-400 hover:text-black";
+        bgHoverColour = "hover:bg-gray-400";
+        bgActiveColour = "bg-gray-400";
+        bgActiveHoverColour = "hover:bg-transparent";
+        borderColour = "border-gray-400";
+        break;
       case "primary":
-        return `border-primary text-text hover:bg-primary  hover:text-black`;
+        bgHoverColour = "hover:bg-primary";
+        bgActiveColour = "bg-primary";
+        bgActiveHoverColour = "hover:bg-transparent";
+        borderColour = "border-primary";
+        break;
       case "secondary":
-        return `border-secondary text-text hover:bg-secondary  hover:text-black`;
+        bgHoverColour = "hover:bg-secondary";
+        bgActiveColour = "bg-secondary";
+        bgActiveHoverColour = "hover:bg-transparent";
+        borderColour = "border-secondary";
+        break;
       case "accent":
-        return `border-accent text-text hover:bg-accent  hover:text-black`;
+        bgHoverColour = "hover:bg-accent";
+        bgActiveColour = "bg-accent";
+        bgActiveHoverColour = "hover:bg-transparent";
+        borderColour = "border-accent";
+        break;
       case "success":
-        return "bg-green-600 text-text border-green-500 hover:bg-green-400 hover:text-black";
+        bgColour = "bg-green-600";
+        bgHoverColour = "hover:bg-green-400";
+        bgActiveColour = "bg-green-400";
+        bgActiveHoverColour = "hover:bg-green-600";
+        borderColour = "border-green-500";
+        break;
       case "danger":
-        return "bg-red-600 text-text border-red-500 hover:bg-red-400 hover:text-black";
+        bgColour = "bg-red-600";
+        bgHoverColour = "hover:bg-red-400";
+        bgActiveColour = "bg-red-400";
+        bgActiveHoverColour = "hover:bg-red-600";
+        borderColour = "border-red-500";
+        break;
+      // return "bg-red-600 text-text border-red-500 hover:bg-red-400 hover:text-black";
     }
+
+    return clsx(
+      borderColour,
+      isActive
+        ? ["text-black hover:text-text", bgActiveColour, bgActiveHoverColour]
+        : ["text-text hover:text-black", bgColour, bgHoverColour]
+    );
   };
 
   const getIconClasses = () => {
@@ -85,8 +129,9 @@ export const Button = ({
 
   return (
     <button
-      className={clsx([
-        "inline-flex items-center border h-min justify-center rounded-md font-body",
+      className={clsx([ 
+        "inline-flex items-center h-min justify-center rounded-md font-body transition-all duration-200",
+        noBorder ? "" : "border",
         getStatusClasses(),
         getButtonSizeClasses(),
         fullWidth ? "w-full" : "",

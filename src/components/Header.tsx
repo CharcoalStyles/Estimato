@@ -1,13 +1,15 @@
 import { Text } from "@/components/ui/Text";
 import { Button } from "@/components/ui/Button";
 import { useState } from "react";
-import { useUser } from "@/hooks/userHook";
-import SbAuth from "./sbAuth";
+// import { useUser } from "@/hooks/userHook";
+import { useUser } from "@supabase/auth-helpers-react";
+import SbAuth from "./SbAuth";
+import { UserBadge } from "./UserBadge";
 
 export const Header = () => {
   const [showAuth, setShowAuth] = useState(false);
   const [authView, setAuthView] = useState<"sign_in" | "sign_up">("sign_in");
-  const [user] = useUser();
+  const user = useUser();
 
   return (
     <>
@@ -23,7 +25,7 @@ export const Header = () => {
 
           <div className="flex w-1/2 justify-end content-center">
             {user ? (
-              <Text>Logged In as {user.email}</Text>
+              <UserBadge user={user} />
             ) : (
               <>
                 <Button
