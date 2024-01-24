@@ -18,11 +18,10 @@ const UITestPage: React.FC = () => {
 
       <h2 className="text-2xl font-bold text-white">Buttons</h2>
       {bVariants.map((variant) => (
-        <div className="flex flex-row my-4">
+        <div className="flex flex-row my-4" key={`${variant}`}>
           {bSizes.map((size) => (
-            <div className="flex mx-1">
+            <div className="flex mx-1" key={`${variant} ${size}`}>
               <Button
-              key={`${variant} ${size}`}
                 label={`${variant} ${size}`}
                 variant={variant}
                 size={size}
@@ -34,13 +33,14 @@ const UITestPage: React.FC = () => {
 
       <h2 className="text-2xl font-bold text-white">Text</h2>
       {tVariants.map((variant) => (
-        <div className="flex flex-row my-4">
+        <div className="flex flex-row my-4" key={`${variant}`}>
           {tSizes.map((size) => (
-            <div className="flex mx-1">
+            <div className="flex mx-1" key={`${variant} ${size}`}>
               {fontTypes.map((fontType) => (
-                <div className="flex mx-1">
+                <div
+                  className="flex mx-1"
+                  key={`${variant} ${size} ${fontType}`}>
                   <Text
-                  key={`${variant} ${size} ${fontType}`}
                     variant={variant}
                     fontSize={size}
                     fontType={fontType}>{`${
