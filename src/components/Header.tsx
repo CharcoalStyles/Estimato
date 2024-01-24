@@ -4,7 +4,7 @@ import { useState } from "react";
 // import { useUser } from "@/hooks/userHook";
 import { useUser } from "@supabase/auth-helpers-react";
 import { UserBadge } from "./UserBadge";
-import SbAuth from "./sbAuth";
+import SbAuth from "./SbAuth";
 
 export const Header = () => {
   const [showAuth, setShowAuth] = useState(false);

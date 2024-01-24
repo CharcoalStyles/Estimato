@@ -25,9 +25,7 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
   }, [open]);
 
   useEffect(() => {
-    getSupabase().auth.getSession().then(() => {
-      setAuthOpen(false);
-    });
+    getSupabase().auth.getSession();
   }, []);
 
   if (!user) {
@@ -43,22 +41,22 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
         <PureModal
           isOpen={authOpen}
           onClose={() => {
-            console.log("close");
             setAuthOpen(false);
             onClose && onClose();
           }}
-          className="mx-auto mt-32 px-12 py-8 w-2/5 max-w-xl absolute inset-x-0 bg-black"
-          >
-          <Auth
-            supabaseClient={getSupabase()}
-            view={authView}
-            appearance={{
-              theme: ThemeSupa,
-              variables: { default: { colors: { inputText: "white" } } },
-            }}
-            providers={["github", "gitlab", "bitbucket"]}
-            socialLayout="horizontal"
-          />
+          className="mx-auto mt-32 px-12 py-8 w-2/5 max-w-xl absolute inset-x-0 bg-black">
+          <div data-testid="sb-auth-modal">
+            <Auth
+              supabaseClient={getSupabase()}
+              view={authView}
+              appearance={{
+                theme: ThemeSupa,
+                variables: { default: { colors: { inputText: "white" } } },
+              }}
+              providers={["github", "gitlab", "bitbucket"]}
+              socialLayout="horizontal"
+            />
+          </div>
         </PureModal>
       </>
     ) : null;
