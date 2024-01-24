@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa, ViewType } from "@supabase/auth-ui-shared";
 import { useUser } from "@supabase/auth-helpers-react";
-import { supabase } from "@/util/supabase";
+import { getSupabase } from "@/util/supabase";
 import PureModal from "react-pure-modal";
 
 type SbAuthProps = {
@@ -25,7 +25,7 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
   }, [open]);
 
   useEffect(() => {
-    supabase.auth.getSession().then(() => {
+    getSupabase().auth.getSession().then(() => {
       setAuthOpen(false);
     });
   }, []);
@@ -50,7 +50,7 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
           className="mx-auto mt-32 px-12 py-8 w-2/5 max-w-xl absolute inset-x-0 bg-black"
           >
           <Auth
-            supabaseClient={supabase}
+            supabaseClient={getSupabase()}
             view={authView}
             appearance={{
               theme: ThemeSupa,

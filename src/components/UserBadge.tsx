@@ -1,7 +1,7 @@
 import { User } from "@supabase/supabase-js";
 import { Button } from "./ui/Button";
 import { useState } from "react";
-import { supabase } from "@/util/supabase";
+import { getSupabase } from "@/util/supabase";
 import clsx from "clsx";
 
 type UserBadgeProps = {
@@ -34,7 +34,7 @@ export const UserBadge = ({ user }: UserBadgeProps) => {
             fullWidth
             noBorder
             onClick={() => {
-              supabase.auth.signOut();
+              getSupabase().auth.signOut();
             }}
           />
         </div>
