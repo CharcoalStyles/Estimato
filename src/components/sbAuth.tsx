@@ -3,6 +3,7 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa, ViewType } from "@supabase/auth-ui-shared";
 import { useUser } from "@supabase/auth-helpers-react";
 import { supabase } from "@/util/supabase";
+import PureModal from "react-pure-modal";
 
 type SbAuthProps = {
   open: boolean;
@@ -33,38 +34,32 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
     return authOpen ? (
       <>
         <div
-          className="opacity-60 fixed inset-0 bg-black"
-          onMouseMove={() => {
-            console.log("move");
-            // setAuthOpen(false);
-          }}
+          className="opacity-40 fixed inset-0 bg-black"
           onClick={() => {
             console.log("click");
             setAuthOpen(false);
           }}
         />
-        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-          <div className="relative w-auto px-32 py-16 mx-auto max-w-3xl bg-black">
-            <button
-              className="absolute top-0 right-0 text-white"
-              onClick={() => {
-                setAuthOpen(false);
-                onClose && onClose();
-              }}>
-              X
-            </button>
-            <Auth
-              supabaseClient={supabase}
-              view={authView}
-              appearance={{
-                theme: ThemeSupa,
-                variables: { default: { colors: { inputText: "white" } } },
-              }}
-              providers={["github", "gitlab", "bitbucket"]}
-              socialLayout="horizontal"
-            />
-          </div>
-        </div>
+        <PureModal
+          isOpen={authOpen}
+          onClose={() => {
+            console.log("close");
+            setAuthOpen(false);
+            onClose && onClose();
+          }}
+          className="mx-auto mt-32 px-12 py-8 w-2/5 max-w-xl absolute inset-x-0 bg-black"
+          >
+          <Auth
+            supabaseClient={supabase}
+            view={authView}
+            appearance={{
+              theme: ThemeSupa,
+              variables: { default: { colors: { inputText: "white" } } },
+            }}
+            providers={["github", "gitlab", "bitbucket"]}
+            socialLayout="horizontal"
+          />
+        </PureModal>
       </>
     ) : null;
   }

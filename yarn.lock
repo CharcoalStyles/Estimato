@@ -7966,6 +7966,11 @@ react-is@^18.0.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
+react-pure-modal@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/react-pure-modal/-/react-pure-modal-2.2.5.tgz#7ad8ad30b2176b36e7bfdcaaef7140922f811b48"
+  integrity sha512-XjmUzAdMOa0FtFZgTbVRiYBaxy5M2LdQHILlrV7FKthCiCV0XbTjr25Z1/1HR0roMrNSgBV4DGYGgwS1xh5Suw==
+
 react-reconciler@^0.29.0:
   version "0.29.0"
   resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.29.0.tgz#ee769bd362915076753f3845822f2d1046603de7"

@@ -23,7 +23,8 @@
     "jotai": "^2.6.1",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-pure-modal": "^2.2.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
