@@ -1,5 +1,4 @@
 import { Header } from "@/components/Header";
-import {Session} from '@supabase/auth-helpers-react';
 import Hero from "@/components/ui/Hero";
 
 export default function Home() {

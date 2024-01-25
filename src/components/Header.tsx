@@ -1,7 +1,6 @@
 import { Text } from "@/components/ui/Text";
 import { Button } from "@/components/ui/Button";
 import { useState } from "react";
-// import { useUser } from "@/hooks/userHook";
 import { useUser } from "@supabase/auth-helpers-react";
 import { UserBadge } from "./UserBadge";
 import SbAuth from "./SbAuth";

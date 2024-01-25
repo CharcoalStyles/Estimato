@@ -2,7 +2,10 @@
   "cSpell.words": [
     "adlam",
     "Estomato",
-    "supabase"
+    "jost",
+    "Supa",
+    "supabase",
+    "tanstack"
   ],
   "tailwindCSS.experimental.classRegex": [
     ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]

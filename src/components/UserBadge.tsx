@@ -1,15 +1,11 @@
-import { User } from "@supabase/supabase-js";
 import { Button } from "./ui/Button";
 import { useState } from "react";
 import { getSupabase } from "@/util/supabase";
 import clsx from "clsx";
-import { useUser } from "@supabase/auth-helpers-react";
-import { useQuery } from "@tanstack/react-query";
 import { useUserDetails } from "@/hooks/useUserData";
 
 export const UserBadge = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const user = useUser();
   const { data } = useUserDetails();
 
   return (
@@ -43,9 +39,3 @@ export const UserBadge = () => {
     </div>
   );
 };
-/*
-peeps: 800
-steel: 1450
-wood: 2800
-cerate: 190000
-*/

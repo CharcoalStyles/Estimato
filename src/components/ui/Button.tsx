@@ -1,6 +1,5 @@
 import React, { HTMLAttributes, ReactNode } from "react";
-import { clsx, ClassDictionary } from "clsx";
-import { Text } from "./Text";
+import { clsx } from "clsx";
 import { Variants } from "@/util/tailwind";
 
 export type ButtonProps = Pick<
@@ -20,6 +19,75 @@ export type ButtonProps = Pick<
 };
 
 export const sizes: Array<ButtonProps["size"]> = ["small", "medium", "large"];
+
+const statusClasses: Record<
+  Variants,
+  {
+    bgColour: string;
+    bgHoverColour: string;
+    bgActiveColour: string;
+    bgActiveHoverColour: string;
+    borderColour: string;
+  }
+> = {
+  basic: {
+    bgColour: "bg-transparent",
+    bgHoverColour: "hover:bg-gray-400",
+    bgActiveColour: "bg-gray-400",
+    bgActiveHoverColour: "hover:bg-transparent",
+    borderColour: "border-gray-400",
+  },
+  primary: {
+    bgColour: "bg-transparent",
+    bgHoverColour: "hover:bg-primary",
+    bgActiveColour: "bg-primary",
+    bgActiveHoverColour: "hover:bg-transparent",
+    borderColour: "border-primary",
+  },
+  secondary: {
+    bgColour: "bg-transparent",
+    bgHoverColour: "hover:bg-secondary",
+    bgActiveColour: "bg-secondary",
+    bgActiveHoverColour: "hover:bg-transparent",
+    borderColour: "border-secondary",
+  },
+  accent: {
+    bgColour: "bg-transparent",
+    bgHoverColour: "hover:bg-accent",
+    bgActiveColour: "bg-accent",
+    bgActiveHoverColour: "hover:bg-transparent",
+    borderColour: "border-accent",
+  },
+  success: {
+    bgColour: "bg-green-600",
+    bgHoverColour: "hover:bg-green-400",
+    bgActiveColour: "bg-green-400",
+    bgActiveHoverColour: "hover:bg-green-600",
+    borderColour: "border-green-500",
+  },
+  danger: {
+    bgColour: "bg-red-600",
+    bgHoverColour: "hover:bg-red-400",
+    bgActiveColour: "bg-red-400",
+    bgActiveHoverColour: "hover:bg-red-600",
+    borderColour: "border-red-500",
+  },
+  //TODO: add actual black and white variants
+  black: {
+    bgColour: "bg-transparent",
+    bgHoverColour: "hover:bg-gray-400",
+    bgActiveColour: "bg-gray-400",
+    bgActiveHoverColour: "hover:bg-transparent",
+    borderColour: "border-gray-400",
+  },
+  white: {
+    bgColour: "bg-transparent",
+    bgHoverColour: "hover:bg-gray-400",
+    bgActiveColour: "bg-gray-400",
+    bgActiveHoverColour: "hover:bg-transparent",
+    borderColour: "border-gray-400",
+  },
+};
 
 export const Button = ({
   onClick,
@@ -56,52 +124,13 @@ export const Button = ({
   };
 
   const getStatusClasses = () => {
-    let bgColour = "bg-transparent";
-    let bgHoverColour = "";
-    let bgActiveColour = "";
-    let bgActiveHoverColour = "";
-    let borderColour = "";
-
-    switch (variant) {
-      case "basic":
-        bgHoverColour = "hover:bg-gray-400";
-        bgActiveColour = "bg-gray-400";
-        bgActiveHoverColour = "hover:bg-transparent";
-        borderColour = "border-gray-400";
-        break;
-      case "primary":
-        bgHoverColour = "hover:bg-primary";
-        bgActiveColour = "bg-primary";
-        bgActiveHoverColour = "hover:bg-transparent";
-        borderColour = "border-primary";
-        break;
-      case "secondary":
-        bgHoverColour = "hover:bg-secondary";
-        bgActiveColour = "bg-secondary";
-        bgActiveHoverColour = "hover:bg-transparent";
-        borderColour = "border-secondary";
-        break;
-      case "accent":
-        bgHoverColour = "hover:bg-accent";
-        bgActiveColour = "bg-accent";
-        bgActiveHoverColour = "hover:bg-transparent";
-        borderColour = "border-accent";
-        break;
-      case "success":
-        bgColour = "bg-green-600";
-        bgHoverColour = "hover:bg-green-400";
-        bgActiveColour = "bg-green-400";
-        bgActiveHoverColour = "hover:bg-green-600";
-        borderColour = "border-green-500";
-        break;
-      case "danger":
-        bgColour = "bg-red-600";
-        bgHoverColour = "hover:bg-red-400";
-        bgActiveColour = "bg-red-400";
-        bgActiveHoverColour = "hover:bg-red-600";
-        borderColour = "border-red-500";
-        break;
-    }
+    const {
+      bgActiveColour,
+      bgActiveHoverColour,
+      bgColour, 
+      bgHoverColour,
+      borderColour,
+    } = statusClasses[variant];
 
     return clsx(
       borderColour,
@@ -121,7 +150,7 @@ export const Button = ({
 
   return (
     <button
-      className={clsx([ 
+      className={clsx([
         "inline-flex items-center h-min justify-center rounded-md font-body transition-all duration-200",
         noBorder ? "" : "border",
         getStatusClasses(),
@@ -134,9 +163,7 @@ export const Button = ({
       {icon && iconPosition === "left" && (
         <span className={getIconClasses()}>{icon}</span>
       )}
-      {!iconOnly && (
-        <p>{label}</p>
-      )}
+      {!iconOnly && <p>{label}</p>}
       {icon && iconPosition === "right" && (
         <span className={getIconClasses()}>{icon}</span>
       )}

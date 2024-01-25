@@ -1,6 +1,5 @@
 import { render, waitFor, within } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { Header } from "@/components/Header";
 import SbAuth from "@/components/SbAuth";
 
 describe("Home", () => {
