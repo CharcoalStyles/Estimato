@@ -55,10 +55,22 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
               }}
               providers={["github", "gitlab", "bitbucket"]}
               socialLayout="horizontal"
+              redirectTo={redirect(authView)}
             />
           </div>
         </PureModal>
       </>
     ) : null;
+  }
+}
+
+const redirect = (authType:ViewType) => {
+  switch (authType) {
+    case "sign_in":
+      return "http://localhost:3000/";
+    case "sign_up":
+      return "http://localhost:3000/new-user";
+    default:
+      return "http://localhost:3000/";
   }
 }

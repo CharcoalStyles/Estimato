@@ -3,13 +3,14 @@ import { Button } from "./ui/Button";
 import { useState } from "react";
 import { getSupabase } from "@/util/supabase";
 import clsx from "clsx";
+import { useUser } from "@supabase/auth-helpers-react";
+import { useQuery } from "@tanstack/react-query";
+import { useUserDetails } from "@/hooks/useUserData";
 
-type UserBadgeProps = {
-  user: User;
-};
-
-export const UserBadge = ({ user }: UserBadgeProps) => {
+export const UserBadge = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const user = useUser();
+  const { data } = useUserDetails();
 
   return (
     <div className="flex flex-col">
@@ -17,7 +18,7 @@ export const UserBadge = ({ user }: UserBadgeProps) => {
         <Button
           variant="accent"
           size="medium"
-          label={user.email}
+          label={`${data?.[0].first_name} ${data?.[0].last_name}`}
           isActive={menuOpen}
           onClick={() => {
             setMenuOpen(!menuOpen);

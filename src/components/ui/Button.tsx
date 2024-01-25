@@ -1,6 +1,7 @@
 import React, { HTMLAttributes, ReactNode } from "react";
 import { clsx, ClassDictionary } from "clsx";
 import { Text } from "./Text";
+import { Variants } from "@/util/tailwind";
 
 export type ButtonProps = Pick<
   HTMLAttributes<HTMLButtonElement>,
@@ -8,25 +9,17 @@ export type ButtonProps = Pick<
 > & {
   onClick?: () => void;
   size?: "small" | "medium" | "large";
-  variant?: "basic" | "primary" | "secondary" | "accent" | "success" | "danger";
+  variant?: Variants;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
   iconOnly?: boolean;
-  label?: string;
+  label: string;
   fullWidth?: boolean;
   isActive?: boolean;
   noBorder?: boolean;
 };
 
 export const sizes: Array<ButtonProps["size"]> = ["small", "medium", "large"];
-export const variants: Array<ButtonProps["variant"]> = [
-  "basic",
-  "primary",
-  "secondary",
-  "accent",
-  "success",
-  "danger",
-];
 
 export const Button = ({
   onClick,
@@ -108,7 +101,6 @@ export const Button = ({
         bgActiveHoverColour = "hover:bg-red-600";
         borderColour = "border-red-500";
         break;
-      // return "bg-red-600 text-text border-red-500 hover:bg-red-400 hover:text-black";
     }
 
     return clsx(
@@ -144,9 +136,6 @@ export const Button = ({
       )}
       {!iconOnly && (
         <p>{label}</p>
-        // <Text fontType="body" fontSize={getTextSizeClasses()}>
-        //   {label}
-        // </Text>
       )}
       {icon && iconPosition === "right" && (
         <span className={getIconClasses()}>{icon}</span>

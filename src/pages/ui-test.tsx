@@ -2,7 +2,6 @@ import React from "react";
 import {
   Button,
   sizes as bSizes,
-  variants as bVariants,
 } from "../components/ui/Button";
 import {
   Text,
@@ -10,6 +9,15 @@ import {
   sizes as tSizes,
   variants as tVariants,
 } from "../components/ui/Text";
+
+const bVariants: Array<React.ComponentProps<typeof Button>["variant"]> = [
+  "basic",
+  "primary",
+  "secondary",
+  "accent",
+  "success",
+  "danger",
+];
 
 const UITestPage: React.FC = () => {
   return (

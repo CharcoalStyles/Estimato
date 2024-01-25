@@ -25,7 +25,7 @@ export const Header = () => {
 
           <div className="flex w-1/2 justify-end content-center">
             {user ? (
-              <UserBadge user={user} />
+              <UserBadge />
             ) : (
               <>
                 <Button

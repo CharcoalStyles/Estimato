@@ -9,23 +9,31 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      test: {
+      profiles: {
         Row: {
-          created_at: string
-          id: number
-          message: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
         }
         Insert: {
-          created_at?: string
-          id?: number
-          message?: string | null
+          first_name?: string | null
+          id: string
+          last_name?: string | null
         }
         Update: {
-          created_at?: string
-          id?: number
-          message?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {
