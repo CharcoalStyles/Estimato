@@ -1,12 +1,27 @@
 import { Button } from "./ui/Button";
-import { useState } from "react";
-import { getSupabase } from "@/util/supabase";
+import { useEffect, useState } from "react";
+// import { getSupabase } from "@/util/supabase";
 import clsx from "clsx";
 import { useUserDetails } from "@/hooks/useUserData";
+import { useAtom } from "jotai";
+import { supabaseAtom } from "@/util/supabase";
+// import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 export const UserBadge = () => {
+  const [supabase] = useAtom(supabaseAtom);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { data } = useUserDetails();
+  const { userData, refetch, clear } = useUserDetails();
+
+  const [label, setLabel] = useState("");
+
+  useEffect(() => {
+    if (userData && userData?.length > 0) {
+      setLabel(`${userData?.[0].first_name} ${userData?.[0].last_name}`);
+    } else {
+      refetch();
+    }
+  }
+  , [userData]);
 
   return (
     <div className="flex flex-col">
@@ -14,7 +29,7 @@ export const UserBadge = () => {
         <Button
           variant="accent"
           size="medium"
-          label={`${data?.[0].first_name} ${data?.[0].last_name}`}
+          label={label}
           isActive={menuOpen}
           onClick={() => {
             setMenuOpen(!menuOpen);
@@ -31,7 +46,9 @@ export const UserBadge = () => {
             fullWidth
             noBorder
             onClick={() => {
-              getSupabase().auth.signOut();
+              clear();
+              supabase.auth.signOut();
+              // getSupabase().auth.signOut();
             }}
           />
         </div>

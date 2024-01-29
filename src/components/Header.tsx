@@ -1,14 +1,14 @@
 import { Text } from "@/components/ui/Text";
 import { Button } from "@/components/ui/Button";
 import { useState } from "react";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useUserDetails } from "@/hooks/useUserData";
 import { UserBadge } from "./UserBadge";
 import SbAuth from "./SbAuth";
 
 export const Header = () => {
   const [showAuth, setShowAuth] = useState(false);
   const [authView, setAuthView] = useState<"sign_in" | "sign_up">("sign_in");
-  const user = useUser();
+  const { user, isLoading } = useUserDetails();
 
   return (
     <>
@@ -22,33 +22,35 @@ export const Header = () => {
             </Text>
           </a>
 
-          <div className="flex w-1/2 justify-end content-center">
-            {user ? (
-              <UserBadge />
-            ) : (
-              <>
-                <Button
-                  variant="primary"
-                  label="Login"
-                  size="large"
-                  className="mr-4"
-                  onClick={() => {
-                    setShowAuth(true);
-                    setAuthView("sign_in");
-                  }}
-                />
-                <Button
-                  variant="secondary"
-                  label="Sign up"
-                  size="large"
-                  onClick={() => {
-                    setAuthView("sign_up");
-                    setShowAuth(true);
-                  }}
-                />
-              </>
-            )}
-          </div>
+          {isLoading ? null : (
+            <div className="flex w-1/2 justify-end content-center">
+              {user ? (
+                <UserBadge />
+              ) : (
+                <>
+                  <Button
+                    variant="primary"
+                    label="Login"
+                    size="large"
+                    className="mr-4"
+                    onClick={() => {
+                      setShowAuth(true);
+                      setAuthView("sign_in");
+                    }}
+                  />
+                  <Button
+                    variant="secondary"
+                    label="Sign up"
+                    size="large"
+                    onClick={() => {
+                      setAuthView("sign_up");
+                      setShowAuth(true);
+                    }}
+                  />
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
       <SbAuth

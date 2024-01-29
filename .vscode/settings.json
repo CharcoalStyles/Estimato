@@ -5,7 +5,8 @@
     "jost",
     "Supa",
     "supabase",
-    "tanstack"
+    "tanstack",
+    "testid"
   ],
   "tailwindCSS.experimental.classRegex": [
     ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]

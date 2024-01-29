@@ -1,19 +1,19 @@
-import { createClient } from '@supabase/supabase-js';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { SupabaseClient, User, createClient } from "@supabase/supabase-js";
+import { atom } from "jotai";
+import { Database } from "./schema";
 
-let supabase: SupabaseClient | null = null;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export const getSupabase = (): SupabaseClient => {
-  if (!supabase) {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error("Missing env variables SUPABASE_URL and SUPABASE_ANON_KEY");
+}
 
-    if (!supabaseUrl || !supabaseAnonKey) {
-      throw new Error('Missing env variables SUPABASE_URL and SUPABASE_ANON_KEY');
-    }
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
-    supabase = createClient(supabaseUrl, supabaseAnonKey);
-  }
+console.log("supabase", supabase);
 
-  return supabase;
-};
+
+const coreSupabaseAtom = atom(supabase);
+export const supabaseAtom = atom((get) => get(coreSupabaseAtom));
+export const currentUserAtom = atom<User | null>(null);

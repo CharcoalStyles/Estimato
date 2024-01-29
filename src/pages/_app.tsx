@@ -1,9 +1,11 @@
 import { AppProps } from "next/app";
-import { getSupabase } from "../util/supabase";
+// import { getSupabase } from "../util/supabase";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import "./globals.css";
 import { ADLaM_Display, Jost } from "next/font/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useAtom } from "jotai";
+import { supabaseAtom } from "@/util/supabase";
 
 const queryClient = new QueryClient();
 
@@ -22,10 +24,11 @@ const jost = Jost({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [supabase] = useAtom(supabaseAtom);
   return (
     <main className={`${adlam.variable} ${jost.variable}`}>
       <QueryClientProvider client={queryClient}>
-        <SessionContextProvider supabaseClient={getSupabase()}>
+        <SessionContextProvider supabaseClient={supabase}>
           <Component {...pageProps} />
         </SessionContextProvider>
       </QueryClientProvider>
