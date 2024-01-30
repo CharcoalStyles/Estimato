@@ -1,6 +1,14 @@
 {
   "cSpell.words": [
+    "adlam",
     "Estomato",
-    "supabase"
+    "jost",
+    "Supa",
+    "supabase",
+    "tanstack",
+    "testid"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ]
 }
