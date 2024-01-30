@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text } from "@/components/ui/Text";
 import { Button } from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { useUserDetails } from "@/hooks/useUserData";
+import { useUserDetails } from "@/hooks/useUserDetails";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { supabaseAtom } from "@/util/supabase";
@@ -13,7 +13,7 @@ const NewUserPage: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [supabase] = useAtom(supabaseAtom);
-  const { user, userData, error, refetch } = useUserDetails();
+  const { user, userData, isLoading, error, refetch } = useUserDetails();
 
   useEffect(() => {
     if (error) {
@@ -22,19 +22,20 @@ const NewUserPage: React.FC = () => {
   }, [error]);
 
   useEffect(() => {
-    if (userData) {
-      if (userData.length === 0) {
-        return;
+    if (!isLoading) {
+      if(user === null) {
+        router.push("/");
       }
-      router.push("/");
-    } else {
-      refetch();
+
+      if (userData && userData?.length > 0) {
+        router.push("/");
+      }
     }
-  }, [userData, user]);
+  }, [isLoading]);
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div data-testid="loader" className="flex items-center justify-center h-screen">
         <Text fontSize="2xl" variant="primary" fontType="body">
           Getting everything ready...
         </Text>

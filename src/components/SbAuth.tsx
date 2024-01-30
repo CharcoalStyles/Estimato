@@ -2,34 +2,38 @@ import { useState, useEffect } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa, ViewType } from "@supabase/auth-ui-shared";
 import PureModal from "react-pure-modal";
-import { useUserDetails } from "@/hooks/useUserData";
+import { useUserDetails } from "../hooks/useUserDetails";
 import { supabaseAtom } from "@/util/supabase";
 import { useAtom } from "jotai";
 import { Text } from "./ui/Text";
 
 type SbAuthProps = {
-  open: boolean;
-  view: ViewType;
+  open?: boolean;
+  view?: ViewType;
   onClose?: () => void;
 };
 
 export default function SbAuth({ open, view, onClose }: SbAuthProps) {
   const [supabase] = useAtom(supabaseAtom);
   const { user } = useUserDetails();
-  const [authView, setAuthView] = useState<ViewType>(view);
-  const [authOpen, setAuthOpen] = useState<boolean>(open);
+  const [authView, setAuthView] = useState<ViewType>(view || "sign_in");
+  const [authOpen, setAuthOpen] = useState<boolean>(open || false);
 
   useEffect(() => {
-    setAuthView(view);
+    setAuthView(view || "sign_in");
   }, [view]);
 
   useEffect(() => {
-    setAuthOpen(open);
+    setAuthOpen(open || false);
   }, [open]);
 
   useEffect(() => {
     supabase.auth.getSession();
   }, []);
+
+  if (user) {
+    return null;
+  }
 
   if (!user) {
     return authOpen ? (
@@ -46,7 +50,8 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
             setAuthOpen(false);
             onClose && onClose();
           }}
-          className="mx-auto mt-32 px-12 py-8 w-2/5 max-w-xl absolute inset-x-0 bg-black">
+          className="mx-auto mt-32 px-12 py-8 w-2/5 max-w-xl absolute inset-x-0 bg-black"
+        >
           <>
             {authView === "sign_in" && (
               <Text>

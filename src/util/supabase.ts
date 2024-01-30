@@ -11,8 +11,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
-console.log("supabase", supabase);
-
 
 const coreSupabaseAtom = atom(supabase);
 export const supabaseAtom = atom((get) => get(coreSupabaseAtom));

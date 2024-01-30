@@ -1,8 +1,11 @@
 import { render, waitFor } from "../../utils/jest-utils";
 import "@testing-library/jest-dom";
 import { Header } from "@/components/Header";
+import { currentUserAtom } from "@/util/supabase";
+// import { useUserDetails, createMockUserDetails } from "@/hooks/useUserDetails";
+import * as userHook from "@/hooks/useUserDetails";
 
-describe("Home", () => {
+describe("Header", () => {
   it("renders the app title", async () => {
     const page = render(<Header />);
 
@@ -14,8 +17,11 @@ describe("Home", () => {
 
   it("renders the login buttons", async () => {
     const page = render(<Header />);
-    
-    await waitFor(() => expect(page.getByText("Login")).toBeInTheDocument(), {interval: 1000});
+
+    await waitFor(
+      () => expect(page.getByTestId("auth-userbadge")).toBeInTheDocument(),
+      { interval: 1000 }
+    );
 
     expect(page.getByText("Login")).toBeInTheDocument();
     expect(page.getByText("Sign up")).toBeInTheDocument();

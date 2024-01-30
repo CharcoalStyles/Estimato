@@ -1,7 +1,12 @@
 import { Database } from "@/util/schema";
-import { currentUserAtom, supabaseAtom, /*getSupabase*/ } from "@/util/supabase";
+import { currentUserAtom, supabaseAtom /*getSupabase*/ } from "@/util/supabase";
+import { User } from "@supabase/supabase-js";
 // import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  QueryObserverResult,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 
@@ -12,16 +17,14 @@ export const useUserDetails = () => {
 
   useEffect(() => {
     if (currentUser === null) {
-      supabase
-        .auth.getUser()
-        .then(({ data: { user } }) => {
-          if (user === null) {
-            return;
-          }
+      supabase.auth.getUser().then(({ data: { user } }) => {
+        if (user === null) {
+          return;
+        }
 
-          setCurrentUser(user);
-          refetch();
-        });
+        setCurrentUser(user);
+        refetch();
+      });
     }
   }, []);
 
@@ -44,15 +47,6 @@ export const useUserDetails = () => {
       }
       return data;
     },
-    // retry: (retries, error) => {
-    //   if (error.message === "User not loaded") {
-    //     return true;
-    //   } else if (error.message === "JWT expired") {
-    //     return false;
-    //   } else {
-    //     return retries < 5; // Retry for all other errors
-    //   }
-    // },
   });
 
   if (currentUser === null) {
@@ -80,3 +74,38 @@ export const useUserDetails = () => {
     },
   };
 };
+
+type UserDetailsReturn = {
+  user: User;
+  userData: [Database["public"]["Tables"]["profiles"]["Row"]];
+  error: Error | null;
+  isLoading: boolean;
+  refetch: () => any;
+  clear: () => void;
+};
+
+type MockUserDetails = Partial<{
+  user: User;
+  userData: Database["public"]["Tables"]["profiles"]["Row"] | null;
+  error: Error | null;
+  isLoading: boolean;
+  refetch: () => any;
+  clear: () => void;
+}>;
+
+export const createMockUserDetails = ({
+  user,
+  userData,
+  error,
+  isLoading,
+  refetch,
+  clear,
+}: MockUserDetails) =>
+  ({
+    user,
+    userData: userData ? [userData] : [],
+    error,
+    isLoading,
+    refetch,
+    clear,
+  } as UserDetailsReturn);

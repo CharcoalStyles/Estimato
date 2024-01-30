@@ -2,7 +2,7 @@ import { Button } from "./ui/Button";
 import { useEffect, useState } from "react";
 // import { getSupabase } from "@/util/supabase";
 import clsx from "clsx";
-import { useUserDetails } from "@/hooks/useUserData";
+import { useUserDetails } from "@/hooks/useUserDetails";
 import { useAtom } from "jotai";
 import { supabaseAtom } from "@/util/supabase";
 // import { useSupabaseClient } from "@supabase/auth-helpers-react";
@@ -48,7 +48,6 @@ export const UserBadge = () => {
             onClick={() => {
               clear();
               supabase.auth.signOut();
-              // getSupabase().auth.signOut();
             }}
           />
         </div>

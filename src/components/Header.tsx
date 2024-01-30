@@ -1,7 +1,7 @@
 import { Text } from "@/components/ui/Text";
 import { Button } from "@/components/ui/Button";
-import { useState } from "react";
-import { useUserDetails } from "@/hooks/useUserData";
+import { Fragment, useState } from "react";
+import { useUserDetails } from "@/hooks/useUserDetails";
 import { UserBadge } from "./UserBadge";
 import SbAuth from "./SbAuth";
 
@@ -16,17 +16,21 @@ export const Header = () => {
         <div className="w-full flex items-center justify-between">
           <a
             className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-            href="#">
+            href="#"
+          >
             <Text fontSize="5xl" fontType="heading" tag="h1" variant="primary">
               Estomato
             </Text>
           </a>
 
-          {isLoading ? null : (
-            <div className="flex w-1/2 justify-end content-center">
-              {user ? (
-                <UserBadge />
-              ) : (
+          {isLoading ? <div data-testid="loading-fragment"></div> : (
+            <div
+              data-testid="auth-userbadge"
+              className="flex w-1/2 justify-end content-center"
+            >
+              {user ? (() => {
+                return <UserBadge />
+              })(): (
                 <>
                   <Button
                     variant="primary"
