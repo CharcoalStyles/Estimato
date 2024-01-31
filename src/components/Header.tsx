@@ -1,6 +1,6 @@
 import { Text } from "@/components/ui/Text";
 import { Button } from "@/components/ui/Button";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useUserDetails } from "@/hooks/useUserDetails";
 import { UserBadge } from "./UserBadge";
 import SbAuth from "./SbAuth";

@@ -24,7 +24,7 @@ mockUseRouter.mockImplementation(() => {
   };
 });
 
-describe("Home", () => {
+describe("New User onboarding", () => {
   it("navigates to root if there is no user", async () => {
     mockUseUserDetails.mockImplementation(() => {
       return {
