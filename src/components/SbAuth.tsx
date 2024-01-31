@@ -55,8 +55,8 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
           <>
             {authView === "sign_in" && (
               <Text>
-                Note, logging in doesn't redirect or automatically refresh the
-                state right now. You'll need to refresh the page t0 log in
+                Note, logging in doesn&apos;t redirect or automatically refresh the
+                state right now. You&apos;ll need to refresh the page to log in
                 properly.
               </Text>
             )}

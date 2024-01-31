@@ -97,7 +97,7 @@ const NewUserForm = ({ onSubmit }: NewUserFormProps) => {
         Welcome!
       </Text>
       <Text fontSize="xl" fontType="body">
-        Let's get you setup
+        Let&apos;s get you setup
       </Text>
       <div className="pt-4 flex flex-col">
         <form className="pt-4 flex flex-col" onSubmit={handleSubmit}>
