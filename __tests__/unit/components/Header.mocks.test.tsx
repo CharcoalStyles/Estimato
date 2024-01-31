@@ -24,7 +24,6 @@ describe("Header (with mocks)", () => {
 
     const page = render(<Header />);
 
-    //get teh loading-fragment testid
     expect(page.getByTestId("loading-fragment")).toBeInTheDocument();
 
   });

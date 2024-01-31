@@ -1,9 +1,6 @@
 import { render, waitFor } from "../../utils/jest-utils";
 import "@testing-library/jest-dom";
 import { Header } from "@/components/Header";
-import { currentUserAtom } from "@/util/supabase";
-// import { useUserDetails, createMockUserDetails } from "@/hooks/useUserDetails";
-import * as userHook from "@/hooks/useUserDetails";
 
 describe("Header", () => {
   it("renders the app title", async () => {
