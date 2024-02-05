@@ -15,6 +15,8 @@ const NewUserPage: React.FC = () => {
   const [supabase] = useAtom(supabaseAtom);
   const { user, userData, isLoading, error, refetch } = useUserDetails();
 
+  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
     if (error) {
       router.push("/");
@@ -23,19 +25,28 @@ const NewUserPage: React.FC = () => {
 
   useEffect(() => {
     if (!isLoading) {
-      if(user === null) {
-        router.push("/");
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
 
-      if (userData && userData?.length > 0) {
-        router.push("/");
-      }
+      timeoutRef.current = setTimeout(() => {
+        if (user === null) {
+          router.push("/");
+        }
+
+        if (userData && userData?.length > 0) {
+          router.push("/");
+        }
+      }, 500);
     }
-  }, [isLoading]);
+  }, [isLoading, user]);
 
-  if (loading) {
+  if (loading || !user) {
     return (
-      <div data-testid="loader" className="flex items-center justify-center h-screen">
+      <div
+        data-testid="loader"
+        className="flex items-center justify-center h-screen"
+      >
         <Text fontSize="2xl" variant="primary" fontType="body">
           Getting everything ready...
         </Text>
@@ -107,6 +118,7 @@ const NewUserForm = ({ onSubmit }: NewUserFormProps) => {
           <input
             type="text"
             id="firstNameInput"
+            data-testid="firstNameInput"
             placeholder="Kaysen"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -118,6 +130,7 @@ const NewUserForm = ({ onSubmit }: NewUserFormProps) => {
           <input
             type="text"
             id="lastNameInput"
+            data-testid="lastNameInput"
             placeholder="Ridenour"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
