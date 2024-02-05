@@ -60,7 +60,6 @@ export const useUserDetails = () => {
     };
   }
 
-  console.log({ isLoading, currentUser });
   return {
     user: currentUser,
     userData: data,

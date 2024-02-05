@@ -10,6 +10,7 @@ import { supabaseAtom } from "@/util/supabase";
 const queryClient = new QueryClient();
 
 const adlam = ADLaM_Display({
+  adjustFontFallback: false,
   weight: "400",
   display: "swap",
   variable: "--font-adlam",
