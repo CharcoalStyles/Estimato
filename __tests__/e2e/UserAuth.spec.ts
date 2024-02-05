@@ -15,7 +15,7 @@ async function gotoMail7(page: Page, emailAddress: string) {
 }
 
 test.describe("User Authentication", () => {
-  const emailAddress = "estomato-e2e-" + Date.now();
+  const emailAddress = "est2e-" + Date.now();
   test.describe.configure({ mode: "serial" });
 
   test("Signup, confirm and new user flow", async ({ page, browserName }) => {
