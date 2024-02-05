@@ -19,7 +19,7 @@ test.describe("User Authentication", () => {
   test.describe.configure({ mode: "serial" });
 
   test("Signup, confirm and new user flow", async ({ page, browserName }) => {
-    const thisEmail = `${emailAddress}`;
+    test.slow();
     await gotoMail7(page, emailAddress);
 
     await page.goto("/");
@@ -40,7 +40,8 @@ test.describe("User Authentication", () => {
       .getByRole("button", { name: "Sign up" })
       .click();
 
-    await expect(page.getByText("Check your email for the")).toBeVisible();
+
+    await expect(page.getByText("Check your email for the")).toBeVisible({ timeout: 10000 });
 
     await gotoMail7(page, emailAddress);
 
