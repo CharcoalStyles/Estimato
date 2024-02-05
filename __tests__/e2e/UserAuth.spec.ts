@@ -19,7 +19,7 @@ test.describe("User Authentication", () => {
 
     const email = emailDiv.split("\n").filter((e) => e.includes("@"))[0];
 
-    await page.goto("http://localhost:3000/");
+    await page.goto("/");
     await page.getByRole("button", { name: "Sign up" }).click();
 
     await expect(page.locator(".pure-modal")).toBeVisible();
@@ -56,7 +56,7 @@ test.describe("User Authentication", () => {
     //split the page url
     const url = page.url().split("#")[0];
 
-    expect(url).toBe("http://localhost:3000/new-user");
+    expect(url).toBe("/new-user");
 
     await page.getByTestId("firstNameInput").click();
     await page.getByTestId("firstNameInput").fill("John");
@@ -67,7 +67,7 @@ test.describe("User Authentication", () => {
     await page.getByRole('button', { name: 'Submit' }).click();
     
     //wait for 2 seconds
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(250);
 
     expect(page.getByRole('button', { name: 'John Doe' })).toBeVisible();
   });
