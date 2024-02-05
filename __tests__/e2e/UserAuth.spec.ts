@@ -1,23 +1,26 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import os from "os";
 
 const isMac = os.platform() === "darwin";
 const modifier = isMac ? "Meta" : "Control";
 
+async function gotoMail7(page: Page, emailAddress: string) {
+  await page.goto("https://mail7.io/");
+
+  await page.locator('form').filter({ hasText: '@mail7.io Go to inbox or Try' }).getByRole('textbox').click();
+  await page.locator('form').filter({ hasText: '@mail7.io Go to inbox or Try' }).getByRole('textbox').fill(emailAddress);
+  await page.locator('form').filter({ hasText: '@mail7.io Go to inbox or Try' }).getByRole('button').click();
+
+  await page.waitForURL(({ hostname }) => hostname === "console.mail7.io");
+}
+
 test.describe("User Authentication", () => {
-  test.describe.configure({mode: "serial"});
+  const emailAddress = "estomato-e2e-" + Date.now();
+  test.describe.configure({ mode: "serial" });
 
-  test("Signup, confirm and new user flow", async ({ page }) => {
-    await page.goto("https://internxt.com/temporary-email");
-    await page.getByRole("button", { name: "Delete email" }).click();
-
-    const emailDiv = await page
-      .locator("div")
-      .filter({ hasText: /@(crankymonkey\.info|cashbenties\.com)/ })
-      .nth(1)
-      .innerText(); //.click();
-
-    const email = emailDiv.split("\n").filter((e) => e.includes("@"))[0];
+  test("Signup, confirm and new user flow", async ({ page, browserName }) => {
+    const thisEmail = `${emailAddress}`;
+    await gotoMail7(page, emailAddress);
 
     await page.goto("/");
     await page.getByRole("button", { name: "Sign up" }).click();
@@ -25,7 +28,9 @@ test.describe("User Authentication", () => {
     await expect(page.locator(".pure-modal")).toBeVisible();
 
     await page.getByPlaceholder("Your email address").click();
-    await page.getByPlaceholder("Your email address").fill(email);
+    await page
+      .getByPlaceholder("Your email address")
+      .fill(`${emailAddress}@mail7.io`);
 
     await page.getByPlaceholder("Your password").click();
     await page.getByPlaceholder("Your password").fill("Password1234!");
@@ -36,39 +41,37 @@ test.describe("User Authentication", () => {
       .click();
 
     await expect(page.getByText("Check your email for the")).toBeVisible();
+
+    await gotoMail7(page, emailAddress);
+
+    await page.getByText("Estomato test email").click();
+
+    await expect(
+      page.getByText("Follow this link to confirm your user:")
+    ).toBeVisible();
+
+    const confirmUrl = await page.frameLocator('iframe').getByRole('link', { name: 'Confirm your mail' }).getAttribute('href');
+
+    expect(confirmUrl).not.toBeNull();
     
-    await page.goto("https://internxt.com/temporary-email");
-    await page
-      .locator("div")
-      .filter({ hasText: /^Inbox$/ })
-      .getByRole("img")
-      .nth(1)
-      .click();
-
-    await page
-      .getByRole("button", { name:  /[a-zA-Z0-9._%+-]+@charcoalstyles\.com/ })
-      .click();
-    await page.getByRole("link", { name: "Confirm your mail" }).click();
-
-    //expect to bre redirected to http://localhost:3000/new-user
-    await page.waitForURL(({hostname}) => hostname === "localhost")
+    await page.goto(confirmUrl!);
 
     //split the page url
     const url = page.url().split("#")[0];
 
-    expect(url).toBe("/new-user");
+    expect(url).toContain("/new-user");
 
     await page.getByTestId("firstNameInput").click();
-    await page.getByTestId("firstNameInput").fill("John");
+    await page.getByTestId("firstNameInput").fill(browserName);
 
     await page.getByTestId("lastNameInput").click();
     await page.getByTestId("lastNameInput").fill("Doe");
 
-    await page.getByRole('button', { name: 'Submit' }).click();
-    
+    await page.getByRole("button", { name: "Submit" }).click();
+
     //wait for 2 seconds
     await page.waitForTimeout(250);
 
-    expect(page.getByRole('button', { name: 'John Doe' })).toBeVisible();
+    expect(page.getByRole("button", { name: `${browserName} Doe` })).toBeVisible();
   });
 });
