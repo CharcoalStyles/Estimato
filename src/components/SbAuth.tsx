@@ -81,12 +81,14 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
 }
 
 const redirect = (authType: ViewType) => {
+  const currentLocation = window.location.origin;
+
   switch (authType) {
     case "sign_in":
-      return "http://localhost:3000/app";
+      return `${currentLocation}/app`;
     case "sign_up":
-      return "http://localhost:3000/new-user/";
+      return `${currentLocation}/new-user/`;
     default:
-      return "http://localhost:3000/";
+      return `${currentLocation}/`;
   }
 };
