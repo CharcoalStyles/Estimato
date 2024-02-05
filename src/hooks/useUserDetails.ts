@@ -8,7 +8,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useUserDetails = () => {
   const [supabase] = useAtom(supabaseAtom);
@@ -16,16 +16,14 @@ export const useUserDetails = () => {
   const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
 
   useEffect(() => {
-    if (currentUser === null) {
-      supabase.auth.getUser().then(({ data: { user } }) => {
-        if (user === null) {
-          return;
-        }
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user === null) {
+        return;
+      }
 
-        setCurrentUser(user);
-        refetch();
-      });
-    }
+      setCurrentUser(user);
+      refetch();
+    });
   }, []);
 
   const { data, error, isLoading, refetch } = useQuery({
@@ -62,6 +60,7 @@ export const useUserDetails = () => {
     };
   }
 
+  console.log({ isLoading, currentUser });
   return {
     user: currentUser,
     userData: data,

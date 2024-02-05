@@ -39,6 +39,12 @@ describe("New User onboarding", () => {
 
     render(<NewUser />);
 
+    //expect "loader" test id to be in the document
+    expect(document.querySelector("[data-testid=loader]")).toBeInTheDocument();
+
+    //wait for the loader to disappear
+    await new Promise((r) => setTimeout(r, 1000));
+
     expect(mockPush).toHaveBeenCalledWith("/");
   });
 
