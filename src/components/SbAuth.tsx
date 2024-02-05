@@ -55,9 +55,9 @@ export default function SbAuth({ open, view, onClose }: SbAuthProps) {
           <>
             {authView === "sign_in" && (
               <Text>
-                Note, logging in doesn&apos;t redirect or automatically refresh the
-                state right now. You&apos;ll need to refresh the page to log in
-                properly.
+                Note, logging in doesn&apos;t redirect or automatically refresh
+                the state right now. You&apos;ll need to refresh the page to log
+                in properly.
               </Text>
             )}
             <div data-testid="sb-auth-modal">
@@ -87,8 +87,7 @@ const redirect = (authType: ViewType) => {
     case "sign_in":
       return `${currentLocation}/app`;
     case "sign_up":
-      return `${currentLocation}/new-user/`;
     default:
-      return `${currentLocation}/`;
+      return `${currentLocation}/new-user/`;
   }
 };
