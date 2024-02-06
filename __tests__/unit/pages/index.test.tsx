@@ -3,6 +3,14 @@ import Home from "../../../src/pages/index";
 import "@testing-library/jest-dom";
 
 describe("Home", () => {
+  jest.mock("next/navigation", () => ({
+    useRouter() {
+      return {
+        prefetch: () => null,
+      };
+    },
+  }));
+
   it("renders the app title", async () => {
     const page = render(<Home />);
 
@@ -15,7 +23,9 @@ describe("Home", () => {
   it("renders the login buttons", async () => {
     const page = render(<Home />);
 
-    await waitFor(() => expect(page.getByText("Login")).toBeInTheDocument(), {interval: 1000});
+    await waitFor(() => expect(page.getByText("Login")).toBeInTheDocument(), {
+      interval: 1000,
+    });
 
     expect(page.getByText("Login")).toBeInTheDocument();
     expect(page.getByText("Sign up")).toBeInTheDocument();

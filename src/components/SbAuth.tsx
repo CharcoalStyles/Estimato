@@ -88,6 +88,6 @@ const redirect = (authType: ViewType) => {
       return `${currentLocation}/app`;
     case "sign_up":
     default:
-      return `${currentLocation}/new-user`;
+      return `${currentLocation}/`;
   }
 };

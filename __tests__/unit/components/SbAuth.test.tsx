@@ -1,4 +1,5 @@
-import { render, waitFor, within } from "../../utils/jest-utils";
+import { render } from "../../utils/jest-utils";
+import { waitFor, within } from "../../utils/jest-utils";
 import "@testing-library/jest-dom";
 import SbAuth from "@/components/SbAuth";
 
