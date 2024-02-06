@@ -9,21 +9,6 @@ const mockUseUserDetails = useUserDetails as jest.MockedFunction<
   typeof useUserDetails
 >;
 
-jest.mock("next/navigation");
-const mockUseRouter = useRouter as jest.MockedFunction<typeof useRouter>;
-const mockPush = jest.fn();
-mockUseRouter.mockImplementation(() => {
-  return {
-    push: mockPush,
-    back: jest.fn(),
-    prefetch: jest.fn(),
-    reload: jest.fn(),
-    replace: jest.fn(),
-    forward: jest.fn(),
-    refresh: jest.fn(),
-  };
-});
-
 describe("New User onboarding", () => {
   it("navigates to root if there is no user", async () => {
     mockUseUserDetails.mockImplementation(() => {
@@ -45,7 +30,7 @@ describe("New User onboarding", () => {
     //wait for the loader to disappear
     await new Promise((r) => setTimeout(r, 1000));
 
-    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(useRouter().push).toHaveBeenCalledWith("/");
   });
 
   it("renders the new user form", async () => {
@@ -111,6 +96,6 @@ describe("New User onboarding", () => {
 
     render(<NewUser />);
 
-    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(useRouter().push).toHaveBeenCalledWith("/");
   });
 });

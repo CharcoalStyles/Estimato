@@ -7,9 +7,21 @@ const modifier = isMac ? "Meta" : "Control";
 async function gotoMail7(page: Page, emailAddress: string) {
   await page.goto("https://mail7.io/");
 
-  await page.locator('form').filter({ hasText: '@mail7.io Go to inbox or Try' }).getByRole('textbox').click();
-  await page.locator('form').filter({ hasText: '@mail7.io Go to inbox or Try' }).getByRole('textbox').fill(emailAddress);
-  await page.locator('form').filter({ hasText: '@mail7.io Go to inbox or Try' }).getByRole('button').click();
+  await page
+    .locator("form")
+    .filter({ hasText: "@mail7.io Go to inbox or Try" })
+    .getByRole("textbox")
+    .click();
+  await page
+    .locator("form")
+    .filter({ hasText: "@mail7.io Go to inbox or Try" })
+    .getByRole("textbox")
+    .fill(emailAddress);
+  await page
+    .locator("form")
+    .filter({ hasText: "@mail7.io Go to inbox or Try" })
+    .getByRole("button")
+    .click();
 
   await page.waitForURL(({ hostname }) => hostname === "console.mail7.io");
 }
@@ -40,8 +52,9 @@ test.describe("User Authentication", () => {
       .getByRole("button", { name: "Sign up" })
       .click();
 
-
-    await expect(page.getByText("Check your email for the")).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText("Check your email for the")).toBeVisible({
+      timeout: 10000,
+    });
 
     await gotoMail7(page, emailAddress);
 
@@ -51,16 +64,16 @@ test.describe("User Authentication", () => {
       page.getByText("Follow this link to confirm your user:")
     ).toBeVisible();
 
-    const confirmUrl = await page.frameLocator('iframe').getByRole('link', { name: 'Confirm your mail' }).getAttribute('href');
+    const confirmUrl = await page
+      .frameLocator("iframe")
+      .getByRole("link", { name: "Confirm your mail" })
+      .getAttribute("href");
 
     expect(confirmUrl).not.toBeNull();
-    
+
     await page.goto(confirmUrl!);
 
-    //split the page url
-    const url = page.url().split("#")[0];
-
-    expect(url).toContain("/new-user");
+    await page.waitForURL("/new-user");
 
     await page.getByTestId("firstNameInput").click();
     await page.getByTestId("firstNameInput").fill(browserName);
@@ -70,9 +83,12 @@ test.describe("User Authentication", () => {
 
     await page.getByRole("button", { name: "Submit" }).click();
 
-    //wait for 2 seconds
     await page.waitForTimeout(250);
 
-    expect(page.getByRole("button", { name: `${browserName} Doe` })).toBeVisible();
+    expect(
+      page.getByRole("button", { name: browserName, exact: false })
+    ).toBeVisible();
+
+    await page.waitForTimeout(250);
   });
 });

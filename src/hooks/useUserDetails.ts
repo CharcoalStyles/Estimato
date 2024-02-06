@@ -3,17 +3,18 @@ import { currentUserAtom, supabaseAtom /*getSupabase*/ } from "@/util/supabase";
 import { User } from "@supabase/supabase-js";
 // import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import {
-  QueryObserverResult,
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
 import { useAtom } from "jotai";
-import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export const useUserDetails = () => {
   const [supabase] = useAtom(supabaseAtom);
   const queryClient = useQueryClient();
   const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
+  const router = useRouter();
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -58,6 +59,10 @@ export const useUserDetails = () => {
         setCurrentUser(null);
       },
     };
+  }
+
+  if (!isLoading && data === undefined) {
+    router.push("/new-user");
   }
 
   return {
