@@ -30,7 +30,7 @@ test.describe("User Authentication", () => {
   const emailAddress = "est2e-" + Date.now();
   test.describe.configure({ mode: "serial" });
 
-  test("Signup, confirm and new user flow", async ({ page, browserName }) => {
+  test("Signup", async ({ page }) => {
     test.slow();
     await gotoMail7(page, emailAddress);
 
@@ -55,7 +55,9 @@ test.describe("User Authentication", () => {
     await expect(page.getByText("Check your email for the")).toBeVisible({
       timeout: 10000,
     });
+  });
 
+  test("Signup confirmtion and new user flow", async ({ page, browserName }) => {    
     await gotoMail7(page, emailAddress);
 
     await page.getByText("Estomato test email").click();
