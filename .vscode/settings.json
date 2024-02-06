@@ -1,6 +1,20 @@
 {
   "cSpell.words": [
+    "adlam",
     "Estomato",
-    "supabase"
-  ]
+    "jost",
+    "Supa",
+    "supabase",
+    "tanstack",
+    "testid"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "jest.jestCommandLine": "./node_modules/.bin/jest --testPathPattern=./__tests__/unit",
+  "jest.coverageFormatter": "GutterFormatter",
+  "jest.showCoverageOnLoad": true,
+  "jest.runMode": {
+    "type": "on-save",
+  }
 }
