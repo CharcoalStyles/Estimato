@@ -20,7 +20,7 @@ async function gotoMail7(page: Page, emailAddress: string) {
     .click();
 
   await page.waitForURL(({ hostname }) => hostname === "console.mail7.io");
-  await page.locator('#preloader').waitFor({ state: 'hidden' });
+  await page.locator("#preloader").waitFor({ state: "hidden" });
 }
 
 test.describe("User Authentication", () => {
@@ -29,7 +29,9 @@ test.describe("User Authentication", () => {
 
   test("Generate Email", async ({ page }) => {
     await gotoMail7(page, emailAddress);
-    expect(await page.getByRole("textbox").inputValue()).toBe(emailAddress + "@mail7.io");
+    expect(await page.getByRole("textbox").inputValue()).toBe(
+      emailAddress + "@mail7.io"
+    );
   });
 
   test("Signup", async ({ page }) => {
@@ -55,10 +57,10 @@ test.describe("User Authentication", () => {
       timeout: 10000,
     });
   });
-  
+
   let confirmUrl: string | null;
 
-  test("Signup confirmtion", async ({ page }) => {    
+  test("Signup confirmtion", async ({ page }) => {
     await gotoMail7(page, emailAddress);
 
     await page.getByText("Estomato test email").click();
@@ -73,9 +75,9 @@ test.describe("User Authentication", () => {
       .getAttribute("href");
 
     expect(confirmUrl).not.toBeNull();
-    });
+  });
 
-    test("New user flown", async ({ page, browserName }) => {   
+  test("New user flown", async ({ page, browserName }) => {
     await page.goto(confirmUrl!);
 
     await page.waitForURL("/new-user");
@@ -84,14 +86,17 @@ test.describe("User Authentication", () => {
     await page.getByTestId("firstNameInput").fill(browserName);
 
     await page.getByTestId("lastNameInput").click();
-    await page.getByTestId("lastNameInput").fill("Doe");
+    await page.getByTestId("lastNameInput").fill(browserName);
 
     await page.getByRole("button", { name: "Submit" }).click();
 
     await page.waitForTimeout(500);
 
     expect(
-      page.getByRole("button", { name: browserName, exact: false })
+      page.getByRole("button", {
+        name: `${browserName} ${browserName}`,
+        exact: false,
+      })
     ).toBeVisible();
 
     await page.waitForTimeout(1000);
