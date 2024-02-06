@@ -1,8 +1,4 @@
 import { test, expect, Page } from "@playwright/test";
-import os from "os";
-
-const isMac = os.platform() === "darwin";
-const modifier = isMac ? "Meta" : "Control";
 
 async function gotoMail7(page: Page, emailAddress: string) {
   await page.goto("https://mail7.io/");
@@ -24,16 +20,19 @@ async function gotoMail7(page: Page, emailAddress: string) {
     .click();
 
   await page.waitForURL(({ hostname }) => hostname === "console.mail7.io");
+  await page.locator('#preloader').waitFor({ state: 'hidden' });
 }
 
 test.describe("User Authentication", () => {
   const emailAddress = "est2e-" + Date.now();
   test.describe.configure({ mode: "serial" });
 
-  test("Signup", async ({ page }) => {
-    test.slow();
+  test("Generate Email", async ({ page }) => {
     await gotoMail7(page, emailAddress);
+    expect(await page.getByRole("textbox").inputValue()).toBe(emailAddress + "@mail7.io");
+  });
 
+  test("Signup", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("button", { name: "Sign up" }).click();
 
@@ -56,8 +55,10 @@ test.describe("User Authentication", () => {
       timeout: 10000,
     });
   });
+  
+  let confirmUrl: string | null;
 
-  test("Signup confirmtion and new user flow", async ({ page, browserName }) => {    
+  test("Signup confirmtion", async ({ page }) => {    
     await gotoMail7(page, emailAddress);
 
     await page.getByText("Estomato test email").click();
@@ -66,13 +67,15 @@ test.describe("User Authentication", () => {
       page.getByText("Follow this link to confirm your user:")
     ).toBeVisible();
 
-    const confirmUrl = await page
+    confirmUrl = await page
       .frameLocator("iframe")
       .getByRole("link", { name: "Confirm your mail" })
       .getAttribute("href");
 
     expect(confirmUrl).not.toBeNull();
+    });
 
+    test("New user flown", async ({ page, browserName }) => {   
     await page.goto(confirmUrl!);
 
     await page.waitForURL("/new-user");
@@ -85,12 +88,12 @@ test.describe("User Authentication", () => {
 
     await page.getByRole("button", { name: "Submit" }).click();
 
-    await page.waitForTimeout(250);
+    await page.waitForTimeout(500);
 
     expect(
       page.getByRole("button", { name: browserName, exact: false })
     ).toBeVisible();
 
-    await page.waitForTimeout(250);
+    await page.waitForTimeout(1000);
   });
 });
