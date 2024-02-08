@@ -1,6 +1,6 @@
 import { render, waitFor } from "../../utils/jest-utils";
 import "@testing-library/jest-dom";
-import { Header } from "@/components/Header";
+import { Header } from "@/components";
 import { useUserDetails } from "../../../src/hooks/useUserDetails";
 
 jest.mock("../../../src/hooks/useUserDetails");
@@ -15,7 +15,7 @@ describe("Header (with mocks)", () => {
       return {
         user: null,
         error: null,
-        userData: null,
+        userData: undefined,
         isLoading: true,
         clear: jest.fn(),
         refetch: jest.fn(),
@@ -41,14 +41,13 @@ describe("Header (with mocks)", () => {
           created_at: "string",
         },
         error: null,
-        userData: [
+        userData: 
           {
             id: "string",
             first_name: firstName,
             last_name: lastName,
             email: "abc@abc.com",
           },
-        ],
         isLoading: false,
         clear: jest.fn(),
         refetch: jest.fn(),

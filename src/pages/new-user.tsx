@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "@/components/ui/Text";
-import { Button } from "@/components/ui/Button";
+import { Button, Text } from "@/components/ui";
 import { useRouter } from "next/navigation";
 import { useUserDetails } from "@/hooks/useUserDetails";
 import { useQueryClient } from "@tanstack/react-query";
@@ -34,7 +33,7 @@ const NewUserPage: React.FC = () => {
           router.push("/");
         }
 
-        if (userData && userData?.length > 0) {
+        if (userData) {
           router.push("/");
         }
       }, 500);

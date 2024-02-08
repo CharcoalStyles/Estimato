@@ -5,10 +5,12 @@ type TextProps = {
   tag?: "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   fontSize?: "sm" | "base" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
   fontType?: "heading" | "body";
-  variant?: "primary" | "secondary" | "accent" | "success" | "danger";
+  variant?: "base" | "primary" | "secondary" | "accent" | "success" | "danger";
+  onHover?: boolean;
+  closeLines?: boolean;
 };
 
-export const sizes: Array<TextProps["fontSize"]> = [
+export const textSizes: Array<TextProps["fontSize"]> = [
   "sm",
   "base",
   "xl",
@@ -33,6 +35,8 @@ export const Text = ({
   tag = "p",
   fontSize = "base",
   fontType = "body",
+  onHover = false,
+  closeLines=false,
   variant,
   children,
 }: PropsWithChildren<TextProps>) => {
@@ -40,17 +44,21 @@ export const Text = ({
     const colour = () => {
       switch (variant) {
         case "primary":
-          return "text-primary";
+          return `text-primary ${
+            onHover ? "hover:text-primary-highlight" : ""
+          }`;
         case "secondary":
-          return "text-secondary";
+          return `text-secondary ${
+            onHover ? "hover:text-secondary-highlight" : ""
+          }`;
         case "accent":
-          return "text-accent";
+          return `text-accent ${onHover ? "hover:text-accent-highlight" : ""}`;
         case "success":
-          return "text-green-500";
+          return `text-green-500 ${onHover ? "hover:text-green-600" : ""}`;
         case "danger":
-          return "text-red-500";
+          return `text-red-500 ${onHover ? "hover:text-red-600" : ""}`;
         default:
-          return "text-text";
+          return `text-text ${onHover ? "hover:text-slate-400" : ""}`;
       }
     };
     const size = () => {
@@ -80,9 +88,11 @@ export const Text = ({
       {
         "font-heading": fontType === "heading",
         "font-body": fontType === "body",
+        "hover:underline": onHover,
+        "leading-4": closeLines,
       },
     ]);
-  }, [fontSize, fontType, variant]);
+  }, [fontSize, fontType, variant, onHover]);
 
   switch (tag) {
     case "h1":

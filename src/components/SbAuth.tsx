@@ -13,7 +13,7 @@ type SbAuthProps = {
   onClose?: () => void;
 };
 
-export default function SbAuth({ open, view, onClose }: SbAuthProps) {
+export function SbAuth({ open, view, onClose }: SbAuthProps) {
   const [supabase] = useAtom(supabaseAtom);
   const { user } = useUserDetails();
   const [authView, setAuthView] = useState<ViewType>(view || "sign_in");

@@ -7,7 +7,7 @@ type HeroProps = {
   image: string;
 };
 
-const Hero: React.FC<HeroProps> = ({ title, subtitle, image }) => {
+export const Hero: React.FC<HeroProps> = ({ title, subtitle, image }) => {
   return (
     <div className="bg-gradient-to-r from-slate-950 to-slate-800 ">
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -25,6 +25,4 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, image }) => {
       </div>
     </div>
   );
-};
-
-export default Hero;
+}; 

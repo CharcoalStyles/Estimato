@@ -1,8 +1,7 @@
 import { render } from "../../utils/jest-utils";
 import { waitFor, within } from "../../utils/jest-utils";
 import "@testing-library/jest-dom";
-import SbAuth from "@/components/SbAuth";
-
+import { SbAuth } from "@/components";
 
 describe("Supabase Auth", () => {
   it("doesn't render the auth modal when not open", async () => {

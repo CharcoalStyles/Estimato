@@ -1,6 +1,6 @@
 import { render } from "../../utils/jest-utils";
 import "@testing-library/jest-dom";
-import SbAuth from "@/components/SbAuth";
+import { SbAuth } from "@/components";
 import { useUserDetails } from "../../../src/hooks/useUserDetails";
 
 jest.mock("../../../src/hooks/useUserDetails");
@@ -20,7 +20,7 @@ describe("Supabase Auth (with mocked data)", () => {
           created_at: "string",
         },
         error: null,
-        userData: [],
+        userData: undefined,
         isLoading: false,
         clear: jest.fn(),
         refetch: jest.fn(),

@@ -1,5 +1,6 @@
 import jestFetchMock from "jest-fetch-mock";
-import { useRouter } from "next/navigation";
+import { useRouter as navRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 jestFetchMock.enableMocks();
 
@@ -10,11 +11,10 @@ console.warn = (message: string) => {
   console.log("WARNING", message);
 };
 
-
 jest.mock("next/navigation");
-const mockUseRouter = useRouter as jest.MockedFunction<typeof useRouter>;
+const mockUseNavRouter = navRouter as jest.MockedFunction<typeof navRouter>;
 const mockPush = jest.fn();
-mockUseRouter.mockImplementation(() => {
+mockUseNavRouter.mockImplementation(() => {
   return {
     push: mockPush,
     back: jest.fn(),
@@ -25,3 +25,4 @@ mockUseRouter.mockImplementation(() => {
     refresh: jest.fn(),
   };
 });
+

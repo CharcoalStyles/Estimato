@@ -18,7 +18,7 @@ export type ButtonProps = Pick<
   noBorder?: boolean;
 };
 
-export const sizes: Array<ButtonProps["size"]> = ["small", "medium", "large"];
+export const buttonSizes: Array<ButtonProps["size"]> = ["small", "medium", "large"];
 
 const statusClasses: Record<
   Variants,

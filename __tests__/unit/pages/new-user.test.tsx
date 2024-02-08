@@ -15,7 +15,7 @@ describe("New User onboarding", () => {
       return {
         user: null,
         error: null,
-        userData: null,
+        userData: undefined,
         isLoading: false,
         clear: jest.fn(),
         refetch: jest.fn(),
@@ -44,7 +44,7 @@ describe("New User onboarding", () => {
           created_at: "string",
         },
         error: null,
-        userData: [],
+        userData: undefined,
         isLoading: false,
         clear: jest.fn(),
         refetch: jest.fn(),
@@ -80,14 +80,12 @@ describe("New User onboarding", () => {
           created_at: "string",
         },
         error: null,
-        userData: [
-          {
-            id: "string",
-            first_name: "Test",
-            last_name: "User",
-            email: "abc@abc.com",
-          },
-        ],
+        userData: {
+          id: "string",
+          first_name: "Test",
+          last_name: "User",
+          email: "abc@abc.com",
+        },
         isLoading: false,
         clear: jest.fn(),
         refetch: jest.fn(),

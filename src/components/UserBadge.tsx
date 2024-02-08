@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { useUserDetails } from "@/hooks/useUserDetails";
 import { useAtom } from "jotai";
 import { supabaseAtom } from "@/util/supabase";
+import { useRouter } from "next/navigation";
 // import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 export const UserBadge = () => {
@@ -13,15 +14,15 @@ export const UserBadge = () => {
   const { userData, refetch, clear } = useUserDetails();
 
   const [label, setLabel] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
-    if (userData && userData?.length > 0) {
-      setLabel(`${userData?.[0].first_name} ${userData?.[0].last_name}`);
+    if (userData) {
+      setLabel(`${userData.first_name} ${userData.last_name}`);
     } else {
       refetch();
     }
-  }
-  , [userData]);
+  }, [userData]);
 
   return (
     <div className="flex flex-col">
@@ -39,8 +40,16 @@ export const UserBadge = () => {
           className={clsx(
             "dropdown-menu absolute h-auto border border-slate-600 rounded-lg bg-black w-full py-2",
             menuOpen ? "block" : "hidden"
-          )}>
-          <Button label="Dashboard" fullWidth noBorder />
+          )}
+        >
+          <Button
+            label="Dashboard"
+            fullWidth
+            noBorder
+            onClick={() => {
+              router.push("/app/dashboard");
+            }}
+          />
           <Button
             label="Logout"
             fullWidth

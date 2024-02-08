@@ -1,38 +1,41 @@
 import { Database } from "@/util/schema";
-import { currentUserAtom, supabaseAtom /*getSupabase*/ } from "@/util/supabase";
+import { supabaseAtom } from "@/util/supabase";
 import { User } from "@supabase/supabase-js";
-// import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import {
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { useAtom } from "jotai";
-import { useRouter } from "next/navigation";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
+
+const userAtom = atom<User | null>(null);
+const userDataAtom = atom<Database["public"]["Tables"]["profiles"]["Row"] | null>(null);
 
 export const useUserDetails = () => {
   const [supabase] = useAtom(supabaseAtom);
   const queryClient = useQueryClient();
-  const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
-  const router = useRouter();
+  const [currentUser, setCurrentUser] = useAtom(userAtom);
+  const [userData, setUserData] = useAtom(userDataAtom);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (user === null) {
-        return;
-      }
-
-      setCurrentUser(user);
-      refetch();
-    });
+    if (currentUser === null) {
+      supabase.auth.getUser().then(({ data: { user } }) => {
+        if (user === null) {
+          return;
+        }
+        setCurrentUser(user);
+        refetch();
+      });
+    }
   }, []);
 
   const { data, error, isLoading, refetch } = useQuery({
     enabled: false,
     queryKey: ["userData", currentUser?.id ?? ""],
     queryFn: async () => {
+      if (userData) {
+        return userData;
+      }
+      
       if (currentUser === null) {
-        return [];
+        return null;
       }
 
       const { data, error: dbError } = await supabase
@@ -44,26 +47,9 @@ export const useUserDetails = () => {
         console.error("Error fetching records:", dbError);
         throw dbError;
       }
-      return data;
+      return data[0];
     },
   });
-
-  if (currentUser === null) {
-    return {
-      user: currentUser,
-      userData: null,
-      error,
-      isLoading: false,
-      refetch,
-      clear: () => {
-        setCurrentUser(null);
-      },
-    };
-  }
-
-  if (!isLoading && data === undefined) {
-    router.push("/new-user");
-  }
 
   return {
     user: currentUser,
@@ -72,8 +58,10 @@ export const useUserDetails = () => {
     isLoading,
     refetch,
     clear: () => {
-      queryClient.invalidateQueries({ queryKey: [currentUser.id] });
-      setCurrentUser(null);
+      if (currentUser) {
+        queryClient.invalidateQueries({ queryKey: [currentUser.id] });
+        setCurrentUser(null);
+      }
     },
   };
 };
