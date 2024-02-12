@@ -29,6 +29,7 @@ export const useUserProjects = () => {
       const { data, error: dbError } = await supabase
         .from("projects")
         .select("*")
+        .eq("user_id", user.id)
         .limit(10);
 
       if (dbError) {

@@ -5,12 +5,12 @@ import { SbAuth } from "@/components";
 
 describe("Supabase Auth", () => {
   it("doesn't render the auth modal when not open", async () => {
-    const page = render(<SbAuth open={false} view="sign_in" />);
+    const page = render(<SbAuth isOpen={false} view="sign_in" />);
     expect(page.queryByTestId("sb-auth-modal")).not.toBeInTheDocument();
   });
 
   it("shows the signup modal variant", async () => {
-    const page = render(<SbAuth open view="sign_up" />);
+    const page = render(<SbAuth isOpen view="sign_up" />);
 
     const sbAuthModal = page.getByTestId("sb-auth-modal");
 
@@ -22,7 +22,7 @@ describe("Supabase Auth", () => {
   });
 
   it("shows the login modal variant", async () => {
-    const page = render(<SbAuth open view="sign_in" />);
+    const page = render(<SbAuth isOpen view="sign_in" />);
 
     const sbAuthModal = page.getByTestId("sb-auth-modal");
 

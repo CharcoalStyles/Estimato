@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode } from "react";
+import React, { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { clsx } from "clsx";
 import { Variants } from "@/util/tailwind";
 
@@ -16,6 +16,10 @@ export type ButtonProps = Pick<
   fullWidth?: boolean;
   isActive?: boolean;
   noBorder?: boolean;
+  // import the button type from HTMLAttributes
+  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+
+
 };
 
 export const buttonSizes: Array<ButtonProps["size"]> = ["small", "medium", "large"];

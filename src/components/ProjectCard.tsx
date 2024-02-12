@@ -41,7 +41,7 @@ export const ProjectCard = ({
     <div
     data-testid={`projectCard-${title}`}
       className={clsx([
-        "flex flex-col justify-between p-4 m-2 transition-colors bg-transparent border-2 max-w-48 max-h-52 rounded-2xl",
+        "flex flex-col justify-between p-4 m-2 transition-colors bg-transparent border-2 max-w-48 max-h-52 rounded-2xl cursor-pointer",
         ...generateStyle(variant),
       ])}
       onClick={() => {

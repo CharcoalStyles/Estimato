@@ -1,7 +1,8 @@
 import { render, waitFor } from "../../../utils/jest-utils";
-import App from "../../../../src/pages/app/[...slug]";
+import App from "../../../../src/pages/app/dashboard";
 import "@testing-library/jest-dom";
 import { useUserProjects } from "../../../../src/hooks/useUserProjects";
+import exp from "constants";
 
 jest.mock("next/router", () => ({
   useRouter() {
@@ -53,9 +54,10 @@ describe("App/Dashboard", () => {
 
     const sidebar = page.getByTestId("sidebar");
     expect(sidebar).toBeInTheDocument();
-    expect(sidebar.children.length).toBe(2);
-    expect(sidebar.children[0].textContent).toBe("Dashboard");
-    expect(sidebar.children[1].textContent).toBe("Projects");
+    expect(sidebar.children.length).toBe(3);
+    expect(sidebar.children[0].textContent).toBe("Estomato");
+    expect(sidebar.children[1].textContent).toBe("Dashboard");
+    expect(sidebar.children[2].textContent).toBe("Projects");
   });
 
   it("renders the main page with loading state", async () => {

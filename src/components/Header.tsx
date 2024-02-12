@@ -53,7 +53,7 @@ export const Header = ({ children }: PropsWithChildren) => {
         </div>
       </div>
       <SbAuth
-        open={showAuth}
+        isOpen={showAuth}
         view={authView}
         onClose={() => {
           setShowAuth(false);
