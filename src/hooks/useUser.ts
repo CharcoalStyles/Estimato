@@ -1,16 +1,18 @@
-import { useUserDetails } from "./useUserDetails"
-import { useUserProjects } from "./useUserProjects";
+import { useUserDetails } from "./useUserDetails";
+import { useUserProjects, useUserProjectsProps } from "./useUserProjects";
 
-export const useUser = () => {
-  const {isLoading: detailsLoading, userData, error: detailsError} = useUserDetails();
-  const {isLoading: projectsLoading, data, error: projectsError} = useUserProjects();
+type useUserProps = useUserProjectsProps;
+
+export const useUser = (props?: useUserProps) => {
+  const userDetails = useUserDetails();
+  const userProjects = useUserProjects({
+    limit: props?.limit,
+  });
 
   return {
-    isLoading: detailsLoading || projectsLoading,
-    isDetailsLoading: detailsLoading,
-    isProjectsLoading: projectsLoading,
-    userDetails: userData,
-    userProjects: data,
-    error: detailsError || projectsError
-  }
-}
+    isLoading: userDetails.isLoading || userProjects.isLoading,
+    userDetails,
+    userProjects,
+    error: userDetails.error || userProjects.error,
+  };
+};

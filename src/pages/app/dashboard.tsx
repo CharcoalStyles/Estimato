@@ -2,25 +2,26 @@ import { AppLayout } from "@/components/AppLayout";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Text } from "@/components/ui";
 import { useUser } from "@/hooks/useUser";
-import { useUserDetails } from "@/hooks/useUserDetails";
-import { useUserProjects } from "@/hooks/useUserProjects";
 import { useRouter } from "next/router";
 
 export default function DashboardPage() {
-  const { isDetailsLoading, isLoading, userDetails, userProjects } = useUser();
+  const {
+    isLoading,
+    userDetails: { userData, isLoading: userLoading },
+    userProjects, 
+  } = useUser({limit: 5});
   const router = useRouter();
 
   return (
     <AppLayout
       openSidebarItem="dashboard"
-      pageTitle={
-        isDetailsLoading ? "Hello!" : `Hello, ${userDetails?.first_name}!`
-      }
-      subtitle="What have you been working on?">
+      pageTitle={(userLoading || userData === null) ? "Hello!" : `Hello, ${userData.first_name}!`}
+      subtitle="What have you been working on?"
+    >
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
-        <div className="flex flex-row">
+        <div className="flex flex-row flex-wrap">
           <ProjectCard
             title="New Project"
             variant="primary"
@@ -28,14 +29,14 @@ export default function DashboardPage() {
               router.push("/app/projects/new");
             }}
           />
-
-          {userProjects?.map(({ description, id, name }) => (
-            <ProjectCard
-              key={id}
-              title={name}
-              description={description ? description : undefined}
-            />
-          ))}
+          {userProjects &&
+            userProjects.data?.map(({ description, id, name }) => (
+              <ProjectCard
+                key={id}
+                title={name}
+                description={description ? description : undefined}
+              />
+            ))}
         </div>
       )}
     </AppLayout>

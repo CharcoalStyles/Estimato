@@ -4,7 +4,12 @@ import { useAtom } from "jotai";
 import { useUserDetails } from "./useUserDetails";
 import { useEffect } from "react";
 
-export const useUserProjects = () => {
+export type useUserProjectsProps = {
+  limit? : number;
+}
+
+export const useUserProjects = (props?: useUserProjectsProps) => {
+  const limit = props?.limit ?? 10;
   const [supabase] = useAtom(supabaseAtom);
   const queryClient = useQueryClient();
   const { user } = useUserDetails();
@@ -29,8 +34,9 @@ export const useUserProjects = () => {
       const { data, error: dbError } = await supabase
         .from("projects")
         .select("*")
+        .order("created_at", { ascending: false })
         .eq("user_id", user.id)
-        .limit(10);
+        .limit(limit);
 
       if (dbError) {
         console.error("Error fetching records:", dbError);
@@ -50,38 +56,3 @@ export const useUserProjects = () => {
     },
   };
 };
-
-// type UserDetailsReturn = {
-//   user: User;
-//   userData: [Database["public"]["Tables"]["profiles"]["Row"]];
-//   error: Error | null;
-//   isLoading: boolean;
-//   refetch: () => any;
-//   clear: () => void;
-// };
-
-// type MockUserDetails = Partial<{
-//   user: User;
-//   userData: Database["public"]["Tables"]["profiles"]["Row"] | null;
-//   error: Error | null;
-//   isLoading: boolean;
-//   refetch: () => any;
-//   clear: () => void;
-// }>;
-
-// export const createMockUserDetails = ({
-//   user,
-//   userData,
-//   error,
-//   isLoading,
-//   refetch,
-//   clear,
-// }: MockUserDetails) =>
-//   ({
-//     user,
-//     userData: userData ? [userData] : [],
-//     error,
-//     isLoading,
-//     refetch,
-//     clear,
-//   } as UserDetailsReturn);

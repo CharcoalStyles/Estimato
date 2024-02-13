@@ -1,39 +1,43 @@
 import { Text } from "@/components/ui";
 import clsx from "clsx";
-import { InputHTMLAttributes, useState } from "react";
+import { TextareaHTMLAttributes, useState } from "react";
 
-export type InputProps = {
+export type TextAreaProps = {
   label: string;
   placeholder?: string;
   value: string;
   onChange?: (e: string) => void;
   disabled?: boolean;
   showErrors?: boolean;
-} & Pick<InputHTMLAttributes<HTMLInputElement>, "type" | "required">;
+} & Pick<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  "cols" | "rows" | "required"
+>;
 
-export const Input = ({
+export const TextArea = ({
   label,
   disabled,
   value,
   onChange,
   placeholder,
-  type,
+  cols,
+  rows,
   required,
-  showErrors
-}: InputProps) => {
+  showErrors,
+}: TextAreaProps) => {
   return (
     <label>
       {label && <Text>{label}</Text>}
-      <input
+      <textarea
         className={clsx(
           "shadow appearance-none border font-body rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4",
-          showErrors && required && "invalid:bg-red-300",
+          showErrors && required && "invalid:bg-red-300"
         )}
-        type={type}
         value={value}
+        cols={cols}
+        rows={rows}
         disabled={disabled}
         placeholder={placeholder}
-        required={required}
         onChange={(e) => {
           onChange && onChange(e.target.value);
         }}

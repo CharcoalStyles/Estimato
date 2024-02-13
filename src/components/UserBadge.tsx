@@ -6,7 +6,6 @@ import { useUserDetails } from "@/hooks/useUserDetails";
 import { useAtom } from "jotai";
 import { supabaseAtom } from "@/util/supabase";
 import { useRouter } from "next/navigation";
-// import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 export const UserBadge = () => {
   const [supabase] = useAtom(supabaseAtom);
@@ -38,7 +37,7 @@ export const UserBadge = () => {
         />
         <div
           className={clsx(
-            "dropdown-menu absolute h-auto border border-slate-600 rounded-lg bg-black w-full py-2",
+            "dropdown-menu absolute h-auto border border-slate-600 bg-black w-full p-2",
             menuOpen ? "block" : "hidden"
           )}
         >

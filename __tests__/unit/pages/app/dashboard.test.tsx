@@ -60,23 +60,11 @@ describe("App/Dashboard", () => {
     expect(sidebar.children[2].textContent).toBe("Projects");
   });
 
-  it("renders the main page with loading state", async () => {
-    generateMockProjects(undefined, null, true);
-
-    const page = render(<App />);
-
-    expect(page).toBeDefined();
-
-    //expect "Recent Projects" to be in the document
-    expect(page.getByText("Recent Projects")).toBeInTheDocument();
-  });
-
   it("renders the loader when waiting for projects", async () => {
     const page = render(<App />);
 
     expect(page).toBeDefined();
 
-    //expect "Recent Projects" to be in the document
     expect(page.getByText("Loading...")).toBeInTheDocument();
   });
 
@@ -119,14 +107,14 @@ describe("App/Dashboard", () => {
 
     expect(page).toBeDefined();
     const projectCards = page.getAllByTestId("projectCard", {
-        normalizer: (id) => {
-          const x = id.split("-")[0];
-          return x;
-        },
-      });
-      expect(projectCards).toHaveLength(2);
-  
-      expect(projectCards[0]).toHaveTextContent("New Project");
-      expect(projectCards[1]).toHaveTextContent("Test Project");
+      normalizer: (id) => {
+        const x = id.split("-")[0];
+        return x;
+      },
+    });
+    expect(projectCards).toHaveLength(2);
+
+    expect(projectCards[0]).toHaveTextContent("New Project");
+    expect(projectCards[1]).toHaveTextContent("Test Project");
   });
 });

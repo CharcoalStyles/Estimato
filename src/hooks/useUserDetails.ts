@@ -6,7 +6,9 @@ import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
 
 const userAtom = atom<User | null>(null);
-const userDataAtom = atom<Database["public"]["Tables"]["profiles"]["Row"] | null>(null);
+const userDataAtom = atom<
+  Database["public"]["Tables"]["profiles"]["Row"] | null
+>(null);
 
 export const useUserDetails = () => {
   const [supabase] = useAtom(supabaseAtom);
@@ -21,23 +23,28 @@ export const useUserDetails = () => {
           return;
         }
         setCurrentUser(user);
-        refetch();
+        if (!isLoading) refetchUserData();
       });
     }
   }, []);
 
-  const { data, error, isLoading, refetch } = useQuery({
+  const { error, isLoading, refetch } = useQuery({
     enabled: false,
     queryKey: ["userData", currentUser?.id ?? ""],
     queryFn: async () => {
+      console.log("Fetching user data");
+      console.log({ currentUser });
       if (userData) {
         return userData;
       }
-      
+
+      console.log("is currentUser null");
+      console.log({ currentUser });
       if (currentUser === null) {
         return null;
       }
 
+      console.log("get user data");
       const { data, error: dbError } = await supabase
         .from("profiles")
         .select("*")
@@ -47,16 +54,24 @@ export const useUserDetails = () => {
         console.error("Error fetching records:", dbError);
         throw dbError;
       }
-      return data[0];
+      console.log({ data });
+      setUserData(data[0]);
+      return userData;
     },
   });
 
+  const refetchUserData = () => {
+    refetch().then(({ data }) => {
+      if (data) setUserData(data);
+    });
+  };
+
   return {
     user: currentUser,
-    userData: data,
+    userData,
     error,
     isLoading,
-    refetch,
+    refetch: refetchUserData,
     clear: () => {
       if (currentUser) {
         queryClient.invalidateQueries({ queryKey: [currentUser.id] });
