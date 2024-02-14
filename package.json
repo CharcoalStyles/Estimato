@@ -27,7 +27,7 @@
     "react-pure-modal": "^2.2.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
+    "@playwright/test": "^1.41.2",
     "@swc-jotai/react-refresh": "^0.1.0",
     "@types/jest": "^29.5.10",
     "@types/node": "^20",

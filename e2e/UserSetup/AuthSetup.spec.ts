@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import fs from "fs";
 
 async function gotoMail7(page: Page, emailAddress: string) {
   await page.goto("https://mail7.io/");
@@ -25,7 +26,21 @@ async function gotoMail7(page: Page, emailAddress: string) {
 
 test.describe("User Authentication", () => {
   const emailAddress = "est2e-" + Date.now();
+  //generate a random password with letters and numbers
+  const password = `${Math.random().toString(12).slice(4, 7)}Pa$$${Math.random()
+    .toString(12)
+    .slice(4, 7)}`;
+
   test.describe.configure({ mode: "serial" });
+
+  test.beforeAll(async () => {
+    console.log("beforeAll");
+    //write email addess and password to JSON file
+    fs.writeFileSync(
+      "e2e/UserSetup/auth.json",
+      JSON.stringify({ emailAddress, password })
+    );
+  });
 
   test("Generate Email", async ({ page }) => {
     await gotoMail7(page, emailAddress);
@@ -46,7 +61,7 @@ test.describe("User Authentication", () => {
       .fill(`${emailAddress}@mail7.io`);
 
     await page.getByPlaceholder("Your password").click();
-    await page.getByPlaceholder("Your password").fill("Password1234!");
+    await page.getByPlaceholder("Your password").fill(password);
 
     await page
       .getByTestId("sb-auth-modal")
@@ -77,7 +92,7 @@ test.describe("User Authentication", () => {
     expect(confirmUrl).not.toBeNull();
   });
 
-  test("New user flown", async ({ page, browserName }) => {
+  test("New user flow", async ({ page, browserName }) => {
     await page.goto(confirmUrl!);
 
     await page.waitForURL("/new-user");

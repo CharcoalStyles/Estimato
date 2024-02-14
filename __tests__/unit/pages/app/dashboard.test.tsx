@@ -1,8 +1,7 @@
-import { render, waitFor } from "../../../utils/jest-utils";
+import { render } from "../../../utils/jest-utils";
 import App from "../../../../src/pages/app/dashboard";
 import "@testing-library/jest-dom";
 import { useUserProjects } from "../../../../src/hooks/useUserProjects";
-import exp from "constants";
 
 jest.mock("next/router", () => ({
   useRouter() {

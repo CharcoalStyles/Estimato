@@ -14,7 +14,7 @@ const config = {
   testEnvironmentOptions: { ...x.parsed, html: true },
   coverageProvider: "v8",
   testEnvironment: "jsdom",
-  testPathIgnorePatterns: ["/node_modules/", "/.next/", "/cypress/"],
+  testPathIgnorePatterns: ["/node_modules/", "/.next/", "/cypress/", "<rootDir>/e2e/"],
   setupFilesAfterEnv: ["./jest.setup.ts"],
 };
 

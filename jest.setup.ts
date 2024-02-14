@@ -1,6 +1,5 @@
 import jestFetchMock from "jest-fetch-mock";
 import { useRouter as navRouter } from "next/navigation";
-import { useRouter } from "next/router";
 
 jestFetchMock.enableMocks();
 

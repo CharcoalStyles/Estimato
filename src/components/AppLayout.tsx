@@ -34,7 +34,8 @@ export const AppLayout = ({
     <div className="flex h-screen">
       <div
         data-testid="sidebar"
-        className="px-6 py-4 border-r-2 border-primary">
+        className="px-6 py-4 border-r-2 border-primary"
+      >
         <Text fontSize="3xl" fontType="heading" tag="h1" variant="primary">
           Estomato
         </Text>
@@ -45,7 +46,8 @@ export const AppLayout = ({
                 onHover
                 fontSize="xl"
                 fontType="heading"
-                variant={openSidebarItem === appPath ? "accent" : "base"}>
+                variant={openSidebarItem === appPath ? "accent" : "base"}
+              >
                 {title}
               </Text>
             </Link>
@@ -54,16 +56,15 @@ export const AppLayout = ({
       </div>
       <div data-testid="main" className="flex-grow p-4">
         <div className="flex flex-col">
-          <div className="mt-2">
+          <div data-testid={`content-heading`} className="mt-2">
             <Text fontSize="3xl" fontType="heading" variant="base">
               {pageTitle}
             </Text>
             <Text fontSize="xl" fontType="body" variant="base">
               {subtitle}
             </Text>
-
-            <div className="mt-4">{children}</div>
           </div>
+          <div className="mt-4">{children}</div>
         </div>
       </div>
     </div>

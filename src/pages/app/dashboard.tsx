@@ -35,6 +35,9 @@ export default function DashboardPage() {
                 key={id}
                 title={name}
                 description={description ? description : undefined}
+                onClick={() => {
+                  router.push(`/app/projects/${id}`);
+                }}
               />
             ))}
         </div>
