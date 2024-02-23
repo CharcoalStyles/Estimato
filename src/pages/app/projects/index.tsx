@@ -1,5 +1,4 @@
-import { ProjectCard } from "@/components";
-import { AppLayout } from "@/components/AppLayout";
+import { ProjectCard, AppLayout } from "@/components";
 import { Text } from "@/components/ui";
 import { useUserProjects } from "@/hooks/useUserProjects";
 import { useRouter } from "next/router";

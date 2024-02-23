@@ -1,5 +1,4 @@
-import { AppLayout } from "@/components/AppLayout";
-import { ProjectCard } from "@/components/ProjectCard";
+import { AppLayout, ProjectCard } from "@/components";
 import { Text } from "@/components/ui";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/router";
@@ -8,16 +7,19 @@ export default function DashboardPage() {
   const {
     isLoading,
     userDetails: { userData, isLoading: userLoading },
-    userProjects, 
-  } = useUser({limit: 5});
+    userProjects,
+  } = useUser({ limit: 5 });
   const router = useRouter();
 
   return (
     <AppLayout
       openSidebarItem="dashboard"
-      pageTitle={(userLoading || userData === null) ? "Hello!" : `Hello, ${userData.first_name}!`}
-      subtitle="What have you been working on?"
-    >
+      pageTitle={
+        userLoading || userData === null
+          ? "Hello!"
+          : `Hello, ${userData.first_name}!`
+      }
+      subtitle="What have you been working on?">
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (

@@ -1,14 +1,8 @@
-import { AppLayout } from "@/components/AppLayout";
-import { ProjectForm } from "@/components/ProjectForm";
-import { Button, Text } from "@/components/ui";
-import { Checkbox } from "@/components/ui/Checkbox";
-import { Input } from "@/components/ui/Input";
-import { TextArea } from "@/components/ui/TextArea";
+import { AppLayout , ProjectForm } from "@/components";
 import { useUser } from "@/hooks/useUser";
 import { Database } from "@/util/schema";
 import { supabaseAtom } from "@/util/supabase";
 import { useAtom } from "jotai";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 type projectDetails = Pick<

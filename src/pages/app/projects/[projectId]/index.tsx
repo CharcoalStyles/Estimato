@@ -1,4 +1,4 @@
-import { AppLayout } from "@/components/AppLayout";
+import { AppLayout } from "@/components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button, Modal, Text } from "@/components/ui";
