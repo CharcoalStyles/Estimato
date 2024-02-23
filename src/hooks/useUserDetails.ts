@@ -32,19 +32,14 @@ export const useUserDetails = () => {
     enabled: false,
     queryKey: ["userData", currentUser?.id ?? ""],
     queryFn: async () => {
-      console.log("Fetching user data");
-      console.log({ currentUser });
       if (userData) {
         return userData;
       }
 
-      console.log("is currentUser null");
-      console.log({ currentUser });
       if (currentUser === null) {
         return null;
       }
 
-      console.log("get user data");
       const { data, error: dbError } = await supabase
         .from("profiles")
         .select("*")
@@ -54,7 +49,7 @@ export const useUserDetails = () => {
         console.error("Error fetching records:", dbError);
         throw dbError;
       }
-      console.log({ data });
+      
       setUserData(data[0]);
       return userData;
     },

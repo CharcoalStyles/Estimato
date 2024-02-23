@@ -16,13 +16,13 @@ export type ButtonProps = Pick<
   fullWidth?: boolean;
   isActive?: boolean;
   noBorder?: boolean;
-  // import the button type from HTMLAttributes
-  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+} & Pick<ButtonHTMLAttributes<HTMLButtonElement>, "disabled" | "type">;
 
-
-};
-
-export const buttonSizes: Array<ButtonProps["size"]> = ["small", "medium", "large"];
+export const buttonSizes: Array<ButtonProps["size"]> = [
+  "small",
+  "medium",
+  "large",
+];
 
 const statusClasses: Record<
   Variants,
@@ -105,6 +105,7 @@ export const Button = ({
   className,
   isActive = false,
   noBorder = false,
+  disabled,
 }: ButtonProps) => {
   const getButtonSizeClasses = () => {
     switch (size) {
@@ -131,7 +132,7 @@ export const Button = ({
     const {
       bgActiveColour,
       bgActiveHoverColour,
-      bgColour, 
+      bgColour,
       bgHoverColour,
       borderColour,
     } = statusClasses[variant];
@@ -154,6 +155,7 @@ export const Button = ({
 
   return (
     <button
+      disabled={disabled}
       className={clsx([
         "inline-flex items-center h-min justify-center rounded-md font-body transition-all duration-200",
         noBorder ? "" : "border",
