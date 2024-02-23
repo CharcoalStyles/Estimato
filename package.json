@@ -24,7 +24,7 @@
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
-    "react-pure-modal": "^2.2.5"
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.41.2",
@@ -33,6 +33,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-modal": "^3.16.3",
     "autoprefixer": "^10.0.1",
     "aws-cdk-lib": "2.110.1",
     "constructs": "10.3.0",
