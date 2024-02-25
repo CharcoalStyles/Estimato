@@ -16,6 +16,7 @@ export type ButtonProps = Pick<
   fullWidth?: boolean;
   isActive?: boolean;
   noBorder?: boolean;
+  "data-testid"?: string;
 } & Pick<ButtonHTMLAttributes<HTMLButtonElement>, "disabled" | "type">;
 
 export const buttonSizes: Array<ButtonProps["size"]> = [
@@ -106,6 +107,7 @@ export const Button = ({
   isActive = false,
   noBorder = false,
   disabled,
+  "data-testid": dataTestId,
 }: ButtonProps) => {
   const getButtonSizeClasses = () => {
     switch (size) {
@@ -152,9 +154,10 @@ export const Button = ({
       return iconPosition === "left" ? "mr-2" : "ml-2";
     }
   };
-
+  
   return (
     <button
+      data-testid={dataTestId}
       disabled={disabled}
       className={clsx([
         "inline-flex items-center h-min justify-center rounded-md font-body transition-all duration-200",

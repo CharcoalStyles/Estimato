@@ -1,7 +1,6 @@
 import { render, waitFor } from "../../utils/jest-utils";
 import "@testing-library/jest-dom";
 import { ProjectCard } from "@/components";
-import exp from "constants";
 
 describe("Header", () => {
   it("renders the card", async () => {

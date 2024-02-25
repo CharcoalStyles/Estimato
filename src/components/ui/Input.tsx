@@ -9,6 +9,7 @@ export type InputProps = {
   onChange?: (e: string) => void;
   disabled?: boolean;
   showErrors?: boolean;
+  "data-testid"?: string;
 } & Pick<InputHTMLAttributes<HTMLInputElement>, "type" | "required">;
 
 export const Input = ({
@@ -19,12 +20,14 @@ export const Input = ({
   placeholder,
   type,
   required,
-  showErrors
+  showErrors,
+  "data-testid": dataTestId,
 }: InputProps) => {
   return (
     <label>
       {label && <Text>{label}</Text>}
       <input
+        data-testid={dataTestId}
         className={clsx(
           "shadow appearance-none border font-body rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4",
           showErrors && required && "invalid:bg-red-300",

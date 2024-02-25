@@ -9,6 +9,7 @@ type CheckboxProps = {
   checked: boolean;
   onChange: (e: boolean) => void;
   disabled?: boolean;
+  "data-testid"?: string;
 };
 
 export const Checkbox = ({
@@ -16,10 +17,12 @@ export const Checkbox = ({
   checked,
   onChange,
   disabled,
+  "data-testid": dataTestId,
 }: CheckboxProps) => {
   return (
-    <div  className="mb-4">
-      <label>
+    <div className="mb-4">
+      <label 
+          data-testid={dataTestId}>
         <Text>{label}</Text>
         <input
           type="checkbox"
@@ -33,13 +36,11 @@ export const Checkbox = ({
         <span
           className={`slider mr-3 flex h-[26px] w-[50px] items-center rounded-full p-1 duration-200 ${
             checked ? "bg-primary" : "bg-[#CCCCCE]"
-          }`}
-        >
+          }`}>
           <span
             className={`dot h-[18px] w-[18px] rounded-full bg-white duration-200 ${
               checked ? "translate-x-6" : ""
-            }`}
-          ></span>
+            }`}></span>
         </span>
       </label>
     </div>

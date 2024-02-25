@@ -9,6 +9,7 @@ export type TextAreaProps = {
   onChange?: (e: string) => void;
   disabled?: boolean;
   showErrors?: boolean;
+  "data-testid"?: string;
 } & Pick<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   "cols" | "rows" | "required"
@@ -24,11 +25,13 @@ export const TextArea = ({
   rows,
   required,
   showErrors,
+  "data-testid": dataTestId,
 }: TextAreaProps) => {
   return (
     <label>
       {label && <Text>{label}</Text>}
       <textarea
+        data-testid={dataTestId}
         className={clsx(
           "shadow appearance-none border font-body rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4",
           showErrors && required && "invalid:bg-red-300"

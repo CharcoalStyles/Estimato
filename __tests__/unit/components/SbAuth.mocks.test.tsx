@@ -20,7 +20,7 @@ describe("Supabase Auth (with mocked data)", () => {
           created_at: "string",
         },
         error: null,
-        userData: undefined,
+        userData: null,
         isLoading: false,
         clear: jest.fn(),
         refetch: jest.fn(),

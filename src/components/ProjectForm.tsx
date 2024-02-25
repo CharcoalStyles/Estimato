@@ -14,8 +14,9 @@ const nullProject: ProjectDetails = {
   public: false,
 };
 
-type ProjectFormProps = {
+export type ProjectFormProps = {
   projectDetails?: ProjectDetails;
+  onInvalid?: () => void;
   onSubmit: (project: ProjectDetails) => Promise<{
     error?: Error;
     redirect?: string;
@@ -27,6 +28,7 @@ export const ProjectForm = ({
   onSubmit,
   projectDetails = nullProject,
   onCancel,
+  onInvalid,
 }: ProjectFormProps) => {
   const router = useRouter();
   const [project, setProject] = useState<ProjectDetails>(projectDetails);
@@ -37,8 +39,12 @@ export const ProjectForm = ({
   return (
     <form
       className="w-1/2"
-      onInvalid={() => setHasFormError(true)}
+      onInvalid={() => {
+        onInvalid && onInvalid();
+        setHasFormError(true);
+      }}
       onSubmit={(e) => {
+        console.log("submitting");
         e.preventDefault();
         setIsSaving(true);
         onSubmit(project).then(({ error, redirect }) => {
@@ -51,6 +57,7 @@ export const ProjectForm = ({
         });
       }}>
       <Input
+      data-testid="projectForm-name"
         label="Project Name *"
         value={project.name}
         type="text"
@@ -65,6 +72,8 @@ export const ProjectForm = ({
         disabled={isSaving}
       />
       <TextArea
+
+data-testid="projectForm-description"
         label="Project Description"
         value={project.description}
         onChange={(v) =>
@@ -76,6 +85,7 @@ export const ProjectForm = ({
         disabled={isSaving}
       />
       <Checkbox
+        data-testid="projectForm-public"
         label="Make it public?"
         checked={project.public}
         onChange={(v) =>
@@ -89,14 +99,15 @@ export const ProjectForm = ({
 
       <div className="flex flex-row gap-2">
         <Button
-        variant="primary"
+          data-testid="projectForm-submit"
+          variant="primary"
           disabled={isSaving}
           label={isSaving ? "Submitting..." : "Submit"}
           type="submit"
         />
         {onCancel && (
           <Button
-          variant="secondary"
+            variant="secondary"
             disabled={isSaving}
             label={"Cancel"}
             type="button"
