@@ -32,6 +32,7 @@ export const useUserDetails = () => {
     enabled: false,
     queryKey: ["userData", currentUser?.id ?? ""],
     queryFn: async () => {
+      console.log("uUD - 1", { currentUser, userData });
       if (userData) {
         return userData;
       }
@@ -45,11 +46,22 @@ export const useUserDetails = () => {
         .select("*")
         .eq("id", currentUser.id);
 
+      console.log("uUD - 2", { data, dbError });
+
       if (dbError) {
         console.error("Error fetching records:", dbError);
         throw dbError;
       }
-      
+
+      if (data[0] === undefined) {
+        console.log("uUD - 3", "No user data found");
+        return {
+          first_name: null,
+          id: currentUser.id,
+          last_name: null,
+        };
+      }
+
       setUserData(data[0]);
       return userData;
     },

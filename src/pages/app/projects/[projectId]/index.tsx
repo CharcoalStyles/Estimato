@@ -1,4 +1,4 @@
-import { AppLayout } from "@/components";
+import { AppLayout, Loader } from "@/components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button, Modal, Text } from "@/components/ui";
@@ -30,7 +30,7 @@ export default function ProjectDetailsPage() {
       openSidebarItem="projects"
       pageTitle={isLoading ? "" : project.data!.name}>
       {isLoading ? (
-        <Text>Loading...</Text>
+        <Loader />
       ) : (
         <>
           <Modal
@@ -38,9 +38,12 @@ export default function ProjectDetailsPage() {
             onClose={() => {
               setIsDeleteOpen(false);
             }}>
-            <DeleteModalBody onClose={()=> {
-              setIsDeleteOpen(false);
-            }} projectId={project.data!.id} />
+            <DeleteModalBody
+              onClose={() => {
+                setIsDeleteOpen(false);
+              }}
+              projectId={project.data!.id}
+            />
           </Modal>
           <div className="flex mb-4 flex-row gap-2">
             <Button
@@ -62,7 +65,7 @@ export default function ProjectDetailsPage() {
           </div>
           <div className="flex flex-row flex-wrap">
             <div>
-              <Text>{project.data!.description}</Text>
+              <Text data-testid="description">{project.data!.description}</Text>
             </div>
           </div>
         </>
@@ -91,15 +94,19 @@ const DeleteModalBody = ({ onClose, projectId }: DeleteModalBodyProps) => {
           variant="primary"
           onClick={() => {
             setIsDeleting(true);
-            supabase.from("projects").delete().eq("id", projectId).then(({status, error}) => {
-              if (error) {
-                console.error(error);
-              }
+            supabase
+              .from("projects")
+              .delete()
+              .eq("id", projectId)
+              .then(({ status, error }) => {
+                if (error) {
+                  console.error(error);
+                }
 
-              if (status === 204) {
-                router.push("/app/projects");
-              }
-            });
+                if (status === 204) {
+                  router.push("/app/projects");
+                }
+              });
           }}
         />
         <Button

@@ -57,10 +57,10 @@ export const AppLayout = ({
       <div data-testid="main" className="flex-grow p-4">
         <div className="flex flex-col">
           <div data-testid={`content-heading`} className="mt-2">
-            <Text fontSize="3xl" fontType="heading" variant="base">
+            <Text data-testid="layout-title" fontSize="3xl" fontType="heading" variant="base">
               {pageTitle}
             </Text>
-            <Text fontSize="xl" fontType="body" variant="base">
+            <Text data-testid="layout-subtitle" fontSize="xl" fontType="body" variant="base">
               {subtitle}
             </Text>
           </div>

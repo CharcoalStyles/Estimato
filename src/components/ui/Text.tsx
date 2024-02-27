@@ -8,6 +8,7 @@ type TextProps = {
   variant?: "base" | "primary" | "secondary" | "accent" | "success" | "danger";
   onHover?: boolean;
   closeLines?: boolean;
+  "data-testid"?: string;
 };
 
 export const textSizes: Array<TextProps["fontSize"]> = [
@@ -39,6 +40,7 @@ export const Text = ({
   closeLines=false,
   variant,
   children,
+  "data-testid": dataTestId,
 }: PropsWithChildren<TextProps>) => {
   const className = useMemo(() => {
     const colour = () => {
@@ -96,19 +98,18 @@ export const Text = ({
 
   switch (tag) {
     case "h1":
-      return <h1 className={className}>{children}</h1>;
+      return <h1 data-testid={dataTestId} className={className}>{children}</h1>;
     case "h2":
-      return <h2 className={className}>{children}</h2>;
+      return <h2 data-testid={dataTestId} className={className}>{children}</h2>;
     case "h3":
-      return <h3 className={className}>{children}</h3>;
+      return <h3 data-testid={dataTestId} className={className}>{children}</h3>;
     case "h4":
-      return <h4 className={className}>{children}</h4>;
+      return <h4 data-testid={dataTestId} className={className}>{children}</h4>;
     case "h5":
-      return <h5 className={className}>{children}</h5>;
+      return <h5 data-testid={dataTestId} className={className}>{children}</h5>;
     case "h6":
-      return <h6 className={className}>{children}</h6>;
+      return <h6 data-testid={dataTestId} className={className}>{children}</h6>;
     default:
-      return <p className={className}>{children}</p>;
+      return <p data-testid={dataTestId} className={className}>{children}</p>;
   }
-  return <p className="text-">{children}</p>;
 };

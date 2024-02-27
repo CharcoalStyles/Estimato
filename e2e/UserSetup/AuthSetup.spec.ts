@@ -25,24 +25,21 @@ async function gotoMail7(page: Page, emailAddress: string) {
 }
 
 test.describe("User Authentication", () => {
-  const emailAddress = "est2e-" + Date.now();
-  //generate a random password with letters and numbers
-  const password = `${Math.random().toString(12).slice(4, 7)}Pa$$${Math.random()
-    .toString(12)
-    .slice(4, 7)}`;
+  const date = Date.now().toString().slice(4);
+  const random = Math.random().toString(12);
+  let emailAddress = `est2e-${date}-${random .slice(4, 7)}`;
+    
+  const password = `${random.slice(1, 5)}Pa$$${random.slice(2, 9)}`;
 
   test.describe.configure({ mode: "serial" });
 
-  test.beforeAll(async () => {
-    console.log("beforeAll");
-    //write email addess and password to JSON file
-    fs.writeFileSync(
-      "e2e/UserSetup/auth.json",
-      JSON.stringify({ emailAddress, password })
-    );
-  });
+  let authFile = "";
 
-  test("Generate Email", async ({ page }) => {
+  test("Generate Email", async ({ page, browserName }) => {
+    console.log("generateEmail", browserName);
+
+    authFile = `playwright/.auth/${browserName}/auth.json`;
+
     await gotoMail7(page, emailAddress);
     expect(await page.getByRole("textbox").inputValue()).toBe(
       emailAddress + "@mail7.io"
@@ -53,7 +50,7 @@ test.describe("User Authentication", () => {
     await page.goto("/");
     await page.getByRole("button", { name: "Sign up" }).click();
 
-    await expect(page.locator(".pure-modal")).toBeVisible();
+    await expect(page.getByTestId("auth-modal")).toBeVisible();
 
     await page.getByPlaceholder("Your email address").click();
     await page
@@ -95,7 +92,7 @@ test.describe("User Authentication", () => {
   test("New user flow", async ({ page, browserName }) => {
     await page.goto(confirmUrl!);
 
-    await page.waitForURL("/new-user");
+    await page.waitForURL(/\/new-user/);
 
     await page.getByTestId("firstNameInput").click();
     await page.getByTestId("firstNameInput").fill(browserName);
@@ -114,6 +111,8 @@ test.describe("User Authentication", () => {
       })
     ).toBeVisible();
 
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(100);
+
+    await page.context().storageState({ path: authFile });
   });
 });

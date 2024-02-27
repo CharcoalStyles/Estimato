@@ -48,7 +48,7 @@ export const ProjectCard = ({
         onClick && onClick();
       }}
     >
-      <div className="pb-2">
+      <div data-testid="heading" className="pb-2">
         <Text fontType="heading" fontSize="xl" closeLines>
           {title}
         </Text>
@@ -56,7 +56,7 @@ export const ProjectCard = ({
 
       <div className="flex-shrink">
         {description && (
-          <Text fontType="body" fontSize="base" closeLines>
+          <Text data-testid="description" fontType="body" fontSize="base" closeLines>
             {trimString(description || "", 100)}
           </Text>
         )}

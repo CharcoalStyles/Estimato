@@ -1,4 +1,4 @@
-import { AppLayout, ProjectCard } from "@/components";
+import { AppLayout, Loader, ProjectCard } from "@/components";
 import { Text } from "@/components/ui";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/router";
@@ -21,7 +21,7 @@ export default function DashboardPage() {
       }
       subtitle="What have you been working on?">
       {isLoading ? (
-        <Text>Loading...</Text>
+        <Loader />
       ) : (
         <div className="flex flex-row flex-wrap">
           <ProjectCard

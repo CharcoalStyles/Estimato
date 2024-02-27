@@ -1,3 +1,4 @@
+import { Loader } from "@/components";
 import {Text } from "@/components/ui";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -10,9 +11,7 @@ useEffect(() => {
 }, []);
 
   return (
-    <div>
-      <Text fontType="heading" fontSize="2xl">Loading...</Text>
-    </div>
+    <Loader />
   );
 };
 

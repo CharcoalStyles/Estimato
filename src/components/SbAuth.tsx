@@ -30,8 +30,11 @@ export function SbAuth({ isOpen, view, onClose }: SbAuthProps) {
   }
 
   if (!user) {
-    return isOpen? (
-      <Modal isOpen={isOpen} onClose={() => onClose && onClose()}>
+    return isOpen ? (
+      <Modal
+        data-testid="auth-modal"
+        isOpen={isOpen}
+        onClose={() => onClose && onClose()}>
         <>
           {authView === "sign_in" && (
             <Text>
@@ -55,7 +58,7 @@ export function SbAuth({ isOpen, view, onClose }: SbAuthProps) {
           </div>
         </>
       </Modal>
-    ): null;
+    ) : null;
   }
 }
 
@@ -67,6 +70,6 @@ const redirect = (authType: ViewType) => {
       return `${currentLocation}/app`;
     case "sign_up":
     default:
-      return `${currentLocation}/`;
+      return `${currentLocation}/new-user`;
   }
 };

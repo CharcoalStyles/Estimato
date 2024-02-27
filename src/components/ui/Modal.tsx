@@ -10,6 +10,7 @@ type SbAuthProps = {
   children: JSX.Element;
   className?: string | ReactModal.Classes;
   overLayClassName?: string | ReactModal.Classes;
+  "data-testid"?: string;
 };
 
 export function Modal({
@@ -18,9 +19,11 @@ export function Modal({
   children,
   className,
   overLayClassName,
+  "data-testid": testId,
 }: SbAuthProps) {
   return (
     <ReactModal
+      testId={testId}
       ariaHideApp={false}
       isOpen={isOpen}
       shouldCloseOnOverlayClick

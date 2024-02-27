@@ -1,4 +1,4 @@
-import { AppLayout, ProjectForm } from "@/components/";
+import { AppLayout, Loader, ProjectForm } from "@/components/";
 import { Text } from "@/components/ui";
 import { useProject } from "@/hooks/useProject";
 import { useUser } from "@/hooks/useUser";
@@ -50,7 +50,7 @@ export default function EditProject() {
       openSidebarItem="projects"
       pageTitle=" Edit Project"
       subtitle="Ooh, what's changed?">
-      {isLoading && <Text>Loading...</Text>}
+      {isLoading && <Loader />}
       {!isLoading && (
         <ProjectForm
           projectDetails={project}

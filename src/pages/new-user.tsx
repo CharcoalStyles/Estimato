@@ -18,25 +18,32 @@ const NewUserPage: React.FC = () => {
 
   useEffect(() => {
     if (error) {
+      console.warn("Error fetching user details:", error);
       router.push("/");
     }
   }, [error]);
 
   useEffect(() => {
+    console.log("n-u", isLoading, user, userData );
     if (!isLoading) {
       if (timeoutRef.current) {
+        console.log("n-u Clearing timeout");
         clearTimeout(timeoutRef.current);
       }
 
+      console.log("n-u New timeout");
       timeoutRef.current = setTimeout(() => {
+        console.log("n-u Run timeout");
         if (user === null) {
+          console.warn("No user found, redirecting to login");
           router.push("/");
         }
 
         if (userData) {
+          console.warn("User already has profile, redirecting to dashboard");
           router.push("/");
         }
-      }, 500);
+      }, 600);
     }
   }, [isLoading, user]);
 

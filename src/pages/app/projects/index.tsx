@@ -1,16 +1,16 @@
-import { ProjectCard, AppLayout } from "@/components";
-import { Text } from "@/components/ui";
+import { ProjectCard, AppLayout, Loader } from "@/components";
 import { useUserProjects } from "@/hooks/useUserProjects";
 import { useRouter } from "next/router";
 
 export default function DashboardPage() {
   const router = useRouter();
   const { isLoading, data } = useUserProjects();
+  console.log({ isLoading, data })
 
   return (
     <AppLayout openSidebarItem="projects" pageTitle="Your Projects">
-      {isLoading ? (
-        <Text>Loading...</Text>
+      {isLoading || data === undefined ? (
+        <Loader />
       ) : (
         <div className="flex flex-row flex-wrap">
           <ProjectCard
