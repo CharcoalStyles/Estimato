@@ -1,8 +1,17 @@
+import { Loader } from "@/components";
+import {Text } from "@/components/ui";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
 export const App = () => {
+const router = useRouter();
+
+useEffect(() => {
+  router.push("/app/dashboard");
+}, []);
+
   return (
-    <div className="h-screen bg-black">
-      <h1 className="text-white">App</h1>
-    </div>
+    <Loader />
   );
 };
 

@@ -3,14 +3,6 @@ import Home from "../../../src/pages/index";
 import "@testing-library/jest-dom";
 
 describe("Home", () => {
-  jest.mock("next/navigation", () => ({
-    useRouter() {
-      return {
-        prefetch: () => null,
-      };
-    },
-  }));
-
   it("renders the app title", async () => {
     const page = render(<Home />);
 

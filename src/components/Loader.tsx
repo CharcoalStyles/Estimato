@@ -16,9 +16,10 @@ const sizes = {
   "3xl": "h-24 w-24",
 };
 
-const Loader: React.FC<LoaderProps> = ({ size = "md", color = "accent" }) => {
+export const Loader: React.FC<LoaderProps> = ({ size = "md", color = "accent" }) => {
   return (
     <div
+      data-testid="loader"
       className={clsx(
         sizes[size],
         getTextColor(color),
@@ -32,4 +33,3 @@ const Loader: React.FC<LoaderProps> = ({ size = "md", color = "accent" }) => {
   );
 };
 
-export default Loader;

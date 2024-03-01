@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor, within } from "../../utils/jest-utils";
 import "@testing-library/jest-dom";
 import { useUserDetails } from "../../../src/hooks/useUserDetails";
-import { UserBadge } from "@/components/UserBadge";
+import { UserBadge } from "@/components";
 
 jest.mock("../../../src/hooks/useUserDetails");
 const mockUseUserDetails = useUserDetails as jest.MockedFunction<
@@ -22,14 +22,13 @@ describe("User Badge", () => {
           created_at: "string",
         },
         error: null,
-        userData: [
+        userData: 
           {
             id: "string",
             first_name: firstName,
             last_name: lastName,
             email: "abc@abc.com",
           },
-        ],
         isLoading: false,
         clear: jest.fn(),
         refetch: jest.fn(),
@@ -61,14 +60,13 @@ describe("User Badge", () => {
           created_at: "string",
         },
         error: null,
-        userData: [
+        userData: 
           {
             id: "string",
             first_name: firstName,
             last_name: lastName,
             email: "abc@abc.com",
           },
-        ],
         isLoading: false,
         clear: jest.fn(),
         refetch: jest.fn(),
