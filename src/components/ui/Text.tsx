@@ -5,10 +5,13 @@ type TextProps = {
   tag?: "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   fontSize?: "sm" | "base" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
   fontType?: "heading" | "body";
-  variant?: "primary" | "secondary" | "accent" | "success" | "danger";
+  variant?: "base" | "primary" | "secondary" | "accent" | "success" | "danger";
+  onHover?: boolean;
+  closeLines?: boolean;
+  "data-testid"?: string;
 };
 
-export const sizes: Array<TextProps["fontSize"]> = [
+export const textSizes: Array<TextProps["fontSize"]> = [
   "sm",
   "base",
   "xl",
@@ -33,24 +36,31 @@ export const Text = ({
   tag = "p",
   fontSize = "base",
   fontType = "body",
+  onHover = false,
+  closeLines=false,
   variant,
   children,
+  "data-testid": dataTestId,
 }: PropsWithChildren<TextProps>) => {
   const className = useMemo(() => {
     const colour = () => {
       switch (variant) {
         case "primary":
-          return "text-primary";
+          return `text-primary ${
+            onHover ? "hover:text-primary-highlight" : ""
+          }`;
         case "secondary":
-          return "text-secondary";
+          return `text-secondary ${
+            onHover ? "hover:text-secondary-highlight" : ""
+          }`;
         case "accent":
-          return "text-accent";
+          return `text-accent ${onHover ? "hover:text-accent-highlight" : ""}`;
         case "success":
-          return "text-green-500";
+          return `text-green-500 ${onHover ? "hover:text-green-600" : ""}`;
         case "danger":
-          return "text-red-500";
+          return `text-red-500 ${onHover ? "hover:text-red-600" : ""}`;
         default:
-          return "text-text";
+          return `text-text ${onHover ? "hover:text-slate-400" : ""}`;
       }
     };
     const size = () => {
@@ -80,25 +90,26 @@ export const Text = ({
       {
         "font-heading": fontType === "heading",
         "font-body": fontType === "body",
+        "hover:underline": onHover,
+        "leading-4": closeLines,
       },
     ]);
-  }, [fontSize, fontType, variant]);
+  }, [fontSize, fontType, variant, onHover]);
 
   switch (tag) {
     case "h1":
-      return <h1 className={className}>{children}</h1>;
+      return <h1 data-testid={dataTestId} className={className}>{children}</h1>;
     case "h2":
-      return <h2 className={className}>{children}</h2>;
+      return <h2 data-testid={dataTestId} className={className}>{children}</h2>;
     case "h3":
-      return <h3 className={className}>{children}</h3>;
+      return <h3 data-testid={dataTestId} className={className}>{children}</h3>;
     case "h4":
-      return <h4 className={className}>{children}</h4>;
+      return <h4 data-testid={dataTestId} className={className}>{children}</h4>;
     case "h5":
-      return <h5 className={className}>{children}</h5>;
+      return <h5 data-testid={dataTestId} className={className}>{children}</h5>;
     case "h6":
-      return <h6 className={className}>{children}</h6>;
+      return <h6 data-testid={dataTestId} className={className}>{children}</h6>;
     default:
-      return <p className={className}>{children}</p>;
+      return <p data-testid={dataTestId} className={className}>{children}</p>;
   }
-  return <p className="text-">{children}</p>;
 };

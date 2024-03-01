@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "@/components/ui/Text";
-import { Button } from "@/components/ui/Button";
+import { Button, Text } from "@/components/ui";
 import { useRouter } from "next/navigation";
 import { useUserDetails } from "@/hooks/useUserDetails";
 import { useQueryClient } from "@tanstack/react-query";
@@ -14,27 +13,35 @@ const NewUserPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [supabase] = useAtom(supabaseAtom);
   const { user, userData, isLoading, error, refetch } = useUserDetails();
+  const [ucOne, setUcOne] = useState(true);
 
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (error) {
+      console.warn("Error fetching user details:", error);
       router.push("/");
     }
   }, [error]);
 
   useEffect(() => {
     if (!isLoading) {
+      if (ucOne) {
+        setUcOne(false);
+        return;
+      }
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
 
       timeoutRef.current = setTimeout(() => {
         if (user === null) {
+          console.warn("No user found, redirecting to login");
           router.push("/");
         }
 
-        if (userData && userData?.length > 0) {
+        if (userData) {
+          console.warn("User already has profile, redirecting to dashboard");
           router.push("/");
         }
       }, 500);

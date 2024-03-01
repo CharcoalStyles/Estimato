@@ -1,4 +1,4 @@
-import { SupabaseClient, User, createClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 import { atom } from "jotai";
 import { Database } from "./schema";
 
@@ -14,4 +14,3 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
 const coreSupabaseAtom = atom(supabase);
 export const supabaseAtom = atom((get) => get(coreSupabaseAtom));
-export const currentUserAtom = atom<User | null>(null);

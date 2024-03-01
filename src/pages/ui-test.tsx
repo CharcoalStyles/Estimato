@@ -1,12 +1,12 @@
 import React from "react";
 import {
   Button,
-  sizes as bSizes,
+  buttonSizes as bSizes,
 } from "../components/ui/Button";
 import {
   Text,
   fontTypes,
-  sizes as tSizes,
+  textSizes as tSizes,
   variants as tVariants,
 } from "../components/ui/Text";
 

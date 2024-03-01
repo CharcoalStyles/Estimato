@@ -1,15 +1,14 @@
 import { render, waitFor } from "../../utils/jest-utils";
 import "@testing-library/jest-dom";
-import { Header } from "@/components/Header";
+import { Header } from "@/components";
 
 describe("Header", () => {
   it("renders the app title", async () => {
-    const page = render(<Header />);
+    const page = render(<Header>this is a test</Header>);
 
     expect(page).toBeDefined();
 
-    expect(page.getByText("Estomato")).toBeInTheDocument();
-    expect(page.getByText("Estomato")).toHaveClass("text-5xl");
+    expect(page.getByText("this is a test")).toBeInTheDocument();
   });
 
   it("renders the login buttons", async () => {

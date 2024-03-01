@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import fs from "fs";
 
 async function gotoMail7(page: Page, emailAddress: string) {
   await page.goto("https://mail7.io/");
@@ -24,10 +25,19 @@ async function gotoMail7(page: Page, emailAddress: string) {
 }
 
 test.describe("User Authentication", () => {
-  const emailAddress = "est2e-" + Date.now();
+  const date = Date.now().toString().slice(4);
+  const random = Math.random().toString(12);
+  let emailAddress = `est2e-${date}-${random .slice(4, 7)}`;
+    
+  const password = `${random.slice(1, 5)}Pa$$${random.slice(2, 9)}`;
+
   test.describe.configure({ mode: "serial" });
 
-  test("Generate Email", async ({ page }) => {
+  let authFile = "";
+
+  test("Generate Email", async ({ page, browserName }) => {
+    authFile = `playwright/.auth/${browserName}/auth.json`;
+
     await gotoMail7(page, emailAddress);
     expect(await page.getByRole("textbox").inputValue()).toBe(
       emailAddress + "@mail7.io"
@@ -38,7 +48,7 @@ test.describe("User Authentication", () => {
     await page.goto("/");
     await page.getByRole("button", { name: "Sign up" }).click();
 
-    await expect(page.locator(".pure-modal")).toBeVisible();
+    await expect(page.getByTestId("auth-modal")).toBeVisible();
 
     await page.getByPlaceholder("Your email address").click();
     await page
@@ -46,12 +56,14 @@ test.describe("User Authentication", () => {
       .fill(`${emailAddress}@mail7.io`);
 
     await page.getByPlaceholder("Your password").click();
-    await page.getByPlaceholder("Your password").fill("Password1234!");
+    await page.getByPlaceholder("Your password").fill(password);
 
     await page
       .getByTestId("sb-auth-modal")
       .getByRole("button", { name: "Sign up" })
       .click();
+    
+      await page.waitForTimeout(500);
 
     await expect(page.getByText("Check your email for the")).toBeVisible({
       timeout: 10000,
@@ -77,10 +89,11 @@ test.describe("User Authentication", () => {
     expect(confirmUrl).not.toBeNull();
   });
 
-  test("New user flown", async ({ page, browserName }) => {
+  test("New user flow", async ({ page, browserName }) => {
     await page.goto(confirmUrl!);
 
-    await page.waitForURL("/new-user");
+    await page.waitForURL(/\/new-user/, {waitUntil: "domcontentloaded"});
+    await page.waitForSelector('[data-testid="firstNameInput"]', {timeout: 10000});
 
     await page.getByTestId("firstNameInput").click();
     await page.getByTestId("firstNameInput").fill(browserName);
@@ -90,7 +103,7 @@ test.describe("User Authentication", () => {
 
     await page.getByRole("button", { name: "Submit" }).click();
 
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1500);
 
     expect(
       page.getByRole("button", {
@@ -99,6 +112,8 @@ test.describe("User Authentication", () => {
       })
     ).toBeVisible();
 
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(100);
+
+    await page.context().storageState({ path: authFile });
   });
 });

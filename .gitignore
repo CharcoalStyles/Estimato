@@ -49,3 +49,10 @@ next-env.d.ts
 
 # envrc
 .envrc
+
+# Keep the playwright auth directories
+playwright/.auth/chromium/*
+!playwright/.auth/chromium/.keepme
+
+playwright/.auth/webkit/*
+!playwright/.auth/webkit/.keepme

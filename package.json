@@ -6,6 +6,7 @@
     "dev": "sst bind next dev",
     "build": "next build",
     "start": "next start",
+    "static": "next build && next start",
     "lint": "next lint",
     "test:unit": "jest --testPathPattern=./__tests__/unit",
     "test:e2e": "playwright test",
@@ -24,15 +25,16 @@
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
-    "react-pure-modal": "^2.2.5"
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
+    "@playwright/test": "^1.41.2",
     "@swc-jotai/react-refresh": "^0.1.0",
     "@types/jest": "^29.5.10",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-modal": "^3.16.3",
     "autoprefixer": "^10.0.1",
     "aws-cdk-lib": "2.110.1",
     "constructs": "10.3.0",

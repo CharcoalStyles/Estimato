@@ -1,11 +1,9 @@
-import { Text } from "@/components/ui/Text";
-import { Button } from "@/components/ui/Button";
-import { useState } from "react";
+import { Button } from "@/components/ui";
+import { SbAuth, UserBadge } from "@/components";
+import React, { PropsWithChildren, useState } from "react";
 import { useUserDetails } from "@/hooks/useUserDetails";
-import { UserBadge } from "./UserBadge";
-import SbAuth from "./SbAuth";
 
-export const Header = () => {
+export const Header = ({ children }: PropsWithChildren) => {
   const [showAuth, setShowAuth] = useState(false);
   const [authView, setAuthView] = useState<"sign_in" | "sign_up">("sign_in");
   const { user, isLoading } = useUserDetails();
@@ -14,23 +12,20 @@ export const Header = () => {
     <>
       <div className="flex flex-row p-4">
         <div className="w-full flex items-center justify-between">
-          <a
-            className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-            href="#"
-          >
-            <Text fontSize="5xl" fontType="heading" tag="h1" variant="primary">
-              Estomato
-            </Text>
-          </a>
+          {children}
 
-          {isLoading ? <div data-testid="loading-fragment"></div> : (
+          {isLoading ? (
+            <div data-testid="loading-fragment"></div>
+          ) : (
             <div
               data-testid="auth-userbadge"
               className="flex w-1/2 justify-end content-center"
             >
-              {user ? (() => {
-                return <UserBadge />
-              })(): (
+              {user ? (
+                (() => {
+                  return <UserBadge />;
+                })()
+              ) : (
                 <>
                   <Button
                     variant="primary"
@@ -58,7 +53,7 @@ export const Header = () => {
         </div>
       </div>
       <SbAuth
-        open={showAuth}
+        isOpen={showAuth}
         view={authView}
         onClose={() => {
           setShowAuth(false);
@@ -67,3 +62,5 @@ export const Header = () => {
     </>
   );
 };
+
+export default Header;

@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode } from "react";
+import React, { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { clsx } from "clsx";
 import { Variants } from "@/util/tailwind";
 
@@ -16,9 +16,14 @@ export type ButtonProps = Pick<
   fullWidth?: boolean;
   isActive?: boolean;
   noBorder?: boolean;
-};
+  "data-testid"?: string;
+} & Pick<ButtonHTMLAttributes<HTMLButtonElement>, "disabled" | "type">;
 
-export const sizes: Array<ButtonProps["size"]> = ["small", "medium", "large"];
+export const buttonSizes: Array<ButtonProps["size"]> = [
+  "small",
+  "medium",
+  "large",
+];
 
 const statusClasses: Record<
   Variants,
@@ -101,6 +106,8 @@ export const Button = ({
   className,
   isActive = false,
   noBorder = false,
+  disabled,
+  "data-testid": dataTestId,
 }: ButtonProps) => {
   const getButtonSizeClasses = () => {
     switch (size) {
@@ -127,7 +134,7 @@ export const Button = ({
     const {
       bgActiveColour,
       bgActiveHoverColour,
-      bgColour, 
+      bgColour,
       bgHoverColour,
       borderColour,
     } = statusClasses[variant];
@@ -147,9 +154,11 @@ export const Button = ({
       return iconPosition === "left" ? "mr-2" : "ml-2";
     }
   };
-
+  
   return (
     <button
+      data-testid={dataTestId}
+      disabled={disabled}
       className={clsx([
         "inline-flex items-center h-min justify-center rounded-md font-body transition-all duration-200",
         noBorder ? "" : "border",
