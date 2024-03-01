@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 export default function DashboardPage() {
   const router = useRouter();
   const { isLoading, data } = useUserProjects();
-  console.log({ isLoading, data })
 
   return (
     <AppLayout openSidebarItem="projects" pageTitle="Your Projects">

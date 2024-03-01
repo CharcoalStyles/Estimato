@@ -13,6 +13,7 @@ const NewUserPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [supabase] = useAtom(supabaseAtom);
   const { user, userData, isLoading, error, refetch } = useUserDetails();
+  const [ucOne, setUcOne] = useState(true);
 
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
@@ -24,16 +25,16 @@ const NewUserPage: React.FC = () => {
   }, [error]);
 
   useEffect(() => {
-    console.log("n-u", isLoading, user, userData );
     if (!isLoading) {
+      if (ucOne) {
+        setUcOne(false);
+        return;
+      }
       if (timeoutRef.current) {
-        console.log("n-u Clearing timeout");
         clearTimeout(timeoutRef.current);
       }
 
-      console.log("n-u New timeout");
       timeoutRef.current = setTimeout(() => {
-        console.log("n-u Run timeout");
         if (user === null) {
           console.warn("No user found, redirecting to login");
           router.push("/");
@@ -43,7 +44,7 @@ const NewUserPage: React.FC = () => {
           console.warn("User already has profile, redirecting to dashboard");
           router.push("/");
         }
-      }, 600);
+      }, 500);
     }
   }, [isLoading, user]);
 

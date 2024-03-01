@@ -34,6 +34,7 @@ export default function ProjectDetailsPage() {
       ) : (
         <>
           <Modal
+          data-testid="deleteModal"
             isOpen={isDeleteOpen}
             onClose={() => {
               setIsDeleteOpen(false);

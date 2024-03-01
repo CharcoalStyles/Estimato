@@ -56,10 +56,12 @@ describe("App/Dashboard", () => {
 
     const sidebar = page.getByTestId("sidebar");
     expect(sidebar).toBeInTheDocument();
-    expect(sidebar.children.length).toBe(3);
-    expect(sidebar.children[0].textContent).toBe("Estomato");
-    expect(sidebar.children[1].textContent).toBe("Dashboard");
-    expect(sidebar.children[2].textContent).toBe("Projects");
+    expect(sidebar.children.length).toBe(2);
+
+    expect(sidebar.children[0].children[0].textContent).toBe("Estomato");
+    expect(sidebar.children[0].children[1].textContent).toBe("Dashboard");
+    expect(sidebar.children[0].children[2].textContent).toBe("Projects");
+
   });
 
   it("renders the loader when waiting for the project", async () => {

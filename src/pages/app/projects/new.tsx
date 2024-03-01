@@ -31,6 +31,7 @@ export default function NewProject() {
       subtitle="Tell me all about it!">
       <ProjectForm
         onSubmit={async (project) => {
+          console.warn({project, userData});
           if (userData) {
             try {
               const { error, status } = await supabase.from("projects").insert({

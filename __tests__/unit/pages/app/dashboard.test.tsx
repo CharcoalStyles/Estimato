@@ -1,7 +1,19 @@
 import { render } from "../../../utils/jest-utils";
 import App from "../../../../src/pages/app/dashboard";
 import "@testing-library/jest-dom";
+import { mockUser, generateMockProjects } from "../../../utils/mockGens";
+import { useUserDetails } from "../../../../src/hooks/useUserDetails";
 import { useUserProjects } from "../../../../src/hooks/useUserProjects";
+
+jest.mock(".../../../../src/hooks/useUserDetails");
+export const mockUseUserDetails = useUserDetails as jest.MockedFunction<
+  typeof useUserDetails
+>;
+
+jest.mock("../../../../src/hooks/useUserProjects");
+export const mockUseUserProjects = useUserProjects as jest.MockedFunction<
+  typeof useUserProjects
+>;
 
 jest.mock("next/router", () => ({
   useRouter() {
@@ -13,53 +25,62 @@ jest.mock("next/router", () => ({
   },
 }));
 
-jest.mock("../../../../src/hooks/useUserProjects");
-const mockUseUserProjects = useUserProjects as jest.MockedFunction<
-  typeof useUserProjects
->;
-
-const generateMockProjects = (
-  data:
-    | {
-        created_at: string;
-        description: string | null;
-        id: number;
-        name: string;
-        public: boolean;
-        user_id: string;
-      }[]
-    | null
-    | undefined = undefined,
-  error: Error | null = null,
-  isLoading: boolean = true
-) => {
-  mockUseUserProjects.mockImplementation(() => {
-    return {
-      data,
-      error,
-      isLoading,
-      clear: jest.fn(),
-      refetch: jest.fn(),
-    };
-  });
-};
-
 describe("App/Dashboard", () => {
   it("renders the sidebar", async () => {
-    generateMockProjects();
+    mockUseUserProjects.mockImplementation(() => {
+      return {
+        data: null,
+        error: null,
+        isLoading: false,
+        clear: jest.fn(),
+        refetch: jest.fn(),
+      };
+    });
+    mockUseUserDetails.mockImplementation(() => {
+      return {
+        user: mockUser(),
+        userData: {
+          first_name: "Test",
+          id: "1",
+          last_name: "User",
+        },
+        error: null,
+        isLoading: false,
+        refetch: jest.fn(),
+        clear: jest.fn(),
+      };
+    });
+
     const page = render(<App />);
 
     expect(page).toBeDefined();
 
     const sidebar = page.getByTestId("sidebar");
     expect(sidebar).toBeInTheDocument();
-    expect(sidebar.children.length).toBe(3);
-    expect(sidebar.children[0].textContent).toBe("Estomato");
-    expect(sidebar.children[1].textContent).toBe("Dashboard");
-    expect(sidebar.children[2].textContent).toBe("Projects");
+    expect(sidebar.children.length).toBe(2);
+
+    const upperSidebar = sidebar.children[0];
+
+    expect(upperSidebar.children[0].textContent).toBe("Estomato");
+    expect(upperSidebar.children[1].textContent).toBe("Dashboard");
+    expect(upperSidebar.children[2].textContent).toBe("Projects");
+
+    const miniUserBadge = page.getByTestId("miniUserBadge");
+    expect(miniUserBadge).toBeInTheDocument();
+    expect(miniUserBadge).toHaveTextContent("Test User");
   });
 
   it("renders the loader when waiting for projects", async () => {
+    mockUseUserProjects.mockImplementation(() => {
+      return {
+        data: null,
+        error: null,
+        isLoading: true,
+        clear: jest.fn(),
+        refetch: jest.fn(),
+      };
+    });
+
     const page = render(<App />);
 
     expect(page).toBeDefined();
@@ -68,7 +89,29 @@ describe("App/Dashboard", () => {
   });
 
   it("renders the main page (no Projects)", async () => {
-    generateMockProjects([], null, false);
+    mockUseUserProjects.mockImplementation(() => {
+      return {
+        data: null,
+        error: null,
+        isLoading: false,
+        clear: jest.fn(),
+        refetch: jest.fn(),
+      };
+    });
+    mockUseUserDetails.mockImplementation(() => {
+      return {
+        user: mockUser(),
+        userData: {
+          first_name: "Test",
+          id: "1",
+          last_name: "User",
+        },
+        error: null,
+        isLoading: false,
+        refetch: jest.fn(),
+        clear: jest.fn(),
+      };
+    });
 
     const page = render(<App />);
 
@@ -87,20 +130,37 @@ describe("App/Dashboard", () => {
   });
 
   it("renders the main page (Projects)", async () => {
-    generateMockProjects(
-      [
-        {
-          created_at: "now",
-          description: "This is a test project",
-          id: 1,
-          name: "Test Project",
-          public: true,
-          user_id: "1",
+   mockUseUserProjects.mockImplementation(() => {
+      return generateMockProjects({
+        data: [
+          {
+            created_at: "now",
+            description: "Test Project",
+            id: 1,
+            name: "Test Project",
+            user_id: "1",
+            public: false,
+          },
+        ],
+        error: null,
+        isLoading: false,
+      });
+    
+   });
+    mockUseUserDetails.mockImplementation(() => {
+      return {
+        user: mockUser(),
+        userData: {
+          first_name: "Test",
+          id: "1",
+          last_name: "User",
         },
-      ],
-      null,
-      false
-    );
+        error: null,
+        isLoading: false,
+        refetch: jest.fn(),
+        clear: jest.fn(),
+      };
+    });
 
     const page = render(<App />);
 

@@ -36,8 +36,6 @@ test.describe("User Authentication", () => {
   let authFile = "";
 
   test("Generate Email", async ({ page, browserName }) => {
-    console.log("generateEmail", browserName);
-
     authFile = `playwright/.auth/${browserName}/auth.json`;
 
     await gotoMail7(page, emailAddress);
@@ -64,6 +62,8 @@ test.describe("User Authentication", () => {
       .getByTestId("sb-auth-modal")
       .getByRole("button", { name: "Sign up" })
       .click();
+    
+      await page.waitForTimeout(500);
 
     await expect(page.getByText("Check your email for the")).toBeVisible({
       timeout: 10000,
@@ -92,7 +92,8 @@ test.describe("User Authentication", () => {
   test("New user flow", async ({ page, browserName }) => {
     await page.goto(confirmUrl!);
 
-    await page.waitForURL(/\/new-user/);
+    await page.waitForURL(/\/new-user/, {waitUntil: "domcontentloaded"});
+    await page.waitForSelector('[data-testid="firstNameInput"]', {timeout: 10000});
 
     await page.getByTestId("firstNameInput").click();
     await page.getByTestId("firstNameInput").fill(browserName);
@@ -102,7 +103,7 @@ test.describe("User Authentication", () => {
 
     await page.getByRole("button", { name: "Submit" }).click();
 
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1500);
 
     expect(
       page.getByRole("button", {

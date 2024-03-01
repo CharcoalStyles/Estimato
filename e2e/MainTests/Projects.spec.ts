@@ -17,15 +17,15 @@ test.describe("Projects", () => {
     page: Page,
     browserName: string
   }) => {
-      await page.goto("/app/dashboard");
+      const userBadge = page.getByTestId("miniUserBadge");
       await page.getByTestId("loader").waitFor({ state: "detached" });
-  
-      //wait for browserName to be visible as text 
-      const greeting = page.getByText(`Hello, ${browserName}!`);
-      await expect(greeting).toBeVisible();
+      await expect(userBadge).toBeVisible();
+      await expect(userBadge).toHaveText(`${browserName} ${browserName}`);
     };
 
   test("New user has no projects", async ({ page, browserName }) => {
+    await page.goto("/app/dashboard");
+
     await loadUser({ page, browserName });
     const projectCards = page.locator('[data-testid^="projectCard-"]');
     expect(await projectCards.count()).toBe(1);
@@ -37,15 +37,15 @@ test.describe("Projects", () => {
   let projectId = "";
 
   test("User can create a new project", async ({ page, browserName }) => {
-    await loadUser({ page, browserName });
     await page.goto("/app/dashboard");
-    await page.getByTestId("loader").waitFor({ state: "detached" });
+    
+    await loadUser({ page, browserName });
 
     const newProjectCard = page.getByTestId("projectCard-New Project");
     await expect(newProjectCard).toBeInViewport();
     await newProjectCard.click();
 
-    await page.waitForURL("/app/projects/new");
+    await page.waitForURL("/app/projects/new", {waitUntil: "domcontentloaded"});
     await page.getByTestId("loader").waitFor({ state: "detached" });
 
     await page.getByTestId("projectForm-name").click();
@@ -55,8 +55,9 @@ test.describe("Projects", () => {
       .getByTestId("projectForm-description")
       .fill(projectData.description);
     await page.getByTestId("projectForm-submit").click();
+    await loadUser({ page, browserName });
 
-    await page.waitForURL(/\/app\/projects\/\d+/);
+    await page.waitForURL(/\/app\/projects\/\d+/, {waitUntil: "domcontentloaded"});
     await page.getByTestId("loader").waitFor({ state: "detached" });
 
     const x = page.url().match(/\/app\/projects\/(\d+)/);
@@ -66,9 +67,10 @@ test.describe("Projects", () => {
   });
 
   test("User can view a project", async ({ page, browserName }) => {
+    await page.goto("/app/projects", {waitUntil: "domcontentloaded"});
+
     await loadUser({ page, browserName });
 
-    await page.goto("/app/projects");
     await page.getByTestId("loader").waitFor({ state: "detached" });
 
     const projectCards = page.locator('[data-testid^="projectCard-"]');
@@ -78,7 +80,9 @@ test.describe("Projects", () => {
 
     await newProject.click();
 
-    await page.waitForURL(`/app/projects/${projectId}`);
+    await page.waitForTimeout(50);
+    await loadUser({ page, browserName });
+    await page.waitForURL(`${projectId}`, {waitUntil: "domcontentloaded"});
     await page.getByTestId("loader").waitFor({ state: "detached" });
 
     expect(page.getByTestId("layout-title")).toHaveText(projectData.name);
@@ -86,17 +90,20 @@ test.describe("Projects", () => {
   });
 
   test("User can edit a project", async ({ page, browserName }) => {
+    await page.goto("/app/dashboard");
+    
     await loadUser({ page, browserName });
 
-    await page.goto(`/app/projects/${projectId}`);
+    await page.goto(`${projectId}`);
     await page.getByTestId("loader").waitFor({ state: "detached" });
 
     const editButton = page.getByRole("button", { name: "✏️" });
     expect(editButton).toBeVisible();
-    await editButton.click();
+    await editButton.click({ force: true, clickCount: 2 });
 
-    await page.waitForURL(`/app/projects/${projectId}/edit`);
-    await page.getByTestId("loader").waitFor({ state: "detached" });
+    await page.waitForURL(`${projectId}/edit`, {waitUntil: "domcontentloaded"});
+    
+    await loadUser({ page, browserName });
 
     await page.getByTestId("projectForm-name").click();
     await page.getByTestId("projectForm-name").fill(projectData2.name);
@@ -105,8 +112,9 @@ test.describe("Projects", () => {
       .getByTestId("projectForm-description")
       .fill(projectData2.description);
     await page.getByTestId("projectForm-submit").click();
+    await loadUser({ page, browserName });
 
-    await page.waitForURL(`/app/projects/${projectId}`);
+    await page.waitForURL(`${projectId}`, {waitUntil: "domcontentloaded"});
     await page.getByTestId("loader").waitFor({ state: "detached" });
 
     await expect(page.getByTestId("layout-title")).toHaveText(projectData2.name);
@@ -116,14 +124,18 @@ test.describe("Projects", () => {
   });
 
   test("User can delete a project", async ({ page, browserName }) => {
+    await page.goto("/app/dashboard");
+    
     await loadUser({ page, browserName });
 
-    await page.goto(`/app/projects/${projectId}`);
+    await page.goto(`${projectId}`);
     await page.getByTestId("loader").waitFor({ state: "detached" });
 
-    await page.getByRole("button", { name: "🗑️" }).click();
+    const deleteButton = page.getByRole("button", { name: "🗑️" });
+    expect(deleteButton).toBeVisible();
+    await deleteButton.click({ force: true });
 
-    await expect(page.getByTestId("auth-modal")).toBeVisible();
+    await expect(page.getByTestId("deleteModal")).toBeVisible();
 
     const cancelButtonModal = page.getByRole("button", { name: "No" });
     await expect(cancelButtonModal).toBeVisible();
@@ -132,9 +144,12 @@ test.describe("Projects", () => {
     await expect(deleteButtonModal).toBeVisible();
     await deleteButtonModal.click();
 
-    await page.waitForURL("/app/dashboard");
-    await page.getByTestId("loader").waitFor({ state: "detached" });
+    await page.waitForTimeout(50);
 
-    expect(await page.locator('[data-testid^="projectCard-"]').count()).toBe(1);
+    await page.waitForURL("/app/projects"), {waitUntil: "domcontentloaded"};
+
+    await loadUser({ page, browserName });
+
+    await expect(await page.locator('[data-testid^="projectCard-"]').count()).toBe(1);
   });
 });

@@ -44,7 +44,6 @@ export const ProjectForm = ({
         setHasFormError(true);
       }}
       onSubmit={(e) => {
-        console.log("submitting");
         e.preventDefault();
         setIsSaving(true);
         onSubmit(project).then(({ error, redirect }) => {
