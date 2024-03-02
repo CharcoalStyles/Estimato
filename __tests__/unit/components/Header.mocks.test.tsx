@@ -15,7 +15,7 @@ describe("Header (with mocks)", () => {
       return {
         user: null,
         error: null,
-        userData: undefined,
+        userData: null,
         isLoading: true,
         clear: jest.fn(),
         refetch: jest.fn(),

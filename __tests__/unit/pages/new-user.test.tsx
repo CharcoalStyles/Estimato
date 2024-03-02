@@ -31,8 +31,6 @@ describe("New User onboarding", () => {
     //wait for the loader to disappear
     await new Promise((r) => setTimeout(r, 1000));
 
-    console.log(useRouter().push)
-
     expect(useRouter().push).toHaveBeenCalledWith("/");
   });
 
