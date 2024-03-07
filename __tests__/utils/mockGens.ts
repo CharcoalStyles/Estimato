@@ -37,6 +37,7 @@ export const generateMockProjects = ({
           name: name ?? "Test Project",
           user_id: user_id ?? "1",
           public: rest.public ?? false,
+          tech:[]
         }))
       : null,
     ...rest,

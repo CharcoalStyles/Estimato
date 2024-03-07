@@ -24,7 +24,7 @@ export const TechIcon = ({
 
   return (
     <div className={whSize}>
-      {deviconCss && <i className={clsx(deviconCss, fontSize)} />}
+      {deviconCss && <i className={clsx(deviconCss, fontSize, "text-white")} />}
       {otherIcon && (
         <img
           className={clsx(whSize, "grayscale")}

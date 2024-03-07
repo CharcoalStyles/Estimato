@@ -1,4 +1,5 @@
 import { ProjectCard, AppLayout, Loader } from "@/components";
+import { Card } from "@/components/ui/Card";
 import { useUserProjects } from "@/hooks/useUserProjects";
 import { useRouter } from "next/router";
 
@@ -12,20 +13,19 @@ export default function DashboardPage() {
         <Loader />
       ) : (
         <div className="flex flex-row flex-wrap">
-          <ProjectCard
+          <Card
             title="New Project"
             variant="primary"
             onClick={() => {
               router.push("/app/projects/new");
             }}
           />
-          {data?.map(({ description, id, name }) => (
+          {data?.map((project) => (
             <ProjectCard
-              key={id}
-              title={name}
-              description={description ? description : undefined}
+            key={project.id}
+              project={project}
               onClick={() => {
-                router.push(`/app/projects/${id}`);
+                router.push(`/app/projects/${project.id}`);
               }}
             />
           ))}

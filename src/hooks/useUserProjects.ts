@@ -5,8 +5,8 @@ import { useUserDetails } from "./useUserDetails";
 import { useEffect } from "react";
 
 export type useUserProjectsProps = {
-  limit? : number;
-}
+  limit?: number;
+};
 
 export const useUserProjects = (props?: useUserProjectsProps) => {
   const limit = props?.limit ?? 10;
@@ -31,12 +31,14 @@ export const useUserProjects = (props?: useUserProjectsProps) => {
         return null;
       }
 
-      const { data, error: dbError } = await supabase
+      const { data, statusText, error: dbError } = await supabase
         .from("projects")
-        .select("*")
+        .select("*,tech (*)")
         .order("created_at", { ascending: false })
         .eq("user_id", user.id)
         .limit(limit);
+
+        console.log(statusText);
 
       if (dbError) {
         console.error("Error fetching records:", dbError);

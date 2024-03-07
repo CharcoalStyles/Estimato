@@ -118,7 +118,7 @@ describe("App/Dashboard", () => {
     expect(page).toBeDefined();
 
     //get all the project cards by using hte start of the data-testid
-    const projectCards = page.getAllByTestId("projectCard", {
+    const projectCards = page.getAllByTestId("card", {
       normalizer: (id) => {
         const x = id.split("-")[0];
         return x;
@@ -130,7 +130,7 @@ describe("App/Dashboard", () => {
   });
 
   it("renders the main page (Projects)", async () => {
-   mockUseUserProjects.mockImplementation(() => {
+    mockUseUserProjects.mockImplementation(() => {
       return generateMockProjects({
         data: [
           {
@@ -145,8 +145,7 @@ describe("App/Dashboard", () => {
         error: null,
         isLoading: false,
       });
-    
-   });
+    });
     mockUseUserDetails.mockImplementation(() => {
       return {
         user: mockUser(),
@@ -165,7 +164,7 @@ describe("App/Dashboard", () => {
     const page = render(<App />);
 
     expect(page).toBeDefined();
-    const projectCards = page.getAllByTestId("projectCard", {
+    const projectCards = page.getAllByTestId("card", {
       normalizer: (id) => {
         const x = id.split("-")[0];
         return x;
