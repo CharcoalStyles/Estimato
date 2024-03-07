@@ -70,6 +70,159 @@ export type Database = {
           }
         ]
       }
+      projectTech: {
+        Row: {
+          id: number
+          project_id: number
+          tech_id: number
+        }
+        Insert: {
+          id?: number
+          project_id: number
+          tech_id: number
+        }
+        Update: {
+          id?: number
+          project_id?: number
+          tech_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_projectTech_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_projectTech_tech_id_fkey"
+            columns: ["tech_id"]
+            isOneToOne: false
+            referencedRelation: "tech"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      tasks: {
+        Row: {
+          actual: number
+          created_at: string
+          description: string | null
+          estimation: number | null
+          id: number
+          name: string
+          notes: string | null
+          project_id: number | null
+          public: boolean
+          test_actual: number | null
+          test_estimation: number | null
+          user_id: string | null
+        }
+        Insert: {
+          actual: number
+          created_at?: string
+          description?: string | null
+          estimation?: number | null
+          id?: number
+          name: string
+          notes?: string | null
+          project_id?: number | null
+          public?: boolean
+          test_actual?: number | null
+          test_estimation?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          actual?: number
+          created_at?: string
+          description?: string | null
+          estimation?: number | null
+          id?: number
+          name?: string
+          notes?: string | null
+          project_id?: number | null
+          public?: boolean
+          test_actual?: number | null
+          test_estimation?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_Tasks_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_tasks_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      taskTech: {
+        Row: {
+          id: number
+          task_id: number
+          tech_id: number
+        }
+        Insert: {
+          id?: number
+          task_id: number
+          tech_id: number
+        }
+        Update: {
+          id?: number
+          task_id?: number
+          tech_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_taskTech_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_taskTech_tech_id_fkey"
+            columns: ["tech_id"]
+            isOneToOne: false
+            referencedRelation: "tech"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      tech: {
+        Row: {
+          created_at: string
+          "devicon-css": string | null
+          id: number
+          link: string
+          name: string
+          "other-icon": string | null
+        }
+        Insert: {
+          created_at?: string
+          "devicon-css"?: string | null
+          id?: number
+          link: string
+          name: string
+          "other-icon"?: string | null
+        }
+        Update: {
+          created_at?: string
+          "devicon-css"?: string | null
+          id?: number
+          link?: string
+          name?: string
+          "other-icon"?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,7 +1,7 @@
 import { AppProps } from "next/app";
-// import { getSupabase } from "../util/supabase";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import "./globals.css";
+import "devicon/devicon.min.css"
 import { ADLaM_Display, Jost } from "next/font/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useAtom } from "jotai";
