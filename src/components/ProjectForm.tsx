@@ -1,7 +1,12 @@
 import { Database } from "@/util/schema";
-import { Button, Checkbox, Input, TextArea } from "./ui";
+import { Button, Checkbox, Input, Text, TextArea } from "./ui";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useDebounce } from "use-debounce";
+import { useTech } from "@/hooks/useTech";
+import { TechIcon } from "./TechIcon";
+import clsx from "clsx";
+import { TechSearch } from "./TechSearch";
 
 type ProjectDetails = Pick<
   Database["public"]["Tables"]["projects"]["Row"],
@@ -32,7 +37,7 @@ export const ProjectForm = ({
 }: ProjectFormProps) => {
   const router = useRouter();
   const [project, setProject] = useState<ProjectDetails>(projectDetails);
-
+  
   const [hasFormError, setHasFormError] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -54,9 +59,10 @@ export const ProjectForm = ({
             router.push(redirect);
           }
         });
-      }}>
+      }}
+    >
       <Input
-      data-testid="projectForm-name"
+        data-testid="projectForm-name"
         label="Project Name *"
         value={project.name}
         type="text"
@@ -71,8 +77,7 @@ export const ProjectForm = ({
         disabled={isSaving}
       />
       <TextArea
-
-data-testid="projectForm-description"
+        data-testid="projectForm-description"
         label="Project Description"
         value={project.description}
         onChange={(v) =>
@@ -83,6 +88,9 @@ data-testid="projectForm-description"
         }
         disabled={isSaving}
       />
+
+      <TechSearch onSelect={() => {}} selectedTech={[]} />
+
       <Checkbox
         data-testid="projectForm-public"
         label="Make it public?"
