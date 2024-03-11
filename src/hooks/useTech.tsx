@@ -21,13 +21,13 @@ export const useTech = () => {
       const {
         data,
         error: dbError,
-      } = await supabase.from("tech").select("*").order("name")
+      } = await supabase.from("tech").select("*")
       if (dbError) {
         console.error("Error fetching records:", dbError);
         throw dbError;
       }
 
-      return data;
+      return data.sort((a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase())) as Tech[];
     },
   });
 

@@ -72,17 +72,14 @@ export type Database = {
       }
       projectTech: {
         Row: {
-          id: number
           project_id: number
           tech_id: number
         }
         Insert: {
-          id?: number
           project_id: number
           tech_id: number
         }
         Update: {
-          id?: number
           project_id?: number
           tech_id?: number
         }
@@ -228,7 +225,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_project_with_tech:
+        | {
+            Args: {
+              project_name: string
+              project_desc: string
+              project_public: boolean
+              tech_ids: number[]
+            }
+            Returns: undefined
+          }
+        | {
+            Args: {
+              project_name: string
+              project_desc: string
+              tech_ids: number[]
+            }
+            Returns: undefined
+          }
     }
     Enums: {
       [_ in never]: never

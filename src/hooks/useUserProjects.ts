@@ -38,8 +38,6 @@ export const useUserProjects = (props?: useUserProjectsProps) => {
         .eq("user_id", user.id)
         .limit(limit);
 
-        console.log(statusText);
-
       if (dbError) {
         console.error("Error fetching records:", dbError);
         throw dbError;

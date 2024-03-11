@@ -1,5 +1,4 @@
 import { AppLayout, Loader, ProjectForm } from "@/components/";
-import { Text } from "@/components/ui";
 import { useProject } from "@/hooks/useProject";
 import { useUser } from "@/hooks/useUser";
 import { Database } from "@/util/schema";
@@ -18,19 +17,22 @@ export default function EditProject() {
   const { data } = useProject(router.query.projectId as string);
 
   const [project, setProject] = useState<
-    projectDetails & { description: string }
+    projectDetails & {
+      description: string;
+      tech: Database["public"]["Tables"]["tech"]["Row"][];
+    }
   >({
     name: "",
     description: "",
     public: false,
+    tech: [],
   });
 
   useEffect(() => {
     if (data) {
       setProject({
-        name: data.name,
+        ...data,
         description: data.description ? data.description : "",
-        public: data.public,
       });
       setIsLoading(false);
     }
