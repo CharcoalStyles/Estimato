@@ -37,7 +37,7 @@ export const ProjectCard = ({
         <div className="flex flex-row flex-wrap gap-1 mt-2">
           {tech.map((tech) => (
             <div key={tech.id} className="flex-shrink">
-              <TechIcon size="sm" tech={tech} />
+              <TechIcon size="sm" tech={tech} variant="basic" />
             </div>
           ))}
         </div>
