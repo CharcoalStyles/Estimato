@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 export const useProject = (projectId?: string) => {
   const [supabase] = useAtom(supabaseAtom);
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["project", projectId],
     queryFn: async () => {
       if (!projectId) {
@@ -27,5 +27,5 @@ export const useProject = (projectId?: string) => {
 
   if (!projectId) return { data: undefined, isLoading: true };
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, refetch };
 };

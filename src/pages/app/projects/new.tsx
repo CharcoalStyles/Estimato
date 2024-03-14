@@ -1,14 +1,8 @@
 import { AppLayout, ProjectForm } from "@/components";
 import { useUser } from "@/hooks/useUser";
-import { Database } from "@/util/schema";
 import { supabaseAtom } from "@/util/supabase";
 import { useAtom } from "jotai";
-import { useState } from "react";
 
-type projectDetails = Pick<
-  Database["public"]["Tables"]["projects"]["Row"],
-  "description" | "name" | "public"
->;
 
 export default function NewProject() {
   const [supabase] = useAtom(supabaseAtom);
@@ -16,13 +10,6 @@ export default function NewProject() {
     userDetails: { userData },
     userProjects: { refetch },
   } = useUser();
-  const [project, setProject] = useState<
-    projectDetails & { description: string }
-  >({
-    name: "",
-    description: "",
-    public: false,
-  });
 
   return (
     <AppLayout

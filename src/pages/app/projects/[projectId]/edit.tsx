@@ -44,14 +44,12 @@ export default function EditProject() {
     userDetails: { userData },
   } = useUser();
 
-  const [hasFormError, setHasFormError] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-
   return (
     <AppLayout
       openSidebarItem="projects"
       pageTitle=" Edit Project"
-      subtitle="Ooh, what's changed?">
+      subtitle="Ooh, what's changed?"
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <ProjectForm
@@ -62,28 +60,39 @@ export default function EditProject() {
           onSubmit={async (project) => {
             if (userData) {
               try {
-                const { error, status } = await supabase
-                  .from("projects")
-                  .update({
-                    ...project,
-                  })
-                  .eq("id", data!.id);
+                //compare data!.tech to project.tech
+                const newTechIds = project.tech.map((t) => t.id);
+                const oldTechIds = data!.tech.map((t) => t.id);
+                const techIdsToAdd = newTechIds.filter(
+                  (id) => !oldTechIds.includes(id)
+                );
+                const techIdsToRemove = oldTechIds.filter(
+                  (id) => !newTechIds.includes(id)
+                );
+
+                let { error, status } = await supabase.rpc(
+                  "edit_project_with_tech",
+                  {
+                    var_project_id: data!.id,
+                    project_desc: project.description,
+                    project_name: project.name,
+                    project_public: project.public,
+                    // tech_ids: project.tech.map((t) => t.id),
+                    tech_ids_to_add: techIdsToAdd,
+                    tech_ids_to_remove: techIdsToRemove,
+                  }
+                );
+                if (error) throw error;
 
                 if (status === 204) {
-                  return { redirect: `/app/projects/${data!.id}` };
+                  return {
+                    redirect: `/app/projects/${
+                      router.query.projectId as string
+                    }`,
+                  };
                 }
-
-                return {
-                  error: new Error(
-                    error
-                      ? `${error.message}\n${error.hint}`
-                      : "Project not created"
-                  ),
-                };
               } catch (error) {
                 console.error("Error saving project", error);
-              } finally {
-                setIsSaving(false);
               }
             }
             return { error: new Error("User not found") };

@@ -225,24 +225,26 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      create_project_with_tech:
-        | {
-            Args: {
-              project_name: string
-              project_desc: string
-              project_public: boolean
-              tech_ids: number[]
-            }
-            Returns: undefined
-          }
-        | {
-            Args: {
-              project_name: string
-              project_desc: string
-              tech_ids: number[]
-            }
-            Returns: undefined
-          }
+      create_project_with_tech: {
+        Args: {
+          project_name: string
+          project_desc: string
+          project_public: boolean
+          tech_ids: number[]
+        }
+        Returns: undefined
+      }
+      edit_project_with_tech: {
+        Args: {
+          var_project_id: number
+          project_name: string
+          project_desc: string
+          project_public: boolean
+          tech_ids_to_add: number[]
+          tech_ids_to_remove: number[]
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
