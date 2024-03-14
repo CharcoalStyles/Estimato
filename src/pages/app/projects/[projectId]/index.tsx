@@ -5,6 +5,7 @@ import { Button, Modal, Text } from "@/components/ui";
 import { useProject } from "@/hooks/useProject";
 import { useAtom } from "jotai";
 import { supabaseAtom } from "@/util/supabase";
+import { TechIcon } from "@/components/TechIcon";
 
 export default function ProjectDetailsPage() {
   const router = useRouter();
@@ -28,17 +29,19 @@ export default function ProjectDetailsPage() {
   return (
     <AppLayout
       openSidebarItem="projects"
-      pageTitle={isLoading ? "" : project.data!.name}>
+      pageTitle={isLoading ? "" : project.data!.name}
+    >
       {isLoading ? (
         <Loader />
       ) : (
         <>
           <Modal
-          data-testid="deleteModal"
+            data-testid="deleteModal"
             isOpen={isDeleteOpen}
             onClose={() => {
               setIsDeleteOpen(false);
-            }}>
+            }}
+          >
             <DeleteModalBody
               onClose={() => {
                 setIsDeleteOpen(false);
@@ -46,27 +49,62 @@ export default function ProjectDetailsPage() {
               projectId={project.data!.id}
             />
           </Modal>
-          <div className="flex mb-4 flex-row gap-2">
-            <Button
-              size="small"
-              label="✏️"
-              variant="basic"
-              onClick={() => {
-                router.push(`/app/projects/${router.query.projectId}/edit`);
-              }}
-            />
-            <Button
-              size="small"
-              label="🗑️"
-              variant="black"
-              onClick={() => {
-                setIsDeleteOpen(true);
-              }}
-            />
-          </div>
-          <div className="flex flex-row flex-wrap">
-            <div>
-              <Text data-testid="description">{project.data!.description}</Text>
+          <div className="flex flex-row gap-4">
+            <div className="flex-1">
+              <div>
+                <Text data-testid="description">
+                  {project.data!.description}
+                </Text>
+              </div>
+            </div>
+
+            <div className="w-48 border-l pl-4">
+              <Text fontSize="xl" variant="secondary">
+                Tools
+              </Text>
+              <div className="flex mb-4 flex-col gap-2">
+                <Button
+                  size="small"
+                  fullWidth
+                  label="➕ New Ticket"
+                  variant="basic"
+                  onClick={() => {
+                    router.push(`/app/projects/${router.query.projectId}/edit`);
+                  }}
+                />
+                <hr />
+                <Button
+                  size="small"
+                  fullWidth
+                  label="✏️ Edit"
+                  variant="basic"
+                  onClick={() => {
+                    router.push(`/app/projects/${router.query.projectId}/edit`);
+                  }}
+                />
+                <Button
+                  size="small"
+                  fullWidth
+                  label="🗑️ Delete"
+                  variant="black"
+                  onClick={() => {
+                    setIsDeleteOpen(true);
+                  }}
+                />
+                h
+              </div>
+
+              <Text fontSize="xl" variant="secondary">
+                Tech
+              </Text>
+              <div className="flex mb-4 flex-col gap-2">
+                {project.data!.tech.map((t) => (
+                  <div key={t.id} className="flex flex-row items-center">
+                    <TechIcon tech={t} size="sm" className="text-white mr-2" />
+                    <Text>{t.name}</Text>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </>
