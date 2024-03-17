@@ -13,6 +13,12 @@ type TechIconProps = Pick<HTMLAttributes<HTMLDivElement>, "className"> & {
   onClick?: () => void;
 };
 
+const getSimpleIconName = (name: string) =>
+  name
+    .toLowerCase()
+    .replace(".", "dot")
+    .replace(/[^a-z]/g, "");
+
 export const TechIcon = ({
   tech: { name, "devicon-css": deviconCss, "other-icon": otherIcon },
   size = "md",
@@ -21,6 +27,7 @@ export const TechIcon = ({
   tooltip,
   variant,
 }: TechIconProps) => {
+
   const whSize = clsx(
     size === "sm" && "w-4 h-4",
     size === "md" && "w-8 h-8",
@@ -38,13 +45,19 @@ export const TechIcon = ({
       className={clsx(className, whSize, tooltip && "group relative")}
       onClick={() => {
         onClick && onClick();
-      }}>
+      }}
+    >
       {tooltip && (
         <div className="opacity-0 w-28 bg-black text-white font-body text-center border border-gray-600 rounded-lg absolute z-10 group-hover:opacity-100 bottom-full -left-10 pointer-events-none">
           {name}
         </div>
       )}
-      {deviconCss && (
+      <img
+        className={clsx(whSize, "grayscale")}
+        src={`https://cdn.simpleicons.org/${getSimpleIconName(name)}/ffffff`}
+        alt={`Icon for ${name}`}
+      />
+      {/* {deviconCss && (
         <div
           className={clsx(
             deviconCss,
@@ -59,7 +72,7 @@ export const TechIcon = ({
           src={otherIcon}
           alt={`Icon for ${name}`}
         />
-      )}
+      )} */}
     </div>
   );
 };
