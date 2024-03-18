@@ -1,5 +1,6 @@
 import { AppLayout, Loader, ProjectCard } from "@/components";
 import { Text } from "@/components/ui";
+import { Card } from "@/components/ui/Card";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/router";
 
@@ -19,12 +20,13 @@ export default function DashboardPage() {
           ? "Hello!"
           : `Hello, ${userData.first_name}!`
       }
-      subtitle="What have you been working on?">
+      subtitle="What have you been working on?"
+    >
       {isLoading ? (
         <Loader />
       ) : (
         <div className="flex flex-row flex-wrap">
-          <ProjectCard
+          <Card
             title="New Project"
             variant="primary"
             onClick={() => {
@@ -32,13 +34,12 @@ export default function DashboardPage() {
             }}
           />
           {userProjects &&
-            userProjects.data?.map(({ description, id, name }) => (
+            userProjects.data?.map((project) => (
               <ProjectCard
-                key={id}
-                title={name}
-                description={description ? description : undefined}
+                key={project.id}
+                project={project}
                 onClick={() => {
-                  router.push(`/app/projects/${id}`);
+                  router.push(`/app/projects/${project.id}`);
                 }}
               />
             ))}

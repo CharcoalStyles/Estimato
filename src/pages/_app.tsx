@@ -1,5 +1,4 @@
 import { AppProps } from "next/app";
-// import { getSupabase } from "../util/supabase";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import "./globals.css";
 import { ADLaM_Display, Jost } from "next/font/google";
