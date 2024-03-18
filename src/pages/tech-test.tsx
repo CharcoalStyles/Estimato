@@ -2,7 +2,6 @@ import { Loader } from "@/components";
 import { TechIcon } from "@/components/TechIcon";
 import { Database } from "@/util/schema";
 import { supabaseAtom } from "@/util/supabase";
-import clsx from "clsx";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
@@ -36,9 +35,7 @@ const TechTestPage: React.FC = () => {
       <div className="flex flex-row flex-wrap">
         {techs.map((tech) => {
           const {
-            link,
-            "devicon-css": deviconCss,
-            "other-icon": otherIcon,
+            link
           } = tech;
           return (
             <a

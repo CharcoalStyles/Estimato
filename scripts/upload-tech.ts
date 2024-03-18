@@ -24,11 +24,10 @@ if (!SUPABASE_USER_EMAIL || !SUPABASE_USER_PASSWORD) {
     email: SUPABASE_USER_EMAIL,
     password: SUPABASE_USER_PASSWORD,
   });
+  
   type Tech = {
     name: string;
     link: string;
-    "devicon-css"?: string;
-    "other-icon"?: string;
   };
 
   if (authError) {

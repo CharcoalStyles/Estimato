@@ -1,332 +1,57 @@
 [
-  {
-    "name": "React",
-    "link": "https://reactjs.org/",
-    "devicon-css": "devicon-react-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Node.js",
-    "link": "https://nodejs.org/",
-    "devicon-css": "devicon-nodejs-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Express",
-    "link": "https://expressjs.com/",
-    "devicon-css": "devicon-express-original",
-    "other-icon": ""
-  },
-  {
-    "name": "MongoDB",
-    "link": "https://www.mongodb.com/",
-    "devicon-css": "devicon-mongodb-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Mongoose",
-    "link": "https://mongoosejs.com/",
-    "devicon-css": "devicon-mongodb-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "PostgreSQL",
-    "link": "https://www.postgresql.org/",
-    "devicon-css": "devicon-postgresql-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Sequelize",
-    "link": "https://sequelize.org/",
-    "devicon-css": "devicon-sequelize-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Python",
-    "link": "https://www.python.org/",
-    "devicon-css": "devicon-python-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Flask",
-    "link": "https://flask.palletsprojects.com/",
-    "devicon-css": "devicon-flask-original",
-    "other-icon": ""
-  },
-  {
-    "name": "Django",
-    "link": "https://www.djangoproject.com/",
-    "devicon-css": "devicon-django-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Ruby",
-    "link": "https://www.ruby-lang.org/en/",
-    "devicon-css": "devicon-ruby-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Rails",
-    "link": "https://rubyonrails.org/",
-    "devicon-css": "devicon-rails-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Java",
-    "link": "https://www.java.com/",
-    "devicon-css": "devicon-java-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Spring",
-    "link": "https://spring.io/",
-    "devicon-css": "devicon-spring-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "C++",
-    "link": "https://isocpp.org/",
-    "devicon-css": "devicon-cplusplus-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "C#",
-    "link": "https://docs.microsoft.com/en-us/dotnet/csharp/",
-    "devicon-css": "devicon-csharp-plain",
-    "other-icon": ""
-  },
-  {
-    "name": ".NET",
-    "link": "https://dotnet.microsoft.com/",
-    "devicon-css": "devicon-dot-net-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Go",
-    "link": "https://golang.org/",
-    "devicon-css": "devicon-go-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Rust",
-    "link": "https://www.rust-lang.org/",
-    "devicon-css": "devicon-rust-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Swift",
-    "link": "https://developer.apple.com/swift/",
-    "devicon-css": "devicon-swift-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Kotlin",
-    "link": "https://kotlinlang.org/",
-    "devicon-css": "devicon-kotlin-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Dart",
-    "link": "https://dart.dev/",
-    "devicon-css": "devicon-dart-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Flutter",
-    "link": "https://flutter.dev/",
-    "devicon-css": "devicon-flutter-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Android",
-    "link": "https://developer.android.com/",
-    "devicon-css": "devicon-android-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "iOS",
-    "link": "https://developer.apple.com/ios/",
-    "devicon-css": "devicon-apple-original",
-    "other-icon": ""
-  },
-  {
-    "name": "Next.js",
-    "link": "https://nextjs.org/",
-    "devicon-css": "devicon-nextjs-original",
-    "other-icon": ""
-  },
-  {
-    "name": "Gatsby",
-    "link": "https://www.gatsbyjs.com/",
-    "devicon-css": "devicon-gatsby-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Nuxt.js",
-    "link": "https://nuxtjs.org/",
-    "devicon-css": "devicon-nuxtjs-original",
-    "other-icon": ""
-  },
-  {
-    "name": "Vue.js",
-    "link": "https://vuejs.org/",
-    "devicon-css": "devicon-vuejs-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Angular",
-    "link": "https://angular.io/",
-    "devicon-css": "devicon-angularjs-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Svelte",
-    "link": "https://svelte.dev/",
-    "devicon-css": "devicon-svelte-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Ember.js",
-    "link": "https://emberjs.com/",
-    "devicon-css": "devicon-ember-original",
-    "other-icon": ""
-  },
-  {
-    "name": "Backbone.js",
-    "link": "https://backbonejs.org/",
-    "devicon-css": "devicon-backbonejs-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Meteor",
-    "link": "https://www.meteor.com/",
-    "devicon-css": "devicon-meteor-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "jQuery",
-    "link": "https://jquery.com/",
-    "devicon-css": "devicon-jquery-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Bootstrap",
-    "link": "https://getbootstrap.com/",
-    "devicon-css": "devicon-bootstrap-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Tailwind CSS",
-    "link": "https://tailwindcss.com/",
-    "devicon-css": "devicon-tailwindcss-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Sass",
-    "link": "https://sass-lang.com/",
-    "devicon-css": "devicon-sass-original",
-    "other-icon": ""
-  },
-  {
-    "name": "Less",
-    "link": "http://lesscss.org/",
-    "devicon-css": "devicon-less-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Stylus",
-    "link": "https://stylus-lang.com/",
-    "devicon-css": "devicon-stylus-original",
-    "other-icon": ""
-  },
-  {
-    "name": "Supabase",
-    "link": "https://supabase.io/",
-    "devicon-css": "devicon-supabase-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "SST",
-    "link": "https://serverless-stack.com/",
-    "devicon-css": "",
-    "other-icon": "https://avatars.githubusercontent.com/u/66570915?s=128"
-  },
-  {
-    "name": "AWS",
-    "link": "https://aws.amazon.com/",
-    "devicon-css": "devicon-amazonwebservices-original",
-    "other-icon": ""
-  },
-  {
-    "name": "Azure",
-    "link": "https://azure.microsoft.com/",
-    "devicon-css": "devicon-azure-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "GCP",
-    "link": "https://cloud.google.com/",
-    "devicon-css": "devicon-google-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Firebase",
-    "link": "https://firebase.google.com/",
-    "devicon-css": "devicon-firebase-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Netlify",
-    "link": "https://www.netlify.com/",
-    "devicon-css": "devicon-netlify-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Vercel",
-    "link": "https://vercel.com/",
-    "devicon-css": "devicon-vercel-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Heroku",
-    "link": "https://www.heroku.com/",
-    "devicon-css": "devicon-heroku-original",
-    "other-icon": ""
-  },
-  {
-    "name": "Docker",
-    "link": "https://www.docker.com/",
-    "devicon-css": "devicon-docker-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Kubernetes",
-    "link": "https://kubernetes.io/",
-    "devicon-css": "devicon-kubernetes-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Jenkins",
-    "link": "https://www.jenkins.io/",
-    "devicon-css": "devicon-jenkins-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "Travis CI",
-    "link": "https://travis-ci.org/",
-    "devicon-css": "devicon-travis-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "CircleCI",
-    "link": "https://circleci.com/",
-    "devicon-css": "devicon-circleci-plain",
-    "other-icon": ""
-  },
-  {
-    "name": "GitHub Actions",
-    "link": "https://github.com/features/actions",
-    "devicon-css": "devicon-github-original",
-    "other-icon": ""
-  }
+  { "link": "https://reactjs.org/", "name": "React" },
+  { "link": "https://nodejs.org/", "name": "Node.js" },
+  { "link": "https://expressjs.com/", "name": "Express" },
+  { "link": "https://www.mongodb.com/", "name": "MongoDB" },
+  { "link": "https://mongoosejs.com/", "name": "Mongoose" },
+  { "link": "https://www.postgresql.org/", "name": "PostgreSQL" },
+  { "link": "https://sequelize.org/", "name": "Sequelize" },
+  { "link": "https://www.python.org/", "name": "Python" },
+  { "link": "https://flask.palletsprojects.com/", "name": "Flask" },
+  { "link": "https://www.djangoproject.com/", "name": "Django" },
+  { "link": "https://www.ruby-lang.org/en/", "name": "Ruby" },
+  { "link": "https://rubyonrails.org/", "name": "Rails" },
+  { "link": "https://www.java.com/", "name": "Java" },
+  { "link": "https://spring.io/", "name": "Spring" },
+  { "link": "https://isocpp.org/", "name": "C++" },
+  { "link": "https://docs.microsoft.com/en-us/dotnet/csharp/", "name": "C#" },
+  { "link": "https://dotnet.microsoft.com/", "name": ".NET" },
+  { "link": "https://golang.org/", "name": "Go" },
+  { "link": "https://www.rust-lang.org/", "name": "Rust" },
+  { "link": "https://developer.apple.com/swift/", "name": "Swift" },
+  { "link": "https://kotlinlang.org/", "name": "Kotlin" },
+  { "link": "https://dart.dev/", "name": "Dart" },
+  { "link": "https://flutter.dev/", "name": "Flutter" },
+  { "link": "https://developer.android.com/", "name": "Android" },
+  { "link": "https://developer.apple.com/ios/", "name": "iOS" },
+  { "link": "https://nextjs.org/", "name": "Next.js" },
+  { "link": "https://www.gatsbyjs.com/", "name": "Gatsby" },
+  { "link": "https://nuxtjs.org/", "name": "Nuxt.js" },
+  { "link": "https://vuejs.org/", "name": "Vue.js" },
+  { "link": "https://angular.io/", "name": "Angular" },
+  { "link": "https://svelte.dev/", "name": "Svelte" },
+  { "link": "https://emberjs.com/", "name": "Ember.js" },
+  { "link": "https://backbonejs.org/", "name": "Backbone.js" },
+  { "link": "https://www.meteor.com/", "name": "Meteor" },
+  { "link": "https://jquery.com/", "name": "jQuery" },
+  { "link": "https://getbootstrap.com/", "name": "Bootstrap" },
+  { "link": "https://tailwindcss.com/", "name": "Tailwind CSS" },
+  { "link": "https://sass-lang.com/", "name": "Sass" },
+  { "link": "http://lesscss.org/", "name": "Less" },
+  { "link": "https://stylus-lang.com/", "name": "Stylus" },
+  { "link": "https://supabase.io/", "name": "Supabase" },
+  { "link": "https://serverless-stack.com/", "name": "SST" },
+  { "link": "https://aws.amazon.com/s3", "name": "Amazon S3" },
+  { "link": "https://azure.microsoft.com/", "name": "Azure" },
+  { "link": "https://cloud.google.com/", "name": "GCP" },
+  { "link": "https://firebase.google.com/", "name": "Firebase" },
+  { "link": "https://www.netlify.com/", "name": "Netlify" },
+  { "link": "https://vercel.com/", "name": "Vercel" },
+  { "link": "https://www.heroku.com/", "name": "Heroku" },
+  { "link": "https://www.docker.com/", "name": "Docker" },
+  { "link": "https://kubernetes.io/", "name": "Kubernetes" },
+  { "link": "https://www.jenkins.io/", "name": "Jenkins" },
+  { "link": "https://travis-ci.org/", "name": "Travis CI" },
+  { "link": "https://circleci.com/", "name": "CircleCI" },
+  { "link": "https://github.com/features/actions", "name": "GitHub Actions" }
 ]

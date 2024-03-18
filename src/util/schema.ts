@@ -196,27 +196,21 @@ export type Database = {
       tech: {
         Row: {
           created_at: string
-          "devicon-css": string | null
           id: number
           link: string
           name: string
-          "other-icon": string | null
         }
         Insert: {
           created_at?: string
-          "devicon-css"?: string | null
           id?: number
           link: string
           name: string
-          "other-icon"?: string | null
         }
         Update: {
           created_at?: string
-          "devicon-css"?: string | null
           id?: number
           link?: string
           name?: string
-          "other-icon"?: string | null
         }
         Relationships: []
       }

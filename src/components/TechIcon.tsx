@@ -17,10 +17,12 @@ const getSimpleIconName = (name: string) =>
   name
     .toLowerCase()
     .replace(".", "dot")
-    .replace(/[^a-z]/g, "");
+    .replace("+", "plus")
+    .replace("#", "sharp")
+    .replace(/[^a-z0-9]/g, "");
 
 export const TechIcon = ({
-  tech: { name, "devicon-css": deviconCss, "other-icon": otherIcon },
+  tech: { name },
   size = "md",
   className,
   onClick,
@@ -57,22 +59,6 @@ export const TechIcon = ({
         src={`https://cdn.simpleicons.org/${getSimpleIconName(name)}/ffffff`}
         alt={`Icon for ${name}`}
       />
-      {/* {deviconCss && (
-        <div
-          className={clsx(
-            deviconCss,
-            fontSize,
-            variant ? getTextColor(variant) : ""
-          )}
-        />
-      )}
-      {otherIcon && (
-        <img
-          className={clsx(whSize, "grayscale")}
-          src={otherIcon}
-          alt={`Icon for ${name}`}
-        />
-      )} */}
     </div>
   );
 };
