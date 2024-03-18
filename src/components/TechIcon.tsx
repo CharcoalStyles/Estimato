@@ -16,9 +16,9 @@ type TechIconProps = Pick<HTMLAttributes<HTMLDivElement>, "className"> & {
 const getSimpleIconName = (name: string) =>
   name
     .toLowerCase()
-    .replace(".", "dot")
-    .replace("+", "plus")
-    .replace("#", "sharp")
+    .replace(/\./g, "dot")
+    .replace(/\+/g, "plus")
+    .replace(/\#/g, "sharp")
     .replace(/[^a-z0-9]/g, "");
 
 export const TechIcon = ({
