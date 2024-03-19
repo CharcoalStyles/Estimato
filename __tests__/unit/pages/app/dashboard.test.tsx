@@ -140,6 +140,7 @@ describe("App/Dashboard", () => {
             name: "Test Project",
             user_id: "1",
             public: false,
+            tech:[]
           },
         ],
         error: null,

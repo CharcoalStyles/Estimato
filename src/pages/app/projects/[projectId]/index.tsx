@@ -14,6 +14,8 @@ export default function ProjectDetailsPage() {
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
+  console.log(project);
+
   useEffect(() => {
     if (project && !project.isLoading) {
       const { error } = project;

@@ -1,7 +1,9 @@
 import { Database } from "@/util/schema";
 import { User } from "@supabase/supabase-js";
 
-type projectDetails = Database["public"]["Tables"]["projects"]["Row"];
+type projectDetails = Database["public"]["Tables"]["projects"]["Row"] & {
+  tech: Array<Database["public"]["Tables"]["tech"]["Row"]>;
+};
 
 export const mockUser = (user: Partial<User> | void): User => {
   const userData: User = {
@@ -37,7 +39,7 @@ export const generateMockProjects = ({
           name: name ?? "Test Project",
           user_id: user_id ?? "1",
           public: rest.public ?? false,
-          tech:[]
+          tech: [],
         }))
       : null,
     ...rest,
