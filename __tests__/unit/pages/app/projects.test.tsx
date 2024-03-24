@@ -1,5 +1,5 @@
 import { render } from "../../../utils/jest-utils";
-import Project from "../../../../src/pages/app/projects/[projectId]";
+import Project from "../../../../src/pages/app/project/[projectId]";
 import "@testing-library/jest-dom";
 import { useUserProjects } from "@/hooks/useUserProjects";
 import { generateMockProjects } from "../../../utils/mockGens";
@@ -110,7 +110,7 @@ describe("App/Dashboard", () => {
     expect(page.getByText("A project")).toBeInTheDocument();
   });
 
-  it.failing("Pushes the user back to /app/projects on error", async () => {
+  it.failing("Pushes the user back to /app/project on error", async () => {
     mockUseUserProjects.mockImplementation(() => {
       return generateMockProjects({
         data: [
@@ -131,6 +131,6 @@ describe("App/Dashboard", () => {
 
     const page = render(<Project />);
 
-    expect(routerPush).toHaveBeenCalledWith("/app/projects");
+    expect(routerPush).toHaveBeenCalledWith("/app/project");
   });
 });

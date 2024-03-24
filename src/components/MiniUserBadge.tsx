@@ -25,18 +25,18 @@ export const MiniUserBadge = () => {
     <div data-testid="miniUserBadge" className="flex flex-col">
       {menuOpen ? (
         <div className="flex flex-row space-x-2">
-        <Button
-          className="flex-grow"
-          label="Logout"
-          variant="danger"
-          noBorder
-          onClick={() => {
-            clear();
-            supabase.auth.signOut();
-            router;
-          }}
-        />
-        <Button
+          <Button
+            className="flex-grow"
+            label="Logout"
+            variant="danger"
+            noBorder
+            onClick={() => {
+              clear();
+              supabase.auth.signOut();
+              router;
+            }}
+          />
+          <Button
             className="flex-1"
             variant="accent"
             size="medium"
@@ -44,19 +44,19 @@ export const MiniUserBadge = () => {
             onClick={() => {
               setMenuOpen(!menuOpen);
             }}
-           />
-           </div>
-      ) : (
-          <Button
-            className="flex-1"
-            variant="accent"
-            size="medium"
-            label={label}
-            isActive={menuOpen}
-            onClick={() => {
-              setMenuOpen(!menuOpen);
-            }}
           />
+        </div>
+      ) : (
+        <Button
+          className="flex-1"
+          variant="accent"
+          size="medium"
+          label={label}
+          isActive={menuOpen}
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+          }}
+        />
       )}
     </div>
   );

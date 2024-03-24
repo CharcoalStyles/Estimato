@@ -6,6 +6,8 @@ import { useProject } from "@/hooks/useProject";
 import { useAtom } from "jotai";
 import { supabaseAtom } from "@/util/supabase";
 import { TechIcon } from "@/components/TechIcon";
+import { TaskCard } from "@/components/TaskCard";
+import { TaskList } from "@/components/TaskList";
 
 export default function ProjectDetailsPage() {
   const router = useRouter();
@@ -14,14 +16,12 @@ export default function ProjectDetailsPage() {
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  console.log(project);
-
   useEffect(() => {
     if (project && !project.isLoading) {
       const { error } = project;
 
       if (error) {
-        router.push("/app/projects");
+        router.push("/app/project");
       } else {
         setIsLoading(false);
       }
@@ -30,7 +30,7 @@ export default function ProjectDetailsPage() {
 
   return (
     <AppLayout
-      openSidebarItem="projects"
+      openSidebarItem="project"
       pageTitle={isLoading ? "" : project.data!.name}
     >
       {isLoading ? (
@@ -53,10 +53,13 @@ export default function ProjectDetailsPage() {
           </Modal>
           <div className="flex flex-row gap-4">
             <div className="flex-1">
-              <div>
+              <div className="flex flex-col">
                 <Text data-testid="description">
                   {project.data!.description}
                 </Text>
+                <div className="">
+                  <TaskList projectId={project.data!.id} />
+                </div>
               </div>
             </div>
 
@@ -71,7 +74,9 @@ export default function ProjectDetailsPage() {
                   label="➕ New Ticket"
                   variant="basic"
                   onClick={() => {
-                    router.push(`/app/projects/${router.query.projectId}/edit`);
+                    router.push(
+                      `/app/project/${router.query.projectId}/task/new`
+                    );
                   }}
                 />
                 <hr />
@@ -81,7 +86,7 @@ export default function ProjectDetailsPage() {
                   label="✏️ Edit"
                   variant="basic"
                   onClick={() => {
-                    router.push(`/app/projects/${router.query.projectId}/edit`);
+                    router.push(`/app/project/${router.query.projectId}/edit`);
                   }}
                 />
                 <Button
@@ -93,7 +98,6 @@ export default function ProjectDetailsPage() {
                     setIsDeleteOpen(true);
                   }}
                 />
-                h
               </div>
 
               <Text fontSize="xl" variant="secondary">
@@ -145,7 +149,7 @@ const DeleteModalBody = ({ onClose, projectId }: DeleteModalBodyProps) => {
                 }
 
                 if (status === 204) {
-                  router.push("/app/projects");
+                  router.push("/app/project");
                 }
               });
           }}

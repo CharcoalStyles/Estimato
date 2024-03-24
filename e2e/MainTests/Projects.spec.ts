@@ -45,7 +45,7 @@ test.describe("Projects", () => {
     await expect(newProjectCard).toBeInViewport();
     await newProjectCard.click();
 
-    await page.waitForURL("/app/projects/new", {waitUntil: "domcontentloaded"});
+    await page.waitForURL("/app/project/new", {waitUntil: "domcontentloaded"});
     await page.getByTestId("loader").waitFor({ state: "detached" });
 
     await page.getByTestId("projectForm-name").click();
@@ -57,17 +57,17 @@ test.describe("Projects", () => {
     await page.getByTestId("projectForm-submit").click();
     await loadUser({ page, browserName });
 
-    await page.waitForURL(/\/app\/projects\/\d+/, {waitUntil: "domcontentloaded"});
+    await page.waitForURL(/\/app\/project\/\d+/, {waitUntil: "domcontentloaded"});
     await page.getByTestId("loader").waitFor({ state: "detached" });
 
-    const x = page.url().match(/\/app\/projects\/(\d+)/);
+    const x = page.url().match(/\/app\/project\/(\d+)/);
     expect(x).not.toBeNull();
 
     projectId = x![0];
   });
 
   test("User can view a project", async ({ page, browserName }) => {
-    await page.goto("/app/projects", {waitUntil: "domcontentloaded"});
+    await page.goto("/app/project", {waitUntil: "domcontentloaded"});
 
     await loadUser({ page, browserName });
 
@@ -146,7 +146,7 @@ test.describe("Projects", () => {
 
     await page.waitForTimeout(50);
 
-    await page.waitForURL("/app/projects"), {waitUntil: "domcontentloaded"};
+    await page.waitForURL("/app/project"), {waitUntil: "domcontentloaded"};
 
     await loadUser({ page, browserName });
 

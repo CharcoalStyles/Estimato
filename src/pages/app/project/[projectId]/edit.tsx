@@ -46,7 +46,7 @@ export default function EditProject() {
 
   return (
     <AppLayout
-      openSidebarItem="projects"
+      openSidebarItem="project"
       pageTitle=" Edit Project"
       subtitle="Ooh, what's changed?"
     >
@@ -55,7 +55,7 @@ export default function EditProject() {
         <ProjectForm
           projectDetails={project}
           onCancel={() => {
-            router.push(`/app/projects/${data!.id}`);
+            router.push(`/app/project/${data!.id}`);
           }}
           onSubmit={async (project) => {
             if (userData) {
@@ -86,7 +86,7 @@ export default function EditProject() {
 
                 if (status === 204) {
                   return {
-                    redirect: `/app/projects/${
+                    redirect: `/app/project/${
                       router.query.projectId as string
                     }`,
                   };

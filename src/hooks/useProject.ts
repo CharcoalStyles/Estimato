@@ -2,18 +2,15 @@ import { supabaseAtom } from "@/util/supabase";
 import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 
-export const useProject = (projectId?: string) => {
+export const useProject = (projectId: string) => {
   const [supabase] = useAtom(supabaseAtom);
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["project", projectId],
     queryFn: async () => {
-      if (!projectId) {
-        return null;
-      }
       const { data, error } = await supabase
         .from("projects")
-        .select("*,tech (*)")
+        .select("*, tech(*)")
         .eq("id", projectId)
         .single();
 
@@ -24,8 +21,6 @@ export const useProject = (projectId?: string) => {
       return data;
     },
   });
-
-  if (!projectId) return { data: undefined, isLoading: true };
 
   return { data, error, isLoading, refetch };
 };

@@ -13,7 +13,7 @@ export default function NewProject() {
 
   return (
     <AppLayout
-      openSidebarItem="projects"
+      openSidebarItem="project"
       pageTitle="New Project"
       subtitle="Tell me all about it!">
       <ProjectForm
@@ -33,7 +33,7 @@ export default function NewProject() {
 
               if (status === 204) {
                 const { data } = await refetch();
-                return { redirect: `/app/projects/${data![0].id}` };
+                return { redirect: `/app/project/${data![0].id}` };
               }
             } catch (error) {
               return { error: error as Error };

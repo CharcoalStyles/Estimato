@@ -11,7 +11,7 @@ type AppLayoutProps = {
 
 type SidebarItem = {
   title: string;
-  appPath: "dashboard" | "projects";
+  appPath: "dashboard" | "project";
 };
 
 const links: Array<SidebarItem> = [
@@ -21,7 +21,7 @@ const links: Array<SidebarItem> = [
   },
   {
     title: "Projects",
-    appPath: "projects",
+    appPath: "project",
   },
 ];
 
@@ -43,20 +43,22 @@ export const AppLayout = ({
             <Text fontSize="3xl" fontType="heading" tag="h1" variant="primary">
               Estomato
             </Text>
-            {links.map(({ appPath, title }) => (
-              <div key={appPath} className="">
-                <Link href={`/app/${appPath}`}>
-                  <Text
-                    onHover
-                    fontSize="xl"
-                    fontType="heading"
-                    variant={openSidebarItem === appPath ? "accent" : "base"}
-                  >
-                    {title}
-                  </Text>
-                </Link>
-              </div>
-            ))}
+            {links.map(({ appPath, title }) => {
+              return (
+                <div key={appPath} className="">
+                  <Link href={`/app/${appPath}`}>
+                    <Text
+                      onHover
+                      fontSize="xl"
+                      fontType="heading"
+                      variant={openSidebarItem === appPath ? "accent" : "base"}
+                    >
+                      {title}
+                    </Text>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
           <div>
             <MiniUserBadge />

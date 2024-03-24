@@ -8,7 +8,7 @@ export default function DashboardPage() {
   const { isLoading, data } = useUserProjects();
 
   return (
-    <AppLayout openSidebarItem="projects" pageTitle="Your Projects">
+    <AppLayout openSidebarItem="project" pageTitle="Your Projects">
       {isLoading || data === undefined ? (
         <Loader />
       ) : (
@@ -17,7 +17,7 @@ export default function DashboardPage() {
             title="New Project"
             variant="primary"
             onClick={() => {
-              router.push("/app/projects/new");
+              router.push("/app/project/new");
             }}
           />
           {data?.map((project) => (
@@ -25,7 +25,7 @@ export default function DashboardPage() {
             key={project.id}
               project={project}
               onClick={() => {
-                router.push(`/app/projects/${project.id}`);
+                router.push(`/app/project/${project.id}`);
               }}
             />
           ))}

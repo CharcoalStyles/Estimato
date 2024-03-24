@@ -30,7 +30,7 @@ export default function DashboardPage() {
             title="New Project"
             variant="primary"
             onClick={() => {
-              router.push("/app/projects/new");
+              router.push("/app/project/new");
             }}
           />
           {userProjects &&
@@ -39,7 +39,7 @@ export default function DashboardPage() {
                 key={project.id}
                 project={project}
                 onClick={() => {
-                  router.push(`/app/projects/${project.id}`);
+                  router.push(`/app/project/${project.id}`);
                 }}
               />
             ))}
