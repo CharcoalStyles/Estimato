@@ -6,7 +6,7 @@ export type ButtonProps = Pick<
   HTMLAttributes<HTMLButtonElement>,
   "className"
 > & {
-  onClick?: () => void;
+  onClick?: (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   size?: "small" | "medium" | "large";
   variant?: Variants;
   icon?: ReactNode;

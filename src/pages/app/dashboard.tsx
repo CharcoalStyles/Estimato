@@ -25,7 +25,7 @@ export default function DashboardPage() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="flex flex-row flex-wrap">
+        <div className="flex flex-row flex-wrap  gap-2">
           <Card
             title="New Project"
             variant="primary"

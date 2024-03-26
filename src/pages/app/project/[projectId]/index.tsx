@@ -8,10 +8,12 @@ import { supabaseAtom } from "@/util/supabase";
 import { TechIcon } from "@/components/TechIcon";
 import { TaskCard } from "@/components/TaskCard";
 import { TaskList } from "@/components/TaskList";
+import { useTasks } from "@/hooks/useTasks";
 
 export default function ProjectDetailsPage() {
   const router = useRouter();
   const project = useProject(router.query.projectId as string);
+  const tasks = useTasks(Number.parseInt(router.query.projectId as string));
   const [isLoading, setIsLoading] = useState(true);
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -57,8 +59,20 @@ export default function ProjectDetailsPage() {
                 <Text data-testid="description">
                   {project.data!.description}
                 </Text>
-                <div className="">
-                  <TaskList projectId={project.data!.id} />
+                <div className="mt-8">
+                  <Text fontSize="2xl" fontType="heading" tag="h2">
+                    Tasks
+                  </Text>
+                  <div className="my-4 w-full flex flex-row justify-around flex-wrap gap-2">
+                    {tasks.isLoading && <Loader />}
+                    {!tasks.isLoading && tasks.tasks.length === 0 && (
+                      <Text>No tasks found</Text>
+                    )}
+                    {!tasks.isLoading &&
+                      tasks.tasks.map((task) => (
+                        <TaskCard key={task.id} task={task} />
+                      ))}
+                  </div>
                 </div>
               </div>
             </div>

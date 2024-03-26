@@ -33,29 +33,29 @@ export const TaskList = ({ projectId }: TaskListProps) => {
       <thead>
         <tr>
           <th className="border">
-            <Text variant="primary" fontSize="xl">Name</Text>
+            <Text variant="primary">Name</Text>
           </th>
           <th className="border">
-            <Text variant="primary" fontSize="xl">Estimate</Text>
+            <Text variant="primary">Estimate</Text>
           </th>
           <th className="border">
-            <Text variant="primary" fontSize="xl">Tech</Text>
+            <Text variant="primary">Tech</Text>
           </th>
         </tr>
       </thead>
       <tbody>
         {tasks.map((task) => (
           <tr key={task.id}>
-            <td className="border p-2">
+            <td className="border px-2">
               <Text>{task.name}</Text>
             </td>
-            <td className="border p-2">
+            <td className="border px-2">
               <Text>{task.estimation}</Text>
             </td>
-            <td className="border p-2">
-              <div className="flex flex-row flex-wrap gap-1 mt-2">
+            <td className="border p-2k">
+              <div className="flex flex-row flex-wrap gap-1 px-2">
                 {task.tech.map((tech) => (
-                  <div key={tech.id} className="flex-shrink">
+                  <div key={tech.id}>
                     <TechIcon size="sm" tech={tech} variant="basic" />
                   </div>
                 ))}

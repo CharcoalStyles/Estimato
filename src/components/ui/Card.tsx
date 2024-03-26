@@ -1,9 +1,13 @@
 import { Text } from "@/components/ui";
 import clsx from "clsx";
+import React from "react";
 
 export type CardProps = {
-  title: string;
+  title: string | React.ReactNode;
   variant?: "base" | "primary" | "secondary";
+  fullWidth?: boolean;
+  noHeightLimit?: boolean;
+  horizontal?: boolean;
   onClick?: () => void;
 };
 
@@ -34,24 +38,33 @@ export const Card = ({
   variant = "base",
   onClick,
   children,
+  fullWidth = false,
+  horizontal = false,
+  noHeightLimit = false,
 }: React.PropsWithChildren<CardProps>) => {
   return (
     <div
       data-testid={`card-${title}`}
       className={clsx([
-        "flex flex-col justify-between p-4 m-2 transition-colors bg-transparent border-2 max-w-48 max-h-52 rounded-2xl cursor-pointer",
+        "flex justify-between items-center p-4 transition-colors bg-transparent border-2 rounded-2xl cursor-pointer",
+        fullWidth ? "w-full" : "max-w-48",
+        horizontal ? "flex-row " : "flex-col",
+        noHeightLimit ? "h-auto" : "max-h-52",
         ...generateStyle(variant),
       ])}
       onClick={() => {
         onClick && onClick();
       }}
     >
-      <div data-testid="heading" className="pb-2">
-        <Text fontType="heading" fontSize="xl" closeLines>
-          {title}
-        </Text>
+      <div data-testid="heading" className="w-full pb-2">
+        {typeof title === "string" ? (
+          <Text fontType="heading" fontSize="xl" closeLines>
+            {title}
+          </Text>
+        ) : (
+          title
+        )}
       </div>
-
       {children}
     </div>
   );

@@ -3,7 +3,7 @@ import { supabaseAtom } from "@/util/supabase";
 import { useQuery } from "@tanstack/react-query";
 import { atom, useAtom } from "jotai";
 
-type Task = Database["public"]["Tables"]["tasks"]["Row"];
+
 export const useTasks = (projectId: number) => {
   const [supabase] = useAtom(supabaseAtom);
 
@@ -22,5 +22,7 @@ export const useTasks = (projectId: number) => {
     },
   });
 
-  return { tasks: data, error, isLoading, refetch };
+  return { tasks: data? data: [], error, isLoading, refetch };
 };
+
+export type UseTask = ReturnType<typeof useTasks>['tasks'][0];

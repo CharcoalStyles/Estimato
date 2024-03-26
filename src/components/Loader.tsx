@@ -16,7 +16,10 @@ const sizes = {
   "3xl": "h-24 w-24",
 };
 
-export const Loader: React.FC<LoaderProps> = ({ size = "md", color = "accent" }) => {
+export const Loader: React.FC<LoaderProps> = ({
+  size = "md",
+  color = "accent",
+}) => {
   return (
     <div
       data-testid="loader"
@@ -25,11 +28,11 @@ export const Loader: React.FC<LoaderProps> = ({ size = "md", color = "accent" })
         getTextColor(color),
         "inline-block animate-spin rounded-full border-4 border-solid border-current border-r-transparent motion-reduce:animate-[spin_1.5s_linear_infinite]"
       )}
-      role="status">
+      role="status"
+    >
       <span className="absolute m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 ">
         Loading...
       </span>
     </div>
   );
 };
-
